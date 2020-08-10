@@ -13,7 +13,7 @@ public class Monitor {
 	
 	public static void main (String [] args) throws LoginException {
 		
-		jda = JDABuilder.createDefault("NzExNzAzODUyOTc3NDg3OTAz.XsG33Q.sO36j1H_2pcuMNDfdYRINK6Zm0g").build();
+	jda = JDABuilder.createDefault("token goes here").build();
         jda.getPresence().setActivity(Activity.watching("EVERYONE"));
           
         jda.addEventListener(new Commands());
