@@ -45,7 +45,10 @@ task fatJar(type: Jar) {
         attributes 'Main-Class': 'bot.Monitor'
     }
     baseName = project.name + '-withDependencies'
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    from { configurations
+                 .compile
+                 .findAll { !it.name.endsWith('pom') }
+                 .collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 }
 
