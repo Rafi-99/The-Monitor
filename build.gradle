@@ -27,7 +27,6 @@ repositories {
 
 dependencies {
     compile "net.dv8tion:JDA:$jdaVersion"
-    implementation("club.minnced:opus-java:1.0.4@pom")
 }
 
 
