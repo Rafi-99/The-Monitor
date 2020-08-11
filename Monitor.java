@@ -10,10 +10,10 @@ public class Monitor {
 	
      public static JDA jda;
      public static String prefix = "m!";
-	
+	token = System.getenv("BOT_TOKEN");
 	public static void main (String [] args) throws LoginException {
 		
-	jda = JDABuilder.createDefault("token goes here").build();
+	jda = JDABuilder.createDefault(token).build();
         jda.getPresence().setActivity(Activity.watching("EVERYONE"));
           
         jda.addEventListener(new Commands());
