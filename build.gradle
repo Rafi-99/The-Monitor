@@ -13,7 +13,7 @@ mainClassName = 'bot.Monitor'
 
 //When updating the version of Monitor, don't forget to update the version in the Procfile
 version '1.0.0'
-def jdaVersion = '4.2.0'
+def jdaVersion = '4.2.0_189'
 
 sourceCompatibility = 1.8
 
