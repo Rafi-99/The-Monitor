@@ -13,12 +13,12 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 public class Moderation extends ListenerAdapter {
     @Override
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
-          String [] args = event.getMessage().getContentRaw().split("\\s+");
+          String [] mod = event.getMessage().getContentRaw().split("\\s+");
 
-          if(args[0].equalsIgnoreCase(Monitor.prefix + "ban") || args[0].equalsIgnoreCase(Monitor.prefix + "unban")) {
+          if(mod[0].equalsIgnoreCase(Monitor.prefix + "ban") || mod[0].equalsIgnoreCase(Monitor.prefix + "unban")) {
                if(event.getMember().hasPermission(Permission.BAN_MEMBERS)) {
-                    if(args[0].equalsIgnoreCase(Monitor.prefix + "ban")) {
-                         if(args.length < 2) {
+                    if(mod[0].equalsIgnoreCase(Monitor.prefix + "ban")) {
+                         if(mod.length < 2) {
                               EmbedBuilder ban = new EmbedBuilder();
                               ban.setColor(0x05055e);
                               ban.setTitle("Ban Command Usage");
@@ -29,19 +29,19 @@ public class Moderation extends ListenerAdapter {
                               ban.clear();
                          }
                          else {
-                              event.getGuild().ban(args[1].replace("<@!", "").replace(">", ""), 7).queue();                              
+                              event.getGuild().ban(mod[1].replace("<@!", "").replace(">", ""), 7).queue();                              
                               EmbedBuilder banSuccess = new EmbedBuilder();
                               banSuccess.setColor(0x05055e);
                               banSuccess.setTitle("✅ Success! ✅");
-                              banSuccess.setDescription(args[1] +" has been banned successfully!");
+                              banSuccess.setDescription(mod[1] +" has been banned successfully!");
                               banSuccess.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                               event.getChannel().sendTyping().queue();
                               event.getChannel().sendMessage(banSuccess.build()).queue();
                               banSuccess.clear();
                          }
                     }
-                    else if(args[0].equalsIgnoreCase(Monitor.prefix + "unban")) {
-                         if(args.length < 2) {
+                    else if(mod[0].equalsIgnoreCase(Monitor.prefix + "unban")) {
+                         if(mod.length < 2) {
                               EmbedBuilder unban = new EmbedBuilder();
                               unban.setColor(0x05055e);
                               unban.setTitle("Remove Ban Command Usage");
@@ -52,11 +52,11 @@ public class Moderation extends ListenerAdapter {
                               unban.clear();
                          }
                          else {
-                              event.getGuild().unban(args[1].replace("<@!", "").replace(">", "")).queue();                              
+                              event.getGuild().unban(mod[1].replace("<@!", "").replace(">", "")).queue();                              
                               EmbedBuilder unbanSuccess = new EmbedBuilder();
                               unbanSuccess.setColor(0x05055e);
                               unbanSuccess.setTitle("✅ Success! ✅");
-                              unbanSuccess.setDescription(args[1] +" has been unbanned successfully!");
+                              unbanSuccess.setDescription(mod[1] +" has been unbanned successfully!");
                               unbanSuccess.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                               event.getChannel().sendTyping().queue();
                               event.getChannel().sendMessage(unbanSuccess.build()).queue();
@@ -68,16 +68,16 @@ public class Moderation extends ListenerAdapter {
                     EmbedBuilder denied = new EmbedBuilder();
                     denied.setColor(0x05055e);
                     denied.setTitle("❌ Access Denied! ❌");
-                    denied.setDescription("Sorry, you don't have the permissions required to use this command.");
+                    denied.setDescription("Sorry, you don't have the required permissions to use this command.");
                     denied.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                     event.getChannel().sendTyping().queue();
                     event.getChannel().sendMessage(denied.build()).queue();
                     denied.clear();                             
                }
           }
-          else if(args[0].equalsIgnoreCase(Monitor.prefix + "kick")) {
+          else if(mod[0].equalsIgnoreCase(Monitor.prefix + "kick")) {
                if(event.getMember().hasPermission(Permission.KICK_MEMBERS)) {
-                    if(args.length < 2) {
+                    if(mod.length < 2) {
                          EmbedBuilder kick = new EmbedBuilder();
                          kick.setColor(0x05055e);
                          kick.setTitle("Kick Command Usage");
@@ -88,11 +88,11 @@ public class Moderation extends ListenerAdapter {
                          kick.clear();        		 
                     }
                     else {
-                         event.getGuild().kick(args[1].replace("<@!", "").replace(">", "")).queue();        	 
+                         event.getGuild().kick(mod[1].replace("<@!", "").replace(">", "")).queue();        	 
                          EmbedBuilder kicked = new EmbedBuilder();
                          kicked.setColor(0x05055e);
                          kicked.setTitle("✅ Success! ✅");
-                         kicked.setDescription(args[1] +" has been kicked successfully!");
+                         kicked.setDescription(mod[1] +" has been kicked successfully!");
                          kicked.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                          event.getChannel().sendTyping().queue();
                          event.getChannel().sendMessage(kicked.build()).queue();
@@ -103,17 +103,17 @@ public class Moderation extends ListenerAdapter {
                     EmbedBuilder denied = new EmbedBuilder();
                     denied.setColor(0x05055e);
                     denied.setTitle("❌ Access Denied! ❌");
-                    denied.setDescription("Sorry, you don't have the permissions required to use this command.");
+                    denied.setDescription("Sorry, you don't have the required permissions to use this command.");
                     denied.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                     event.getChannel().sendTyping().queue();
                     event.getChannel().sendMessage(denied.build()).queue();
                     denied.clear();                                                 
                }
           }
-          else if(args[0].equalsIgnoreCase(Monitor.prefix + "purge") || args[0].equalsIgnoreCase(Monitor.prefix + "setPrefix") ) {
+          else if(mod[0].equalsIgnoreCase(Monitor.prefix + "purge") || mod[0].equalsIgnoreCase(Monitor.prefix + "setPrefix") ) {
                if(event.getMember().hasPermission(Permission.MESSAGE_MANAGE)) {
-                    if(args[0].equalsIgnoreCase(Monitor.prefix + "purge")) {
-                         if(args.length < 2) {            	  
+                    if(mod[0].equalsIgnoreCase(Monitor.prefix + "purge")) {
+                         if(mod.length < 2) {            	  
                               EmbedBuilder usage = new EmbedBuilder();
                               usage.setColor(0x05055e);
                               usage.setTitle("Message Deletion Usage");
@@ -125,19 +125,19 @@ public class Moderation extends ListenerAdapter {
                          }
                          else {                              
                               try {                                   
-                                   List<Message> messages = event.getChannel().getHistory().retrievePast(Integer.parseInt(args[1])).complete();
+                                   List<Message> messages = event.getChannel().getHistory().retrievePast(Integer.parseInt(mod[1])).complete();
                                    event.getChannel().purgeMessages(messages);
                                   
                                    //Notifies user if messages have been successfully deleted 
                                    EmbedBuilder purgeSuccess = new EmbedBuilder();
                                    purgeSuccess.setColor(0x05055e);
                                    purgeSuccess.setTitle("✅ Success! ✅");
-                                   purgeSuccess.setDescription("You have successfully deleted " + args[1] + " messages.");
+                                   purgeSuccess.setDescription("You have successfully deleted " + mod[1] + " messages.");
                                    purgeSuccess.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                                    event.getChannel().sendTyping().queue();
                                    event.getChannel().sendMessage(purgeSuccess.build()).queue();
                                    purgeSuccess.clear();
-                                   //logic of how to delete the embed is below
+                                   //Logic of how to delete the embed is below
                                    //event.getChannel().purgeMessages(event.getChannel().getHistory().retrievePast(1).complete());
                               }
                               catch(NumberFormatException n) {            		
@@ -161,7 +161,7 @@ public class Moderation extends ListenerAdapter {
                                         event.getChannel().sendTyping().queue();
                                         event.getChannel().sendMessage(purgeError.build()).queue();
                                         purgeError.clear();
-                                       } 
+                                   } 
                                    else { 
                                         // Messages are too old error
                                         EmbedBuilder purgeError = new EmbedBuilder();
@@ -177,8 +177,8 @@ public class Moderation extends ListenerAdapter {
                               
                          }
                     }
-                    else if(args[0].equalsIgnoreCase(Monitor.prefix + "setPrefix")) {
-                         if(args.length < 2) {           	  
+                    else if(mod[0].equalsIgnoreCase(Monitor.prefix + "setPrefix")) {
+                         if(mod.length < 2) {           	  
                               EmbedBuilder prefixInfo = new EmbedBuilder();
                               prefixInfo.setColor(0x05055e);
                               prefixInfo.setTitle("Prefix Command Usage");
@@ -189,7 +189,7 @@ public class Moderation extends ListenerAdapter {
                               prefixInfo.clear();
                          }
                          else {        		 
-                              Monitor.prefix = args[1];
+                              Monitor.prefix = mod[1];
                               EmbedBuilder prefixSet = new EmbedBuilder();
                               prefixSet.setColor(0x05055e);
                               prefixSet.setTitle("✅ Success! ✅");
@@ -205,14 +205,14 @@ public class Moderation extends ListenerAdapter {
                     EmbedBuilder denied = new EmbedBuilder();
                     denied.setColor(0x05055e);
                     denied.setTitle("❌ Access Denied! ❌");
-                    denied.setDescription("Sorry, you don't have the permissions required to use this command.");
+                    denied.setDescription("Sorry, you don't have the required permissions to use this command.");
                     denied.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                     event.getChannel().sendTyping().queue();
                     event.getChannel().sendMessage(denied.build()).queue();
                     denied.clear();         
                }
           }
-          else if(args[0].equalsIgnoreCase(Monitor.prefix + "createInvite") && args.length == 1) {
+          else if(mod[0].equalsIgnoreCase(Monitor.prefix + "createInvite") && mod.length == 1) {
                if(event.getMember().hasPermission(Permission.CREATE_INSTANT_INVITE)) {
                     event.getChannel().sendTyping().queue();
                     event.getChannel().sendMessage("Invite created! Copy the link below and send it to someone!").queue();
@@ -222,32 +222,27 @@ public class Moderation extends ListenerAdapter {
                     EmbedBuilder denied = new EmbedBuilder();
                     denied.setColor(0x05055e);
                     denied.setTitle("❌ Access Denied! ❌");
-                    denied.setDescription("Sorry, you don't have the permissions required to use this command.");
+                    denied.setDescription("Sorry, you don't have the required permissions to use this command.");
                     denied.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                     event.getChannel().sendTyping().queue();
                     event.getChannel().sendMessage(denied.build()).queue();
                     denied.clear();                             
                }
           }
-          else if(args[0].equalsIgnoreCase(Monitor.prefix + "terminate") && args.length == 1) {
+          else if(mod[0].equalsIgnoreCase(Monitor.prefix + "terminate") && mod.length == 1) {
                if(event.getAuthor().getId().equals("398215411998654466") || event.getAuthor().getId().equals("658118412098076682")) {
-                    event.getChannel().sendTyping().queue();
-                    event.getChannel().sendMessage("Terminating...").queue();
-                    event.getChannel().sendMessage("Goodbye!").complete();
+                    event.getChannel().sendTyping().complete();
+                    event.getChannel().sendMessage("Terminating...").complete();
+                    event.getChannel().sendMessage("Bot is now offline.").complete();
                     System.exit(0);
                }
                else {
-                    event.getChannel().sendMessage("Sorry, you are not the bot owner. You can't end me nerd!").queue();
+                    event.getChannel().sendMessage("Sorry, only the bot owner can terminate me.").queue();
                }
           }
-          else if(args[0].equalsIgnoreCase(Monitor.prefix + "link")) {
-               if(event.getAuthor().getId().equals("398215411998654466")) {
-                    event.getChannel().sendTyping().queue();
-                    event.getChannel().sendMessage(Monitor.myBot.getInviteUrl(Permission.ADMINISTRATOR)).queue();
-               }
-               else {
-                    event.getChannel().sendMessage("Access Denied.").queue();
-               }
+          else if(mod[0].equalsIgnoreCase(Monitor.prefix + "link") && event.getAuthor().getId().equals("398215411998654466")) {
+               event.getChannel().sendTyping().queue();
+               event.getChannel().sendMessage(Monitor.myBot.getInviteUrl(Permission.ADMINISTRATOR)).queue();
           }          
     } 
 }
