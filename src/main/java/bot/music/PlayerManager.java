@@ -47,8 +47,9 @@ public class PlayerManager {
               public void playlistLoaded(AudioPlaylist playlist) {
                    for (int i = 0; i < playlist.getTracks().size(); i++) {
                         musicManager.scheduler.queue(playlist.getTracks().get(i));
-                        channel.sendMessage("Adding "+ playlist.getTracks().get(i).getInfo().title + " to the queue").queue();
                    }
+                   channel.sendMessage("Adding " + playlist.getTracks().size() + " tracks from "+ playlist.getName() + " to the queue.").queue();
+
               }
               @Override
               public void noMatches() {
