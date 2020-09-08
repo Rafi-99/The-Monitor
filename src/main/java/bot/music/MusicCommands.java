@@ -1,7 +1,14 @@
 package bot.music;
 
-import bot.driver.Monitor;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.BlockingQueue;
 
+import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
+
+import bot.driver.Monitor;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -99,6 +106,40 @@ public class MusicCommands extends ListenerAdapter {
                else {
                     event.getChannel().sendTyping().queue();
                     event.getChannel().sendMessage("You have to be in a voice channel with me to skip songs.").queue();
+               }
+          }
+          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "queue") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && (event.getMember().getVoiceState() != null) && commands.length == 1) {
+               BlockingQueue<AudioTrack> playerQueue = PlayerManager.getInstance().getMusicManager(event.getGuild()).scheduler.getQueue();
+
+               if(manager.isConnected()) {
+                    if (playerQueue.isEmpty()) {
+                         event.getChannel().sendTyping().queue();
+                         event.getChannel().sendMessage("The queue is empty.").queue();
+                    }
+                    else {
+                         int minQueueView = Math.min(playerQueue.size(), 30);
+                         List<AudioTrack> tracks = new ArrayList<>(playerQueue);
+                         
+                         EmbedBuilder queue = new EmbedBuilder();
+                         queue.setColor(0x05055e);
+                         queue.setTitle("**Current Queue: **" + playerQueue.size() + " **Tracks**");
+
+                         for (int i = 0; i < minQueueView; i++) {
+                              AudioTrackInfo trackInfo = tracks.get(i).getInfo();
+                              queue.appendDescription(String.format("%s - %s\n", trackInfo.title, trackInfo.author));
+                              
+                         }
+                         queue.setThumbnail(Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                         queue.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                         event.getChannel().sendTyping().queue();
+                         event.getChannel().sendMessage(queue.build()).queue();
+                         queue.clear();
+
+                    } 
+               }
+               else {
+                    event.getChannel().sendTyping().queue();
+                    event.getChannel().sendMessage("You have to be in a voice channel with me to view the queue.").queue();
                }
           }
 
