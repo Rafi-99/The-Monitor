@@ -34,6 +34,7 @@ public class MusicCommands extends ListenerAdapter {
           }
           else if(commands[0].equalsIgnoreCase(Monitor.prefix + "leave") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && manager.isConnected()) {
                if((event.getMember().getVoiceState().getChannel() != null) && (event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel())) {
+                    event.getChannel().sendMessage(Monitor.prefix + "clearQueue").complete();
                     manager.closeAudioConnection();
                     event.getChannel().sendTyping().queue();
                     event.getChannel().sendMessage("Successfully disconnected!").queue();
