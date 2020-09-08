@@ -8,6 +8,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.managers.AudioManager;
 
 public class MusicCommands extends ListenerAdapter {
+     boolean pause = true;
 
      @Override
      public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -66,6 +67,28 @@ public class MusicCommands extends ListenerAdapter {
                     event.getChannel().sendMessage("I have to be in a voice channel first to clear the queue.").queue();
                }
           }
+          //pause command both pauses the player and resumes it as well 
+          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "pause") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && (event.getMember().getVoiceState() != null) && commands.length == 1) {
+               if(manager.isConnected()) {
+                    if(pause) {
+                         PlayerManager.getInstance().getMusicManager(event.getGuild()).player.setPaused(pause);
+                         pause = false;
+                         event.getChannel().sendTyping().queue();
+                         event.getChannel().sendMessage("Player has been paused.").queue();
+                    }
+                    else {
+                         PlayerManager.getInstance().getMusicManager(event.getGuild()).player.setPaused(pause);
+                         pause = true;
+                         event.getChannel().sendTyping().queue();
+                         event.getChannel().sendMessage("Player has been resumed.").queue();
+                    }
+               }
+               else {
+                    event.getChannel().sendTyping().queue();
+                    event.getChannel().sendMessage("I have to be in a voice channel first to pause the player.").queue();
+               }
+          }
+
           
             
      }
