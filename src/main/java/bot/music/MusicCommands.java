@@ -53,6 +53,19 @@ public class MusicCommands extends ListenerAdapter {
                     event.getChannel().sendMessage("I have to be in a voice channel first to play anything. Use the join command to summon me.").queue();
                }
           }
+          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "clearQueue") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && (event.getMember().getVoiceState() != null) && commands.length == 1) {
+               if (manager.isConnected()) {
+                    PlayerManager.getInstance().getMusicManager(event.getGuild()).scheduler.getQueue().clear();
+                    PlayerManager.getInstance().getMusicManager(event.getGuild()).player.stopTrack();
+                    PlayerManager.getInstance().getMusicManager(event.getGuild()).player.setPaused(false);
+                    event.getChannel().sendTyping().queue();
+                    event.getChannel().sendMessage("The queue has been cleared successfully!").queue();
+               }
+               else {
+                    event.getChannel().sendTyping().queue();
+                    event.getChannel().sendMessage("I have to be in a voice channel first to clear the queue.").queue();
+               }
+          }
           
             
      }
