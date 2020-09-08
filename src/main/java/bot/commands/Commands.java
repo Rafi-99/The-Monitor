@@ -56,7 +56,7 @@ public class Commands extends ListenerAdapter {
                     info.addField("**Command Usage Example**", Monitor.prefix + "botInfo", false);
                     info.addField("**Moderation Commands**", "setPrefix, createInvite, mute, unmute, purge, kick, ban, unban", true);
                     info.addField("**Helpful Commands**", "botInfo, serverInfo", true);
-                    info.addField("**Music Commands**", "join, leave, play, pause, clearQueue", true);
+                    info.addField("**Music Commands**", "join, leave, play, pause, skip, queue, clearQueue", true);
                     info.addField("**Fun Commands**", "roast, wholesome, simp, avatar", true);
                     info.setFooter(botOwner.getOwner().getName() + " | Bot Developer", botOwner.getOwner().getEffectiveAvatarUrl());
                     event.getChannel().sendTyping().queue();
