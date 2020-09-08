@@ -64,7 +64,7 @@ public class MusicCommands extends ListenerAdapter {
                }
                else {
                     event.getChannel().sendTyping().queue();
-                    event.getChannel().sendMessage("I have to be in a voice channel first to clear the queue.").queue();
+                    event.getChannel().sendMessage("You have to be in a voice channel with me to clear the queue.").queue();
                }
           }
           //pause command both pauses the player and resumes it as well 
@@ -85,7 +85,19 @@ public class MusicCommands extends ListenerAdapter {
                }
                else {
                     event.getChannel().sendTyping().queue();
-                    event.getChannel().sendMessage("I have to be in a voice channel first to pause the player.").queue();
+                    event.getChannel().sendMessage("You have to be in a voice channel with me to pause the player.").queue();
+               }
+          }
+          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "skip") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && (event.getMember().getVoiceState() != null) && commands.length == 1) {
+               if(manager.isConnected()) {
+                    PlayerManager.getInstance().getMusicManager(event.getGuild()).scheduler.nextTrack();
+                    event.getChannel().sendTyping().queue();
+                    event.getChannel().sendMessage("Track skipped.").queue();
+                    event.getChannel().sendMessage("Now playing: " + PlayerManager.getInstance().getMusicManager(event.getGuild()).player.getPlayingTrack().getInfo().title).queue();
+               }
+               else {
+                    event.getChannel().sendTyping().queue();
+                    event.getChannel().sendMessage("You have to be in a voice channel with me to skip songs.").queue();
                }
           }
 
