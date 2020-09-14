@@ -1,5 +1,7 @@
 package bot.music;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
@@ -51,11 +53,15 @@ public class MusicCommands extends ListenerAdapter {
                     event.getChannel().sendMessage("You have to be in the same voice channel as me in order to disconnect.").queue();
                }
           }
-          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "play")  && event.getMember().hasPermission(Permission.VOICE_CONNECT) && (commands.length == 2)  && (event.getMember().getVoiceState() != null)) {
+          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "play") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && (event.getMember().getVoiceState() != null)) {
                // make an if-else here using command.length for a how-to embed 
                // m!play returns the how-to
                if(manager.isConnected()) {
-                    PlayerManager.getInstance().loadAndPlay(event.getChannel(), commands[1]);
+                    String link = String.join(" ", commands).replace(Monitor.prefix + "play", "");
+                    if(!isUrl(link)) {
+                         link = "ytsearch:" + link; 
+                    }  
+                    PlayerManager.getInstance().loadAndPlay(event.getChannel(), link);
                }
                else {
                     event.getChannel().sendTyping().queue();
@@ -145,6 +151,14 @@ public class MusicCommands extends ListenerAdapter {
 
           
             
+     }
+     private boolean isUrl(String url) {
+          try {
+               new URI(url);
+               return true;
+          } catch (URISyntaxException e) {
+               return false;
+          }
      }
     
 }
