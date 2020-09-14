@@ -4,7 +4,7 @@ plugins {
   id 'com.github.johnrengelman.shadow' version '5.2.0'
 }
 
-mainClassName = 'bot.Monitor'
+mainClassName = 'main.java.bot.driver.Monitor'
 
 version = '1.0'
 
