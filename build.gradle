@@ -4,7 +4,7 @@ plugins {
   id 'com.github.johnrengelman.shadow' version '5.2.0'
 }
 
-mainClassName = 'main.java.bot.driver.Monitor'
+mainClassName = 'bot.driver.Monitor'
 
 version = '1.0'
 
@@ -24,20 +24,4 @@ dependencies {
   implementation group: 'com.google.apis', name: 'google-api-services-youtube', version: 'v3-rev222-1.25.0'
 }
 
-task fatJar(type: Jar) {
-     manifest {
-          attributes 'Implementation-Version': version
-          attributes 'Main-Class': mainClassName
-     }
-     baseName = project.name + '-withDependencies'
-     from {
-          configurations
-               .compile
-               .collect { it.isDirectory() ? it : zipTree(it) }
-     }
-     with jar
-}
-
 compileJava.options.encoding = 'UTF-8'
-
-assemble.dependsOn fatJar;
