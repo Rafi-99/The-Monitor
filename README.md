@@ -1,2 +1,6 @@
-# DiscordBotDevelopment
-Development of a Discord Server Bot in Java Implementation
+# Monitor
+A Multipurpose Discord Server Bot Implemented in Java   
+# Features
+* Server Moderation 
+* Music 
+
