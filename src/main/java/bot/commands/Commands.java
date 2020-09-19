@@ -246,7 +246,7 @@ public class Commands extends ListenerAdapter {
                // Agreed to Rules 
                event.getGuild().addRoleToMember(event.getMember().getId(), event.getGuild().getRoleById("709505763583852565")).queue();
                // Welcome message that gets sent in #general with @user and @Welcomer mentions
-               event.getGuild().getTextChannelById("").sendMessage("Hello " + event.getMember().getAsMention() + "! Welcome to our server, **The Goddess's Parthenon**! " + event.getGuild().getRoleById("727010870403530760").getAsMention() + " please make our new friend feel welcome!!! :)").queue();
+               event.getGuild().getTextChannelById("709259200651591747").sendMessage("Hello " + event.getMember().getAsMention() + "! Welcome to our server, **The Goddess's Parthenon**! " + event.getGuild().getRoleById("727010870403530760").getAsMention() + " please make our new friend feel welcome!!! :)").queue();
           }
      
      }
