@@ -241,10 +241,12 @@ public class Commands extends ListenerAdapter {
      @Override
      public void onGuildMemberJoin(GuildMemberJoinEvent event) {
           if(event.getGuild().getName().equals("The Goddess's Parthenon")) {
-               //Wanderer
+               // Wanderer
                event.getGuild().addRoleToMember(event.getMember().getId(), event.getGuild().getRoleById("709505726640291877")).queue();
                // Agreed to Rules 
                event.getGuild().addRoleToMember(event.getMember().getId(), event.getGuild().getRoleById("709505763583852565")).queue();
+               // Welcome message that gets sent in #general with @user and @Welcomer mentions
+               event.getGuild().getTextChannelById("").sendMessage("Hello " + event.getMember().getAsMention() + "! Welcome to our server, **The Goddess's Parthenon**! " + event.getGuild().getRoleById("727010870403530760").getAsMention() + " please make our new friend feel welcome!!! :)").queue();
           }
      
      }
