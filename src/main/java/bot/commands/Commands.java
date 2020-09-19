@@ -248,6 +248,12 @@ public class Commands extends ListenerAdapter {
                // Welcome message that gets sent in #general with @user and @Welcomer mentions
                event.getGuild().getTextChannelById("709259200651591747").sendMessage("Hello " + event.getMember().getAsMention() + "! Welcome to our server, **The Goddess's Parthenon**! " + event.getGuild().getRoleById("727010870403530760").getAsMention() + " please make our new friend feel welcome!!! :)").queue();
           }
+          else if(event.getGuild().getName().equals("moi server.")) {
+               // Members
+               event.getGuild().addRoleToMember(event.getMember().getId(), event.getGuild().getRoleById("754614035529597038")).queue();
+               // Welcome message that gets sent in #general with @user 
+               event.getGuild().getTextChannelById("753717833937977388").sendMessage("Hello " + event.getMember().getAsMention() + "! Welcome to our server, **moi server.**! Enjoy your stay :)").queue();
+          }
      
      }
 
