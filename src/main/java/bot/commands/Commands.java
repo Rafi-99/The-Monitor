@@ -240,10 +240,13 @@ public class Commands extends ListenerAdapter {
      }
      @Override
      public void onGuildMemberJoin(GuildMemberJoinEvent event) {
-          //Wanderer
-          event.getGuild().addRoleToMember(event.getMember().getId(), event.getGuild().getRoleById("709505726640291877")).queue();
-          // Agreed to Rules 
-          event.getGuild().addRoleToMember(event.getMember().getId(), event.getGuild().getRoleById("709505763583852565")).queue();     
+          if(event.getGuild().getName().equals("The Goddess's Parthenon")) {
+               //Wanderer
+               event.getGuild().addRoleToMember(event.getMember().getId(), event.getGuild().getRoleById("709505726640291877")).queue();
+               // Agreed to Rules 
+               event.getGuild().addRoleToMember(event.getMember().getId(), event.getGuild().getRoleById("709505763583852565")).queue();
+          }
+     
      }
 
 }    
