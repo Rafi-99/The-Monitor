@@ -25,6 +25,6 @@ public class Monitor {
          .build()
          .awaitReady();
 
-         myBot.getPresence().setActivity(Activity.listening("Your commands"));
+         myBot.getPresence().setActivity(Activity.listening(Monitor.prefix + "botInfo"));
     }
 }
