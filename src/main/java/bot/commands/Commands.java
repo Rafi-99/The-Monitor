@@ -254,6 +254,12 @@ public class Commands extends ListenerAdapter {
                // Welcome message that gets sent in #general with @user 
                event.getGuild().getTextChannelById("753717833937977388").sendMessage("Hello " + event.getMember().getAsMention() + "! Welcome to our server, **Friends :)**! Enjoy your stay :)").queue();
           }
+          else if(event.getGuild().getName().equals("Wholesome Study Boys")) {
+               // No Catfishing >:) 
+               event.getGuild().addRoleToMember(event.getMember().getId(), event.getGuild().getRoleById("694032141058834432")).queue();
+               // Welcome message in #general with @user
+               event.getGuild().getTextChannelById("693237215404359715").sendMessage("Hello " + event.getMember().getAsMention() + "! Welcome to our server >:)").queue();
+          }
      
      }
 
