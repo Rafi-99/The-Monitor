@@ -104,7 +104,7 @@ public class MusicCommands extends ListenerAdapter {
                }
           }
           else if(commands[0].equalsIgnoreCase(Monitor.prefix + "skip") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && (event.getMember().getVoiceState() != null) && (playerQueue.size() > 0) && commands.length == 1) {
-               if(manager.isConnected()) {
+               if(manager.isConnected() && (event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel())) {
                     PlayerManager.getInstance().getMusicManager(event.getGuild()).scheduler.nextTrack();
                     event.getChannel().sendTyping().queue();
                     event.getChannel().sendMessage("Track skipped.").queue();
@@ -112,7 +112,7 @@ public class MusicCommands extends ListenerAdapter {
                }
                else {
                     event.getChannel().sendTyping().queue();
-                    event.getChannel().sendMessage("You have to be in a voice channel with me to skip songs.").queue();
+                    event.getChannel().sendMessage("You have to be in the same voice channel as me to skip songs.").queue();
                }
           }
           else if(commands[0].equalsIgnoreCase(Monitor.prefix + "queue") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && (event.getMember().getVoiceState() != null) && commands.length == 1) {
