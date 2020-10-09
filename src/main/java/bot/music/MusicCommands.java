@@ -22,6 +22,7 @@ public class MusicCommands extends ListenerAdapter {
      @Override
      public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
           AudioManager manager = event.getGuild().getAudioManager();
+          BlockingQueue<AudioTrack> playerQueue = PlayerManager.getInstance().getMusicManager(event.getGuild()).scheduler.getQueue();
           String [] commands = event.getMessage().getContentRaw().split("\\s+");
 
           if(commands[0].equalsIgnoreCase(Monitor.prefix + "join") && event.getMember().hasPermission(Permission.VOICE_CONNECT)) {
@@ -103,7 +104,7 @@ public class MusicCommands extends ListenerAdapter {
                }
           }
           else if(commands[0].equalsIgnoreCase(Monitor.prefix + "skip") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && (event.getMember().getVoiceState() != null) && commands.length == 1) {
-               if(manager.isConnected()) {
+               if(manager.isConnected() && (playerQueue.size() != 0)) {
                     PlayerManager.getInstance().getMusicManager(event.getGuild()).scheduler.nextTrack();
                     event.getChannel().sendTyping().queue();
                     event.getChannel().sendMessage("Track skipped.").queue();
@@ -115,8 +116,6 @@ public class MusicCommands extends ListenerAdapter {
                }
           }
           else if(commands[0].equalsIgnoreCase(Monitor.prefix + "queue") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && (event.getMember().getVoiceState() != null) && commands.length == 1) {
-               BlockingQueue<AudioTrack> playerQueue = PlayerManager.getInstance().getMusicManager(event.getGuild()).scheduler.getQueue();
-
                if(manager.isConnected()) {
                     if (playerQueue.isEmpty()) {
                          event.getChannel().sendTyping().queue();
