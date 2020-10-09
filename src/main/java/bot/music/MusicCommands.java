@@ -104,7 +104,7 @@ public class MusicCommands extends ListenerAdapter {
                }
           }
           else if(commands[0].equalsIgnoreCase(Monitor.prefix + "skip") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && (event.getMember().getVoiceState() != null) && commands.length == 1) {
-               if(manager.isConnected() && (playerQueue.size() != 0)) {
+               if(manager.isConnected()) {
                     PlayerManager.getInstance().getMusicManager(event.getGuild()).scheduler.nextTrack();
                     event.getChannel().sendTyping().queue();
                     event.getChannel().sendMessage("Track skipped.").queue();
