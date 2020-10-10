@@ -102,12 +102,18 @@ public class MusicCommands extends ListenerAdapter {
                     event.getChannel().sendMessage("You have to be in the same voice channel as me to pause the player.").queue();
                }
           }
-          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "skip") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && (manager.isConnected()) && (playerQueue.size() > 0) && commands.length == 1) {
+          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "skip") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && (manager.isConnected()) && commands.length == 1) {
                if((event.getMember().getVoiceState().getChannel() != null) && (event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel())) {
-                    PlayerManager.getInstance().getMusicManager(event.getGuild()).scheduler.nextTrack();
-                    event.getChannel().sendTyping().queue();
-                    event.getChannel().sendMessage("Track skipped.").queue();
-                    event.getChannel().sendMessage("Now playing: " + PlayerManager.getInstance().getMusicManager(event.getGuild()).player.getPlayingTrack().getInfo().title).queue();
+                    if(playerQueue.size() > 0) {
+                         PlayerManager.getInstance().getMusicManager(event.getGuild()).scheduler.nextTrack();
+                         event.getChannel().sendTyping().queue();
+                         event.getChannel().sendMessage("Track skipped.").queue();
+                         event.getChannel().sendMessage("Now playing: " + PlayerManager.getInstance().getMusicManager(event.getGuild()).player.getPlayingTrack().getInfo().title).queue();
+                    }
+                    else {
+                         event.getChannel().sendTyping().queue();
+                         event.getChannel().sendMessage("There are no songs left in the queue to skip.").queue();
+                    }
                }
                else {
                     event.getChannel().sendTyping().queue();
