@@ -44,7 +44,6 @@ public class MusicCommands extends ListenerAdapter {
           }
           else if(commands[0].equalsIgnoreCase(Monitor.prefix + "leave") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && manager.isConnected()) {
                if((event.getMember().getVoiceState().getChannel() != null) && (event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel())) {
-                    event.getChannel().sendMessage(Monitor.prefix + "clearQueue").complete();
                     manager.closeAudioConnection();
                     event.getChannel().sendTyping().queue();
                     event.getChannel().sendMessage("Successfully disconnected!").queue();
@@ -54,10 +53,10 @@ public class MusicCommands extends ListenerAdapter {
                     event.getChannel().sendMessage("You have to be in the same voice channel as me in order to disconnect.").queue();
                }
           }
-          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "play") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && (event.getMember().getVoiceState().getChannel() != null)) {
+          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "play") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && manager.isConnected()) {
                // make an if-else here using command.length for a how-to embed 
                // m!play returns the how-to
-               if(manager.isConnected() && (event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel())) {
+               if((event.getMember().getVoiceState().getChannel() != null) && (event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel())) {
                     String link = String.join(" ", commands).replace(Monitor.prefix + "play", "");
                     if(!isUrl(link)) {
                          link = "ytsearch:" + link; 
@@ -69,8 +68,8 @@ public class MusicCommands extends ListenerAdapter {
                     event.getChannel().sendMessage("You have to be in the same voice channel as me to play anything. Use the join command to summon me.").queue();
                }
           }
-          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "clearQueue") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && (event.getMember().getVoiceState().getChannel() != null) && commands.length == 1) {
-               if (manager.isConnected() && (event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel())) {
+          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "clearQueue") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && (manager.isConnected()) && commands.length == 1) {
+               if ((event.getMember().getVoiceState().getChannel() != null) && (event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel())) {
                     PlayerManager.getInstance().getMusicManager(event.getGuild()).scheduler.getQueue().clear();
                     PlayerManager.getInstance().getMusicManager(event.getGuild()).player.stopTrack();
                     PlayerManager.getInstance().getMusicManager(event.getGuild()).player.setPaused(false);
@@ -83,8 +82,8 @@ public class MusicCommands extends ListenerAdapter {
                }
           }
           //pause command both pauses the player and resumes it as well 
-          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "pause") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && (event.getMember().getVoiceState().getChannel() != null) && commands.length == 1) {
-               if(manager.isConnected() && (event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel())) {
+          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "pause") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && (manager.isConnected()) && commands.length == 1) {
+               if((event.getMember().getVoiceState().getChannel() != null) && (event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel())) {
                     if(pause) {
                          PlayerManager.getInstance().getMusicManager(event.getGuild()).player.setPaused(pause);
                          pause = false;
@@ -103,8 +102,8 @@ public class MusicCommands extends ListenerAdapter {
                     event.getChannel().sendMessage("You have to be in the same voice channel as me to pause the player.").queue();
                }
           }
-          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "skip") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && (event.getMember().getVoiceState().getChannel() != null) && (playerQueue.size() > 0) && commands.length == 1) {
-               if(manager.isConnected() && (event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel())) {
+          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "skip") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && (manager.isConnected()) && (playerQueue.size() > 0) && commands.length == 1) {
+               if((event.getMember().getVoiceState().getChannel() != null) && (event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel())) {
                     PlayerManager.getInstance().getMusicManager(event.getGuild()).scheduler.nextTrack();
                     event.getChannel().sendTyping().queue();
                     event.getChannel().sendMessage("Track skipped.").queue();
@@ -115,8 +114,8 @@ public class MusicCommands extends ListenerAdapter {
                     event.getChannel().sendMessage("You have to be in the same voice channel as me to skip songs.").queue();
                }
           }
-          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "queue") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && (event.getMember().getVoiceState().getChannel() != null) && commands.length == 1) {
-               if(manager.isConnected() && (event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel())) {
+          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "queue") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && (manager.isConnected()) && commands.length == 1) {
+               if((event.getMember().getVoiceState().getChannel() != null) && (event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel())) {
                     if (playerQueue.isEmpty()) {
                          event.getChannel().sendTyping().queue();
                          event.getChannel().sendMessage("The queue is empty.").queue();
