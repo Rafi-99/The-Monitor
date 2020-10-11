@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.services.youtube.YouTube;
+import com.google.api.services.youtube.model.SearchResult;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 
@@ -17,7 +21,23 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.managers.AudioManager;
 
 public class MusicCommands extends ListenerAdapter {
+     private final YouTube youTube;
      boolean pause = true;
+
+     public MusicCommands() {
+          YouTube temp = null;
+
+          try {
+               temp = new YouTube.Builder(GoogleNetHttpTransport.newTrustedTransport(), JsonFactory.class.getDeclaredConstructor().newInstance(), null)
+               .setApplicationName("Monitor Discord Bot")
+               .build();
+          } catch (Exception e) {
+               e.printStackTrace();
+          }
+          
+          youTube = temp;
+     }
+
 
      @Override
      public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -59,7 +79,13 @@ public class MusicCommands extends ListenerAdapter {
                if((event.getMember().getVoiceState().getChannel() != null) && (event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel())) {
                     String link = String.join(" ", commands).replace(Monitor.prefix + "play", "");
                     if(!isUrl(link)) {
-                         link = "ytsearch:" + link; 
+                         String ytSearch = youtubeSearch(link);
+
+                         if(ytSearch == null) {
+                              event.getChannel().sendMessage("Sorry, YouTube returned no results for your query.").queue();
+                              return;
+                         }
+                         link = ytSearch;
                     }  
                     PlayerManager.getInstance().loadAndPlay(event.getChannel(), link);
                }
@@ -161,5 +187,26 @@ public class MusicCommands extends ListenerAdapter {
           } catch (URISyntaxException e) {
                return false;
           }
+     }
+     private String youtubeSearch(String searchInput) {
+          try {
+               List<SearchResult> result = youTube.search()
+               .list("id,snippet")
+               .setQ(searchInput)
+               .setMaxResults(1L)
+               .setType("video")
+               .setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)")
+               .setKey("AIzaSyBHEJQW65A0ZQweGShQFGEM-L2PjzXBR6c")
+               .execute()
+               .getItems();
+
+               if(!result.isEmpty()) {
+                    String videoID = result.get(0).getId().getVideoId();
+                    return "https://www.youtube.com/watch?v=" + videoID;
+               }
+          } catch (Exception e) {
+               e.printStackTrace();
+          }
+          return null;
      }
 }
