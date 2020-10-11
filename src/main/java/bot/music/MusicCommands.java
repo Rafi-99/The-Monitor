@@ -8,6 +8,7 @@ import java.util.concurrent.BlockingQueue;
 
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.SearchResult;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
@@ -28,7 +29,7 @@ public class MusicCommands extends ListenerAdapter {
           YouTube temp = null;
 
           try {
-               temp = new YouTube.Builder(GoogleNetHttpTransport.newTrustedTransport(), JsonFactory.class.getDeclaredConstructor().newInstance(), null)
+               temp = new YouTube.Builder(GoogleNetHttpTransport.newTrustedTransport(), JacksonFactory.getDefaultInstance(), null)
                .setApplicationName("Monitor Discord Bot")
                .build();
           } catch (Exception e) {
