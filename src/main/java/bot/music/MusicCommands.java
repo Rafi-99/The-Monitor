@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.SearchResult;
+
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 
@@ -22,6 +22,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.managers.AudioManager;
 
 public class MusicCommands extends ListenerAdapter {
+
      private final YouTube youTube;
      boolean pause = true;
 
@@ -38,7 +39,6 @@ public class MusicCommands extends ListenerAdapter {
           
           youTube = temp;
      }
-
 
      @Override
      public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
@@ -86,6 +86,7 @@ public class MusicCommands extends ListenerAdapter {
                               event.getChannel().sendMessage("Sorry, YouTube returned no results for your query.").queue();
                               return;
                          }
+                         
                          link = ytSearch;
                     }  
                     PlayerManager.getInstance().loadAndPlay(event.getChannel(), link);
@@ -179,8 +180,8 @@ public class MusicCommands extends ListenerAdapter {
                     event.getChannel().sendMessage("You have to be in the same voice channel as me to view the queue.").queue();
                }
           }
- 
      }
+
      private boolean isUrl(String url) {
           try {
                new URI(url);
@@ -189,6 +190,7 @@ public class MusicCommands extends ListenerAdapter {
                return false;
           }
      }
+
      private String youtubeSearch(String searchInput) {
           try {
                List<SearchResult> result = youTube.search()
