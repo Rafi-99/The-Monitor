@@ -97,7 +97,7 @@ public class MusicCommands extends ListenerAdapter {
                     event.getChannel().sendMessage("You have to be in the same voice channel as me to play anything. Use the join command to summon me.").queue();
                }
           }
-          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "clearQueue") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && (manager.isConnected()) && commands.length == 1) {
+          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "clear") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && (manager.isConnected()) && commands.length == 1) {
                if ((event.getMember().getVoiceState().getChannel() != null) && (event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel())) {
                     PlayerManager.getInstance().getMusicManager(event.getGuild()).scheduler.getQueue().clear();
                     PlayerManager.getInstance().getMusicManager(event.getGuild()).player.stopTrack();
