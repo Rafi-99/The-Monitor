@@ -210,7 +210,7 @@ public class MusicCommands extends ListenerAdapter {
                     if(youTube.search().list("id, snippet").getType().equals("video")) {
                          return "https://www.youtube.com/watch?v=" + videoID;
                     }
-                    else if(youTube.search().list("id, snippet").getType().equals("video")) {
+                    else if(youTube.search().list("id, snippet").getType().equals("playlist")) {
                          return "https://www.youtube.com/watch?v=" + playlistID;
                     }  
                }
