@@ -198,7 +198,7 @@ public class MusicCommands extends ListenerAdapter {
                .list("id,snippet")
                .setQ(searchInput)
                .setMaxResults(1L)
-               .setType("video, playlist")
+               //.setType("video, playlist")
                .setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)")
                .setKey("AIzaSyBHEJQW65A0ZQweGShQFGEM-L2PjzXBR6c")
                .execute()
@@ -207,7 +207,7 @@ public class MusicCommands extends ListenerAdapter {
                if(!result.isEmpty()) {
                     String videoID = result.get(0).getId().getVideoId();
                     String playlistID = result.get(0).getId().getPlaylistId();
-                    if(result.get(0).getKind().equals("video")) {
+                    if(result.get(0).getKind().equals("youtube#video")) {
                          return "https://www.youtube.com/watch?v=" + videoID;
                     }
                     
