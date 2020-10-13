@@ -81,7 +81,7 @@ public class MusicCommands extends ListenerAdapter {
                if((event.getMember().getVoiceState().getChannel() != null) && (event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel())) {
                     String link = String.join(" ", commands).replace(Monitor.prefix + "play", "");
                     System.out.println(isUrl(link));
-                    if(!isUrl(link)) {
+                    if(!isUrl(link) || isUrl(link)) {
                          String ytSearch = youtubeSearch(link);
 
                          if(ytSearch == null) {
