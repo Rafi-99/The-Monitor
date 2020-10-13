@@ -1,5 +1,6 @@
 package bot.music;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -80,16 +81,24 @@ public class MusicCommands extends ListenerAdapter {
                // m!play returns the how-to
                if((event.getMember().getVoiceState().getChannel() != null) && (event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel())) {
                     String link = String.join(" ", commands).replace(Monitor.prefix + "play", "");
+                    System.out.println(isUrl(link));
+                    System.out.println(link);
+                    String ytSearch = youtubeSearch(link);
                     if(!isUrl(link)) {
-                         String ytSearch = youtubeSearch(link);
+                         
 
                          if(ytSearch == null) {
                               event.getChannel().sendMessage("Sorry, YouTube returned no results for your query.").queue();
                               return;
                          }
                          link = ytSearch;
-                    }  
-                    PlayerManager.getInstance().loadAndPlay(event.getChannel(), link);
+                         PlayerManager.getInstance().loadAndPlay(event.getChannel(), link);
+                    }
+                    else {
+                         PlayerManager.getInstance().loadAndPlay(event.getChannel(), link);
+                    }
+
+                    
                }
                else {
                     event.getChannel().sendTyping().queue();
@@ -183,9 +192,9 @@ public class MusicCommands extends ListenerAdapter {
      }
      private boolean isUrl(String url) {
           try {
-               new URI(url);
+               (new java.net.URL(url)).openStream().close();
                return true;
-          } catch (URISyntaxException e) {
+          } catch (IOException e) {
                return false;
           }
      }
@@ -220,11 +229,10 @@ public class MusicCommands extends ListenerAdapter {
 }
 /*  correct version of urlCheck
 	     private boolean isUrl(String url) {
-          try {	          try {
-               new URI(url);	               (new java.net.URL(url)).openStream().close();
-               return true;	               return true;
-          } catch (URISyntaxException e) {	          } catch (Exception e) {
-               return false;	               return false;
-          }	          }
-     }	     }
+          try {	       
+              (new java.net.URL(url)).openStream().close();
+                              return true;
+          } catch (Exception e) {
+               return false;	   
+          }	          
 */
