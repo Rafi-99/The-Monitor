@@ -204,7 +204,7 @@ public class MusicCommands extends ListenerAdapter {
                .execute()
                .getItems();
 
-               if(!result.isEmpty()) {
+               if(!result.isEmpty() && result.get(0).getId().getKind().equals("youtube#video")) {
                     String videoID = result.get(0).getId().getVideoId();
                     return "https://www.youtube.com/watch?v=" + videoID;
                }
