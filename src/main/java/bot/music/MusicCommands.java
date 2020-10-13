@@ -87,7 +87,6 @@ public class MusicCommands extends ListenerAdapter {
                               event.getChannel().sendMessage("Sorry, YouTube returned no results for your query.").queue();
                               return;
                          }
-                         
                          link = ytSearch;
                     }  
                     PlayerManager.getInstance().loadAndPlay(event.getChannel(), link);
@@ -182,7 +181,6 @@ public class MusicCommands extends ListenerAdapter {
                }
           }
      }
-
      private boolean isUrl(String url) {
           try {
                new URI(url);
@@ -191,7 +189,6 @@ public class MusicCommands extends ListenerAdapter {
                return false;
           }
      }
-
      private String youtubeSearch(String searchInput) {
           try {
                List<SearchResult> result = youTube.search()
@@ -207,12 +204,12 @@ public class MusicCommands extends ListenerAdapter {
                if(!result.isEmpty()) {
                     String videoID = result.get(0).getId().getVideoId();
                     String playlistID = result.get(0).getId().getPlaylistId();
-                    
+
                     if(result.get(0).getId().getKind().equals("youtube#video")) {
                          return "https://www.youtube.com/watch?v=" + videoID;
                     }
                     else if(result.get(0).getId().getKind().equals("youtube#playlist")) {
-                         return "https://www.youtube.com/watch?v=" + playlistID;
+                         return "https://www.youtube.com/playlist?list=" + playlistID;
                     }
                }
           } catch (Exception e) {
