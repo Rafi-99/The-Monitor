@@ -184,9 +184,9 @@ public class MusicCommands extends ListenerAdapter {
      }
      private boolean isUrl(String url) {
           try {
-               new URI(url);
+               (new java.net.URL(url)).openStream().close();
                return true;
-          } catch (URISyntaxException e) {
+          } catch (Exception e) {
                return false;
           }
      }
