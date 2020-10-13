@@ -80,13 +80,12 @@ public class MusicCommands extends ListenerAdapter {
                // make an if-else here using command.length for a how-to embed 
                // m!play returns the how-to
                if((event.getMember().getVoiceState().getChannel() != null) && (event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel())) {
-                    String link = String.join("", commands).replace(Monitor.prefix + "play", "");
+                    String link = String.join(" ", commands).replace(Monitor.prefix + "play", "");
                     System.out.println(isUrl(link));
                     System.out.println(link);
-                    String ytSearch = youtubeSearch(link);
+                    
                     if(!isUrl(link)) {
-                         
-
+                         String ytSearch = youtubeSearch(link);
                          if(ytSearch == null) {
                               event.getChannel().sendMessage("Sorry, YouTube returned no results for your query.").queue();
                               return;
@@ -95,10 +94,9 @@ public class MusicCommands extends ListenerAdapter {
                          PlayerManager.getInstance().loadAndPlay(event.getChannel(), link);
                     }
                     else {
+                         link.replace(" ", "");
                          PlayerManager.getInstance().loadAndPlay(event.getChannel(), link);
-                    }
-
-                    
+                    }   
                }
                else {
                     event.getChannel().sendTyping().queue();
@@ -227,12 +225,3 @@ public class MusicCommands extends ListenerAdapter {
           return null;
      }
 }
-/*  correct version of urlCheck
-	     private boolean isUrl(String url) {
-          try {	       
-              (new java.net.URL(url)).openStream().close();
-                              return true;
-          } catch (Exception e) {
-               return false;	   
-          }	          
-*/
