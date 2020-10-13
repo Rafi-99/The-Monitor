@@ -195,7 +195,7 @@ public class MusicCommands extends ListenerAdapter {
                .list("id,snippet")
                .setQ(searchInput)
                .setMaxResults(1L)
-               .setType("video, playlist")
+               //.setType("video, playlist")
                .setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)")
                .setKey("AIzaSyBHEJQW65A0ZQweGShQFGEM-L2PjzXBR6c")
                .execute()
