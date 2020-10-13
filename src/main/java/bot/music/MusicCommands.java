@@ -94,7 +94,7 @@ public class MusicCommands extends ListenerAdapter {
                          PlayerManager.getInstance().loadAndPlay(event.getChannel(), link);
                     }
                     else {
-                         String formatLink = link.substring(link.indexOf(" "));
+                         String formatLink = link.substring(link.indexOf("h"));
                          PlayerManager.getInstance().loadAndPlay(event.getChannel(), formatLink);
                     }   
                }
