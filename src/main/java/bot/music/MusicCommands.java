@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-//import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.SearchResult;
@@ -22,7 +21,6 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.managers.AudioManager;
 
 public class MusicCommands extends ListenerAdapter {
-
      private final YouTube youTube;
      boolean pause = true;
 
@@ -38,7 +36,6 @@ public class MusicCommands extends ListenerAdapter {
           } 
           youTube = temp;
      }
-
      @Override
      public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
           AudioManager manager = event.getGuild().getAudioManager();
@@ -78,9 +75,6 @@ public class MusicCommands extends ListenerAdapter {
                // m!play returns the how-to
                if((event.getMember().getVoiceState().getChannel() != null) && (event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel())) {
                     String link = String.join(" ", commands).replace(commands[0], "");
-                    
-                    System.out.println(isUrl(link));
-                    System.out.println(link);
                     
                     if(!isUrl(link)) {
                          String ytSearch = youtubeSearch(link);
@@ -187,7 +181,6 @@ public class MusicCommands extends ListenerAdapter {
                }
           }
      }
-
      private boolean isUrl(String url) {
           try {
                new URL(url).toURI();
@@ -196,7 +189,6 @@ public class MusicCommands extends ListenerAdapter {
                return false;
           }
      }
-
      private String youtubeSearch(String searchInput) {
           try {
                List<SearchResult> result = youTube.search()
