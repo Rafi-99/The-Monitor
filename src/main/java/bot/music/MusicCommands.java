@@ -76,7 +76,9 @@ public class MusicCommands extends ListenerAdapter {
                // make an if-else here using command.length for a how-to embed 
                // m!play returns the how-to
                if((event.getMember().getVoiceState().getChannel() != null) && (event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel())) {
-                    String link = String.join(" ", commands).replace(commands[0], "");
+                    System.out.println(commands[0]);
+                    System.out.println(commands[0].toString());
+                    String link = String.join(" ", commands).replace(Monitor.prefix + "play", "");
                     
                     System.out.println(isUrl(link));
                     System.out.println(link);
