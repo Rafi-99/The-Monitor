@@ -1,8 +1,9 @@
 package bot.music;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
+// import java.io.IOException;
+// import java.net.URI;
+// import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
@@ -40,7 +41,7 @@ public class MusicCommands extends ListenerAdapter {
           } 
           youTube = temp;
      }
-     
+
      @Override
      public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
           AudioManager manager = event.getGuild().getAudioManager();
@@ -192,9 +193,9 @@ public class MusicCommands extends ListenerAdapter {
 
      private boolean isUrl(String url) {
           try {
-               (new java.net.URL(url)).openStream().close();
+               new URL(url).toURI();
                return true;
-          } catch (IOException e) {
+          } catch (Exception e) {
                return false;
           }
      }
