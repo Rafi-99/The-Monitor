@@ -1,6 +1,8 @@
 package bot.music;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
@@ -38,6 +40,7 @@ public class MusicCommands extends ListenerAdapter {
           } 
           youTube = temp;
      }
+     
      @Override
      public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
           AudioManager manager = event.getGuild().getAudioManager();
@@ -76,9 +79,7 @@ public class MusicCommands extends ListenerAdapter {
                // make an if-else here using command.length for a how-to embed 
                // m!play returns the how-to
                if((event.getMember().getVoiceState().getChannel() != null) && (event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel())) {
-                    System.out.println(commands[0]);
-                    System.out.println(commands[0].toString());
-                    String link = String.join(" ", commands).replace(Monitor.prefix + "play", "");
+                    String link = String.join(" ", commands).replace(commands[0], "");
                     
                     System.out.println(isUrl(link));
                     System.out.println(link);
@@ -188,6 +189,7 @@ public class MusicCommands extends ListenerAdapter {
                }
           }
      }
+
      private boolean isUrl(String url) {
           try {
                (new java.net.URL(url)).openStream().close();
@@ -196,6 +198,7 @@ public class MusicCommands extends ListenerAdapter {
                return false;
           }
      }
+
      private String youtubeSearch(String searchInput) {
           try {
                List<SearchResult> result = youTube.search()
