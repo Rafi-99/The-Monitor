@@ -35,11 +35,9 @@ public class MusicCommands extends ListenerAdapter {
                .build();
           } catch (Exception e) {
                e.printStackTrace();
-          }
-          
+          } 
           youTube = temp;
      }
-
      @Override
      public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
           AudioManager manager = event.getGuild().getAudioManager();
@@ -94,7 +92,6 @@ public class MusicCommands extends ListenerAdapter {
                     }
                     else {
                          String formatLink = link.substring(link.indexOf("h"));
-                         System.out.println(formatLink);
                          PlayerManager.getInstance().loadAndPlay(event.getChannel(), formatLink);
                     }   
                }
@@ -174,6 +171,7 @@ public class MusicCommands extends ListenerAdapter {
                               queue.appendDescription(String.format("%s - %s\n", trackInfo.title, trackInfo.author));
                               
                          }
+
                          queue.setThumbnail(Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                          queue.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                          event.getChannel().sendTyping().queue();
