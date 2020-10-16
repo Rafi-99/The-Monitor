@@ -38,9 +38,9 @@ public class MusicCommands extends ListenerAdapter {
      }
      @Override
      public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
-          final AudioManager guildAudioManager = event.getGuild().getAudioManager();
-          final GuildMusicManager guildMusicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
-          final AudioPlayer audioPlayer = guildMusicManager.player;
+          AudioManager guildAudioManager = event.getGuild().getAudioManager();
+          GuildMusicManager guildMusicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
+          AudioPlayer audioPlayer = guildMusicManager.player;
           VoiceChannel voiceChannel = event.getMember().getVoiceState().getChannel();
           boolean voicePerms = event.getMember().hasPermission(Permission.VOICE_CONNECT);
           boolean pause = true;
