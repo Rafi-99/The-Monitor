@@ -1,7 +1,7 @@
 plugins {
      id 'java'
      id 'application'
-     id 'com.github.johnrengelman.shadow' version '5.2.0'
+     id 'com.github.johnrengelman.shadow' version '6.1.0'
 }
 
 mainClassName = 'bot.driver.Monitor'
@@ -21,7 +21,7 @@ task stage(dependsOn: ['build', 'clean'])
 build.mustRunAfter clean
 
 dependencies {
-     implementation "ch.qos.logback:logback-classic:1.2.3"   
+     implementation 'ch.qos.logback:logback-classic:1.2.3'   
      implementation 'net.dv8tion:JDA:4.2.0_211'
      implementation 'com.github.Devoxin:lavaplayer:1.3.59'
      implementation 'com.google.apis:google-api-services-youtube:v3-rev222-1.25.0'
