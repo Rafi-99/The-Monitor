@@ -45,7 +45,7 @@ public class Commands extends ListenerAdapter {
           String[] args = event.getMessage().getContentRaw().split("\\s+");
 
           // Code for the info command
-          if (args[0].equalsIgnoreCase(Monitor.prefix + "botInfo")) {
+          if (args[0].equalsIgnoreCase(Monitor.prefix + "botInfo") && args.length == 1) {
                // lambda to create the embed and have the retrieved owner name and avatar to be set as the footer
                Monitor.myBot.retrieveApplicationInfo().queue(botOwner -> {
                     EmbedBuilder info = new EmbedBuilder();
@@ -56,7 +56,7 @@ public class Commands extends ListenerAdapter {
                     info.addField("**Default prefix**", "m!", true);
                     info.addField("**Command Usage Example**", Monitor.prefix + "botInfo", false);
                     info.addField("**Moderation**", "setPrefix, createInvite, mute, unmute, purge, kick, ban, unban", true);
-                    info.addField("**Helpful**", "botInfo, serverInfo", true);
+                    info.addField("**Helpful**", "botInfo, serverInfo, ping", true);
                     info.addField("**Music**", "join, leave, np, play, pause, skip, queue, clear", true);
                     info.addField("**Fun**", "roast, wholesome, simp, avatar", true);
                     info.setFooter(botOwner.getOwner().getName() + " | Bot Developer", botOwner.getOwner().getEffectiveAvatarUrl());
@@ -189,15 +189,12 @@ public class Commands extends ListenerAdapter {
                //event.getGuild().getRoleById(event.getMessage().getContentRaw());
           }
           else if(args[0].equalsIgnoreCase(Monitor.prefix + "ping")) {
-               event.getChannel().sendMessage("Ping ...").queue(p -> 
+               event.getChannel().sendMessage("Pinging...").queue(p -> 
                { 
                     long ping = event.getMessage().getTimeCreated().until(p.getTimeCreated(), ChronoUnit.MILLIS);
-                    p.editMessage("Ping: "+ ping + "ms | Websocket: "+ event.getJDA().getGatewayPing() + "ms").queue();
-               
+                    p.editMessage("Bot Latency: "+ ping + " ms | Discord API Latency: "+ event.getJDA().getGatewayPing() + " ms").queue();
                });
           }
-
-          
 
           // // Mute command
           // else if (args[0].equalsIgnoreCase(Monitor.prefix + "mute")) {
@@ -271,8 +268,8 @@ public class Commands extends ListenerAdapter {
           }
      
      }
-
-}    
+}
+//Maybe have to create a system variable in heroku for prefix since dynos restart once a day     
 // Windows Key + . lets you access emoticons. Numpad doesn't work.             
 // 1. Find out how to delete more than 100 messages        
 // 2. Find out how to auto-delete success and failure message embeds
