@@ -2,6 +2,7 @@ package bot.commands;
 
 import bot.driver.Monitor;
 
+import java.time.temporal.ChronoUnit;
 import java.util.EnumSet;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -186,6 +187,14 @@ public class Commands extends ListenerAdapter {
                //retrive the id from the string message and set it equal to a variable 
 
                //event.getGuild().getRoleById(event.getMessage().getContentRaw());
+          }
+          else if(args[0].equalsIgnoreCase(Monitor.prefix + "ping")) {
+               event.getChannel().sendMessage("Ping ...").queue(p -> 
+               { 
+                    long ping = event.getMessage().getTimeCreated().until(p.getTimeCreated(), ChronoUnit.MILLIS);
+                    p.editMessage("Ping: "+ ping + "ms | Websocket: "+ event.getJDA().getGatewayPing() + "ms").queue();
+               
+               });
           }
 
           
