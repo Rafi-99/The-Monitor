@@ -2,9 +2,7 @@ package bot.commands;
 
 import bot.driver.Monitor;
 
-import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalField;
 import java.util.EnumSet;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -18,7 +16,6 @@ import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.utils.TimeUtil;
 
 public class Commands extends ListenerAdapter {
      
@@ -194,10 +191,8 @@ public class Commands extends ListenerAdapter {
           else if(args[0].equalsIgnoreCase(Monitor.prefix + "ping")) {
                event.getChannel().sendMessage("Pinging...").queue(p -> 
                { 
-                    //long ping = event.getMessage().getTimeCreated().until(p.getTimeCreated(), ChronoUnit.MILLIS);
-                    long pinger = System.currentTimeMillis() - event.getMessage().getTimeCreated().getLong(ChronoField.MILLI_OF_SECOND);
-
-                    p.editMessage("Bot Latency: "+ pinger + " ms | Discord API Latency: "+ event.getJDA().getGatewayPing() + " ms").queue();
+                    long ping = event.getMessage().getTimeCreated().until(p.getTimeCreated(), ChronoUnit.MILLIS);
+                    p.editMessage("Bot Latency: "+ ping + " ms | Discord API Latency: "+ event.getJDA().getGatewayPing() + " ms").queue();
                });
           }
 
