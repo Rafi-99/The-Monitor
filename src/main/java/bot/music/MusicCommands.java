@@ -47,6 +47,7 @@ public class MusicCommands extends ListenerAdapter {
                     if(event.getMember().getVoiceState().getChannel() != null) {
                          manager.openAudioConnection(event.getMember().getVoiceState().getChannel());
                          String name = event.getMember().getVoiceState().getChannel().toString().replace("VC:", "");
+                         event.getChannel().sendTyping().queue();
                          event.getChannel().sendMessage("Successfully connected to: " + name.substring(name.indexOf(""), name.indexOf("("))).queue();
                     }
                     else {
@@ -59,8 +60,8 @@ public class MusicCommands extends ListenerAdapter {
                     event.getChannel().sendMessage("I am already connected to a voice channel!").queue();
                }     
           }
-          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "leave") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && manager.isConnected()) {
-               if((event.getMember().getVoiceState().getChannel() != null) && (event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel())) {
+          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "leave") && event.getMember().hasPermission(Permission.VOICE_CONNECT)) {
+               if(event.getMember().getVoiceState().getChannel() != null && event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel() && manager.isConnected()) {
                     manager.closeAudioConnection();
                     event.getChannel().sendTyping().queue();
                     event.getChannel().sendMessage("Successfully disconnected!").queue();
