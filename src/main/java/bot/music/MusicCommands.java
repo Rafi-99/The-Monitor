@@ -42,7 +42,7 @@ public class MusicCommands extends ListenerAdapter {
           BlockingQueue<AudioTrack> playerQueue = PlayerManager.getInstance().getMusicManager(event.getGuild()).scheduler.getQueue();
           String [] commands = event.getMessage().getContentRaw().split("\\s+");
 
-          if(commands[0].equalsIgnoreCase(Monitor.prefix + "join") && event.getMember().hasPermission(Permission.VOICE_CONNECT)) {
+          if(commands[0].equalsIgnoreCase(Monitor.prefix + "join") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && commands.length == 1) {
                if(!manager.isConnected()) {
                     if(event.getMember().getVoiceState().getChannel() != null) {
                          manager.openAudioConnection(event.getMember().getVoiceState().getChannel());
@@ -61,7 +61,7 @@ public class MusicCommands extends ListenerAdapter {
                }     
           }
 
-          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "leave") && event.getMember().hasPermission(Permission.VOICE_CONNECT)) {
+          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "leave") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && commands.length == 1) {
                if(event.getMember().getVoiceState().getChannel() != null && event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel() && manager.isConnected()) {
                     manager.closeAudioConnection();
                     event.getChannel().sendTyping().queue();
@@ -111,8 +111,8 @@ public class MusicCommands extends ListenerAdapter {
                }
           }
 
-          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "np") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && (manager.isConnected()) && commands.length == 1) {
-               if((event.getMember().getVoiceState().getChannel() != null) && (event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel())) {
+          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "np") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && commands.length == 1) {
+               if(event.getMember().getVoiceState().getChannel() != null && event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel() && manager.isConnected()) {
                     if(PlayerManager.getInstance().getMusicManager(event.getGuild()).player.getPlayingTrack() == null) {
                          event.getChannel().sendTyping().queue();
                          event.getChannel().sendMessage("Nothing is being played currently.").queue();
@@ -127,8 +127,8 @@ public class MusicCommands extends ListenerAdapter {
                }
           }
 
-          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "clear") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && (manager.isConnected()) && commands.length == 1) {
-               if ((event.getMember().getVoiceState().getChannel() != null) && (event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel())) {
+          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "clear") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && commands.length == 1) {
+               if (event.getMember().getVoiceState().getChannel() != null && event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel() && manager.isConnected()) {
                     PlayerManager.getInstance().getMusicManager(event.getGuild()).scheduler.getQueue().clear();
                     PlayerManager.getInstance().getMusicManager(event.getGuild()).player.stopTrack();
                     PlayerManager.getInstance().getMusicManager(event.getGuild()).player.setPaused(false);
@@ -142,8 +142,8 @@ public class MusicCommands extends ListenerAdapter {
           }
 
           //pause command pauses and resumes the player
-          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "pause") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && (manager.isConnected()) && commands.length == 1) {
-               if((event.getMember().getVoiceState().getChannel() != null) && (event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel())) {
+          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "pause") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && commands.length == 1) {
+               if(event.getMember().getVoiceState().getChannel() != null && event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel() && manager.isConnected()) {
                     if(pause) {
                          PlayerManager.getInstance().getMusicManager(event.getGuild()).player.setPaused(pause);
                          pause = false;
@@ -163,8 +163,8 @@ public class MusicCommands extends ListenerAdapter {
                }
           }
 
-          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "skip") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && (manager.isConnected()) && commands.length == 1) {
-               if((event.getMember().getVoiceState().getChannel() != null) && (event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel())) {
+          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "skip") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && commands.length == 1) {
+               if(event.getMember().getVoiceState().getChannel() != null && event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel() && manager.isConnected()) {
                     if(playerQueue.size() > 0) {
                          PlayerManager.getInstance().getMusicManager(event.getGuild()).scheduler.nextTrack();
                          event.getChannel().sendTyping().queue();
@@ -182,8 +182,8 @@ public class MusicCommands extends ListenerAdapter {
                }
           }
 
-          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "queue") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && (manager.isConnected()) && commands.length == 1) {
-               if((event.getMember().getVoiceState().getChannel() != null) && (event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel())) {
+          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "queue") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && commands.length == 1) {
+               if(event.getMember().getVoiceState().getChannel() != null && event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel() && manager.isConnected()) {
                     if (playerQueue.isEmpty()) {
                          event.getChannel().sendTyping().queue();
                          event.getChannel().sendMessage("The queue is empty.").queue();
