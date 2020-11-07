@@ -21,7 +21,7 @@ public class Monitor {
          .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_VOICE_STATES)
          .setMemberCachePolicy(MemberCachePolicy.ALL)
          .enableCache(CacheFlag.VOICE_STATE)
-         .addEventListeners(new Commands(), new Moderation(), new MusicCommands())
+         .addEventListeners(new Admin(), new Fun(), new General(), new Moderation(), new MusicCommands())
          .build()
          .awaitReady();
 

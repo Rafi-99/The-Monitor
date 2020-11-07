@@ -1,0 +1,96 @@
+package bot.commands;
+
+import bot.driver.Monitor;
+
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
+
+public class Fun extends ListenerAdapter {
+
+     String Roasts[] = { 
+          "Your birth certificate is an apology letter from the abortion clinic.",
+          "I fucking hate you LOL!", "Don't play hard to get when you are hard to want.",
+          "At least my dad didn't leave me.",
+          "You should put a condom on your head, because if you're going to act like a dick you better dress like one too.",
+          "Who cares if girls look different without makeup? Your dick looks hella different when it's soft.",
+          "Maybe if you eat all that makeup you will be beautiful on the inside.",
+          "Your forehead is so big that I could use it to play Tic-Tac-Toe.",
+          "I wonder if you'd be able to speak more clearly if your parents were second cousins instead of first.",
+          "You're objectively unattractive.", "I'm not a nerd, I'm just smarter than you.",
+          "If you're going to be two-faced, at least make one of them pretty.",
+          "You just might be why the middle finger was invented in the first place.",
+          "I'm not insulting you, I'm describing you.",
+          "You must have been born on a highway since that's where most accidents happen.",
+          "If laughter is the best medicine, your face must be curing the world!",
+          "Two wrongs don't make a right, and your parents have once again proven that.",
+          "My phone battery lasts longer than your relationships.",
+          "It's better to be a smartass than to be a dumbass.", "Your face makes onions cry." 
+     };
+
+     @Override
+     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
+          String [] fun = event.getMessage().getContentRaw().split("\\s+"); 
+
+          if(fun[0].equalsIgnoreCase(Monitor.prefix + "roast")) {
+               if(fun.length == 2) {
+                    event.getChannel().sendTyping().queue();
+                    event.getChannel().sendMessage(fun[1] +" "+ Roasts[(int) (Math.random() * 20)]).queue();
+               }
+               else {
+                    event.getChannel().sendTyping().queue();
+                    event.getChannel().sendMessage("Type in "+ Monitor.prefix +"roast and mention the person you want to roast!").queue();
+               }
+          }
+
+          else if(fun[0].equalsIgnoreCase(Monitor.prefix + "wholesome")) {
+               if(fun.length == 2) {
+                    EmbedBuilder wholesome = new EmbedBuilder();
+                    wholesome.setColor(0x05055e);
+                    wholesome.setTitle("Such Wholesome");
+                    wholesome.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                    wholesome.setDescription(fun[1] + " is " + (int) (Math.random() * 101) + "% wholesome.");
+                    event.getChannel().sendTyping().queue();
+                    event.getChannel().sendMessage(wholesome.build()).queue();
+                    wholesome.clear();
+               }
+               else {
+                    event.getChannel().sendTyping().queue();
+                    event.getChannel().sendMessage("Type in "+ Monitor.prefix +"wholesome and mention someone to use this command!").queue();
+               }
+          }
+
+          else if(fun[0].equalsIgnoreCase(Monitor.prefix + "simp")) {
+               if(fun.length == 2) {
+                    EmbedBuilder simp = new EmbedBuilder();
+                    simp.setColor(0x05055e);
+                    simp.setTitle("Such Wholesome");
+                    simp.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                    simp.setDescription(fun[1] + " is " + (int) (Math.random() * 101) + "% simp.");
+                    event.getChannel().sendTyping().queue();
+                    event.getChannel().sendMessage(simp.build()).queue();
+                    simp.clear();
+               }
+               else {
+                    event.getChannel().sendTyping().queue();
+                    event.getChannel().sendMessage("Type in "+ Monitor.prefix +"simp and mention someone to use this command!").queue();
+               }
+          }
+          
+          else if(fun[0].equalsIgnoreCase(Monitor.prefix + "avatar")) {
+               if (fun.length == 2) {
+                    EmbedBuilder avatar = new EmbedBuilder();
+                    avatar.setColor(0x05055e);
+                    avatar.setTitle("Avatar");
+                    avatar.setDescription(event.getMessage().getMentionedUsers().get(0).getName());
+                    avatar.setImage(event.getMessage().getMentionedUsers().get(0).getEffectiveAvatarUrl());
+                    avatar.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                    event.getChannel().sendMessage(avatar.build()).queue();
+               }
+               else {
+                    event.getChannel().sendTyping().queue();
+                    event.getChannel().sendMessage("Type in "+ Monitor.prefix +"avatar and mention a user to view their avatar!").queue();
+               }
+          }
+     } 
+}

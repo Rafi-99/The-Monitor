@@ -2,17 +2,21 @@ package bot.commands;
 
 import bot.driver.Monitor;
 
+import java.util.EnumSet;
 import java.util.List;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class Moderation extends ListenerAdapter {
-    @Override
-    public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
+     
+     @Override
+     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
           String [] mod = event.getMessage().getContentRaw().split("\\s+");
 
           if(mod[0].equalsIgnoreCase(Monitor.prefix + "ban") || mod[0].equalsIgnoreCase(Monitor.prefix + "unban")) {
@@ -127,7 +131,6 @@ public class Moderation extends ListenerAdapter {
                               try {                                   
                                    List<Message> messages = event.getChannel().getHistory().retrievePast(Integer.parseInt(mod[1])).complete();
                                    event.getChannel().purgeMessages(messages);
-                                  
                                    //Notifies user if messages have been successfully deleted 
                                    EmbedBuilder purgeSuccess = new EmbedBuilder();
                                    purgeSuccess.setColor(0x05055e);
@@ -174,7 +177,6 @@ public class Moderation extends ListenerAdapter {
                                         purgeError.clear();
                                    }                                   
                               }
-                              
                          }
                     }
                     else if(mod[0].equalsIgnoreCase(Monitor.prefix + "setPrefix")) {
@@ -229,20 +231,52 @@ public class Moderation extends ListenerAdapter {
                     denied.clear();                             
                }
           }
-          else if(mod[0].equalsIgnoreCase(Monitor.prefix + "terminate") && mod.length == 1) {
-               if(event.getAuthor().getId().equals("398215411998654466") || event.getAuthor().getId().equals("658118412098076682")) {
-                    event.getChannel().sendTyping().complete();
-                    event.getChannel().sendMessage("Terminating...").complete();
-                    event.getChannel().sendMessage("Bot is now offline.").complete();
-                    System.exit(0);
-               }
-               else {
-                    event.getChannel().sendMessage("Sorry, only the bot owner can terminate me.").queue();
-               }
+          else if (mod[0].equalsIgnoreCase(Monitor.prefix + "ticketSetup") && event.getMember().hasPermission(Permission.MESSAGE_MANAGE)) {
+               EmbedBuilder ticket = new EmbedBuilder();
+               ticket.setColor(0x05055e);
+               ticket.setTitle("**Create a Support Ticket**");
+               ticket.setDescription("React with 📩 to create a new ticket.");
+               ticket.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+               event.getChannel().sendMessage(ticket.build()).queue(t -> t.addReaction("📩").queue());
           }
-          else if(mod[0].equalsIgnoreCase(Monitor.prefix + "link") && event.getAuthor().getId().equals("398215411998654466")) {
-               event.getChannel().sendTyping().queue();
-               event.getChannel().sendMessage(Monitor.myBot.getInviteUrl(Permission.ADMINISTRATOR)).queue();
-          }          
-    } 
-}
+     }
+
+     @Override
+     public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent event) {
+          if(event.getChannel().getId().equals("709557615708864522") && event.getReactionEmote().getAsReactionCode().equals("📩") && !(event.getUser().isBot())) {
+               event.getReaction().removeReaction(event.getUser()).queue(); 
+               event.getGuild().createTextChannel("Support Ticket")
+               .addPermissionOverride(event.getGuild().getRoleById("709259200651591742"), null, EnumSet.of(Permission.VIEW_CHANNEL))
+               .addPermissionOverride(event.getGuild().getRoleById("710398399085805599"), EnumSet.of(Permission.VIEW_CHANNEL), null)
+               .addPermissionOverride(event.getMember(), EnumSet.of(Permission.VIEW_CHANNEL, Permission.MESSAGE_WRITE, Permission.MESSAGE_ATTACH_FILES), null)
+               .queue(support -> {
+                    support.sendMessage("Welcome to support! " + event.getMember().getAsMention()).queue();
+                    support.sendMessage("A staff member will arrive to assist you shortly. " + event.getGuild().getRoleById("710398399085805599").getAsMention()).queue();
+               });  
+          }
+     }
+     @Override
+     public void onGuildMemberJoin(GuildMemberJoinEvent event) {
+          if(event.getGuild().getName().equals("The Goddess's Parthenon")) {
+               // Wanderer
+               event.getGuild().addRoleToMember(event.getMember().getId(), event.getGuild().getRoleById("709505726640291877")).queue();
+               // Agreed to Rules 
+               event.getGuild().addRoleToMember(event.getMember().getId(), event.getGuild().getRoleById("709505763583852565")).queue();
+               // Welcome message that gets sent in #general with @user and @Welcomer mentions
+               event.getGuild().getTextChannelById("709259200651591747").sendMessage("Hello " + event.getMember().getAsMention() + "! Welcome to our server, **The Goddess's Parthenon**! " + event.getGuild().getRoleById("727010870403530760").getAsMention() + " please make our new friend feel welcome!!! :)").queue();
+          }
+          else if(event.getGuild().getName().equals("Friends :)")) {
+               // Members
+               event.getGuild().addRoleToMember(event.getMember().getId(), event.getGuild().getRoleById("754614035529597038")).queue();
+               // Welcome message that gets sent in #general with @user 
+               event.getGuild().getTextChannelById("753717833937977388").sendMessage("Hello " + event.getMember().getAsMention() + "! Welcome to our server, **Friends :)**! Enjoy your stay :)").queue();
+          }
+          else if(event.getGuild().getName().equals("Wholesome Study Boys")) {
+               // No Catfishing >:) 
+               event.getGuild().addRoleToMember(event.getMember().getId(), event.getGuild().getRoleById("694032141058834432")).queue();
+               // Welcome message in #general with @user
+               event.getGuild().getTextChannelById("693237215404359715").sendMessage("Hello " + event.getMember().getAsMention() + "! Welcome to our server >:)").queue();
+          }
+     
+     } 
+}    
