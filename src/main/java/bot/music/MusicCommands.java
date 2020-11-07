@@ -60,6 +60,7 @@ public class MusicCommands extends ListenerAdapter {
                     event.getChannel().sendMessage("I am already connected to a voice channel!").queue();
                }     
           }
+
           else if(commands[0].equalsIgnoreCase(Monitor.prefix + "leave") && event.getMember().hasPermission(Permission.VOICE_CONNECT)) {
                if(event.getMember().getVoiceState().getChannel() != null && event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel() && manager.isConnected()) {
                     manager.closeAudioConnection();
@@ -71,31 +72,45 @@ public class MusicCommands extends ListenerAdapter {
                     event.getChannel().sendMessage("You have to be in the same voice channel as me in order to disconnect.").queue();
                }
           }
-          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "play") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && manager.isConnected()) {
-               // make an if-else here using command.length for a how-to embed 
-               // m!play returns the how-to
-               if((event.getMember().getVoiceState().getChannel() != null) && (event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel())) {
-                    String link = String.join(" ", commands).replace(commands[0], "");
-                    
-                    if(!isUrl(link)) {
-                         String ytSearch = youtubeSearch(link);
-                         if(ytSearch == null) {
-                              event.getChannel().sendMessage("Sorry, YouTube returned no results for your query.").queue();
-                              return;
-                         }
-                         link = ytSearch;
-                         PlayerManager.getInstance().loadAndPlay(event.getChannel(), link);
-                    }
-                    else {
-                         String formatLink = link.substring(link.indexOf("h"));
-                         PlayerManager.getInstance().loadAndPlay(event.getChannel(), formatLink);
-                    }   
+
+          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "play") && event.getMember().hasPermission(Permission.VOICE_CONNECT)) {
+               if(commands.length == 1) {
+                    EmbedBuilder play = new EmbedBuilder();
+                    play.setColor(0x05055e);
+                    play.setTitle("Play Command Usage");
+                    play.setDescription(Monitor.prefix +"play [insert link or search query here]");
+                    play.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                    event.getChannel().sendTyping().queue();
+                    event.getChannel().sendMessage(play.build()).queue();
+                    play.clear();
                }
                else {
-                    event.getChannel().sendTyping().queue();
-                    event.getChannel().sendMessage("You have to be in the same voice channel as me to play anything. Use the join command to summon me.").queue();
+                    if(event.getMember().getVoiceState().getChannel() != null && event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel() && manager.isConnected()) {
+                         String link = String.join(" ", commands).replace(commands[0], "");
+                         
+                         if(!isUrl(link)) {
+                              String ytSearch = youtubeSearch(link);
+                              if(ytSearch == null) {
+                                   event.getChannel().sendTyping().queue();
+                                   event.getChannel().sendMessage("Sorry, YouTube returned no results for your query.").queue();
+                                   return;
+                              }
+                              link = ytSearch;
+                              PlayerManager.getInstance().loadAndPlay(event.getChannel(), link);
+                         }
+                         else {
+                              String formatLink = link.substring(link.indexOf("h"));
+                              PlayerManager.getInstance().loadAndPlay(event.getChannel(), formatLink);
+                         }   
+                    }
+                    else {
+                         event.getChannel().sendTyping().queue();
+                         event.getChannel().sendMessage("You have to be in the same voice channel as me to play anything. Please use the join command to summon me.").queue();
+                    }
+
                }
           }
+
           else if(commands[0].equalsIgnoreCase(Monitor.prefix + "np") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && (manager.isConnected()) && commands.length == 1) {
                if((event.getMember().getVoiceState().getChannel() != null) && (event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel())) {
                     if(PlayerManager.getInstance().getMusicManager(event.getGuild()).player.getPlayingTrack() == null) {
@@ -111,6 +126,7 @@ public class MusicCommands extends ListenerAdapter {
                     event.getChannel().sendMessage("You have to be in the same voice channel as me to see what's playing currently.").queue();
                }
           }
+
           else if(commands[0].equalsIgnoreCase(Monitor.prefix + "clear") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && (manager.isConnected()) && commands.length == 1) {
                if ((event.getMember().getVoiceState().getChannel() != null) && (event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel())) {
                     PlayerManager.getInstance().getMusicManager(event.getGuild()).scheduler.getQueue().clear();
@@ -124,7 +140,8 @@ public class MusicCommands extends ListenerAdapter {
                     event.getChannel().sendMessage("You have to be in the same voice channel as me to clear the queue.").queue();
                }
           }
-          //pause command both pauses the player and resumes it as well 
+
+          //pause command pauses and resumes the player
           else if(commands[0].equalsIgnoreCase(Monitor.prefix + "pause") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && (manager.isConnected()) && commands.length == 1) {
                if((event.getMember().getVoiceState().getChannel() != null) && (event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel())) {
                     if(pause) {
@@ -145,6 +162,7 @@ public class MusicCommands extends ListenerAdapter {
                     event.getChannel().sendMessage("You have to be in the same voice channel as me to pause the player.").queue();
                }
           }
+
           else if(commands[0].equalsIgnoreCase(Monitor.prefix + "skip") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && (manager.isConnected()) && commands.length == 1) {
                if((event.getMember().getVoiceState().getChannel() != null) && (event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel())) {
                     if(playerQueue.size() > 0) {
@@ -163,6 +181,7 @@ public class MusicCommands extends ListenerAdapter {
                     event.getChannel().sendMessage("You have to be in the same voice channel as me to skip songs.").queue();
                }
           }
+
           else if(commands[0].equalsIgnoreCase(Monitor.prefix + "queue") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && (manager.isConnected()) && commands.length == 1) {
                if((event.getMember().getVoiceState().getChannel() != null) && (event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel())) {
                     if (playerQueue.isEmpty()) {
