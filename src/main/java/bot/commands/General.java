@@ -28,10 +28,10 @@ public class General extends ListenerAdapter {
                     info.setThumbnail(Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                     info.addField("**Default prefix**", "m!", true);
                     info.addField("**Command Usage Example**", Monitor.prefix + "botInfo", false);
-                    info.addField("**Moderation**", "setPrefix, ticketSetup, createInvite, mute, unmute, purge, kick, ban, unban", true);
-                    info.addField("**General**", "botInfo, serverInfo, ping", true);
-                    info.addField("**Fun**", "roast, wholesome, simp, avatar", true);
-                    info.addField("**Music**", "join, leave, np, play, pause, skip, queue, clear", true);
+                    info.addField("**Moderation**", "'setPrefix, ticketSetup, createInvite, mute, unmute, purge, kick, ban, unban'", true);
+                    info.addField("**General**", "'botInfo, serverInfo, ping'", true);
+                    info.addField("**Fun**", "'roast, wholesome, simp, avatar, pp'", true);
+                    info.addField("**Music**", "'join, leave, np, play, pause, skip, queue, clear'", true);
                     info.setFooter(botOwner.getOwner().getName() + " | Bot Developer", botOwner.getOwner().getEffectiveAvatarUrl());
                     event.getChannel().sendTyping().queue();
                     event.getChannel().sendMessage(info.build()).queue();
