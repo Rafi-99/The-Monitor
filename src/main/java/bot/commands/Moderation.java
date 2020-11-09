@@ -92,7 +92,7 @@ public class Moderation extends ListenerAdapter {
                          kick.clear();        		 
                     }
                     else {
-                         event.getGuild().kick(mod[1].replace("<@!", "").replace(">", "")).queue();        	 
+                         event.getGuild().kick(mod[1].replace("<@!", "").replace("<@", "").replace(">", "")).queue();        	 
                          EmbedBuilder kicked = new EmbedBuilder();
                          kicked.setColor(0x05055e);
                          kicked.setTitle("✅ Success! ✅");
