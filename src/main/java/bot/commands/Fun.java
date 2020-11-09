@@ -96,7 +96,7 @@ public class Fun extends ListenerAdapter {
           }
 
           else if(fun[0].equalsIgnoreCase(Monitor.prefix + "pp")) {
-               int pp = (int) (Math.random()*12 + 1);
+               int pp = (int) (Math.random()*13);
                String built = "";
                String shaft = "";
 
