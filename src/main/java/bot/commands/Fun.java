@@ -85,11 +85,42 @@ public class Fun extends ListenerAdapter {
                     avatar.setDescription(event.getMessage().getMentionedUsers().get(0).getName());
                     avatar.setImage(event.getMessage().getMentionedUsers().get(0).getEffectiveAvatarUrl());
                     avatar.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                    event.getChannel().sendTyping().queue();
                     event.getChannel().sendMessage(avatar.build()).queue();
+                    avatar.clear();
                }
                else {
                     event.getChannel().sendTyping().queue();
                     event.getChannel().sendMessage("Type in "+ Monitor.prefix +"avatar and mention a user to view their avatar!").queue();
+               }
+          }
+
+          else if(fun[0].equalsIgnoreCase(Monitor.prefix + "pp")) {
+               int pp = (int) (Math.random()*12 + 1);
+               String built = "";
+               String shaft = "";
+
+               if(fun.length == 2) {
+                    for (int i = 0; i < pp; i++) {
+                         String inches = "=";
+                         shaft += inches;
+                    }
+                    built = "8" + shaft + "D";
+
+                    EmbedBuilder schlong = new EmbedBuilder();
+                    schlong.setColor(0x05055e);
+                    schlong.setTitle("Penis Generator");
+                    schlong.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                    schlong.setDescription(event.getMessage().getMentionedMembers().get(0).getEffectiveName() + "'s penis \n"+ built);
+                    event.getChannel().sendTyping().queue();
+                    event.getChannel().sendMessage(schlong.build()).queue();
+                    schlong.clear();
+                    
+               }
+               else {
+                    event.getChannel().sendTyping().queue(); 
+                    event.getChannel().sendMessage("Type in "+ Monitor.prefix +"pp [user mention] to use this command!").queue();
+                    
                }
           }
      } 
