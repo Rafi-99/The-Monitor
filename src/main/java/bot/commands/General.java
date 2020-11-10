@@ -71,5 +71,15 @@ public class General extends ListenerAdapter {
                     p.editMessage("Bot Latency: "+ ping + " ms | Discord API Latency: "+ event.getJDA().getGatewayPing() + " ms").queue();
                });
           }
+
+          else if(args[0].equalsIgnoreCase(Monitor.prefix + "pong") && args.length == 1) {
+               event.getChannel().sendTyping().queue();
+               long time = System.currentTimeMillis();
+               event.getChannel().sendMessage("Pinging...").queue(p -> 
+               {
+                    p.editMessageFormat("Bot Latency: %b ms | Discord API Latency: %d ms", System.currentTimeMillis() - time, event.getJDA().getGatewayPing()).queue();
+               });
+
+          }
      }
 }
