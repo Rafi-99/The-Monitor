@@ -14,6 +14,7 @@ public class General extends ListenerAdapter {
 
      @Override
      public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
+          
           String[] args = event.getMessage().getContentRaw().split("\\s+");
           // Code for the bot info command
           if (args[0].equalsIgnoreCase(Monitor.prefix + "botInfo") && args.length == 1) {
@@ -63,23 +64,13 @@ public class General extends ListenerAdapter {
                event.getGuild().retrieveOwner().queue(owner);     
           }  
           // Code for the ping command         
-          else if(args[0].equalsIgnoreCase(Monitor.prefix + "ping")) {
+          else if(args[0].equalsIgnoreCase(Monitor.prefix + "ping") && args.length == 1) {
                event.getChannel().sendTyping().queue();
                event.getChannel().sendMessage("Pinging...").queue(p -> 
                { 
                     long ping = event.getMessage().getTimeCreated().until(p.getTimeCreated(), ChronoUnit.MILLIS);
                     p.editMessage("Bot Latency: "+ ping + " ms | Discord API Latency: "+ event.getJDA().getGatewayPing() + " ms").queue();
                });
-          }
-
-          else if(args[0].equalsIgnoreCase(Monitor.prefix + "pong") && args.length == 1) {
-               event.getChannel().sendTyping().queue();
-               long time = System.currentTimeMillis();
-               event.getChannel().sendMessage("Pinging...").queue(p -> 
-               {
-                    p.editMessageFormat("Bot Latency: %b ms | Discord API Latency: %d ms", System.currentTimeMillis() - time, event.getJDA().getGatewayPing()).queue();
-               });
-
           }
      }
 }
