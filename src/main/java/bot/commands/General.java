@@ -14,7 +14,6 @@ public class General extends ListenerAdapter {
 
      @Override
      public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
-          
           String[] args = event.getMessage().getContentRaw().split("\\s+");
           // Code for the bot info command
           if (args[0].equalsIgnoreCase(Monitor.prefix + "botInfo") && args.length == 1) {
