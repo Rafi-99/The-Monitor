@@ -14,9 +14,7 @@ public class General extends ListenerAdapter {
 
      @Override
      public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
-          
           String[] args = event.getMessage().getContentRaw().split("\\s+");
-
           // Code for the bot info command
           if (args[0].equalsIgnoreCase(Monitor.prefix + "botInfo") && args.length == 1) {
                // lambda to create the embed and have the retrieved owner name and avatar inside the footer
@@ -63,8 +61,10 @@ public class General extends ListenerAdapter {
                };
                // This line of code runs all the code in the success consumer, thus creating the embed
                event.getGuild().retrieveOwner().queue(owner);     
-          }          
+          }  
+          // Code for the ping command         
           else if(args[0].equalsIgnoreCase(Monitor.prefix + "ping")) {
+               event.getChannel().sendTyping().queue();
                event.getChannel().sendMessage("Pinging...").queue(p -> 
                { 
                     long ping = event.getMessage().getTimeCreated().until(p.getTimeCreated(), ChronoUnit.MILLIS);
