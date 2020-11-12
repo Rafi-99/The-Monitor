@@ -22,7 +22,7 @@ public class Admin extends ListenerAdapter {
                test.scheduleAtFixedRate(new Runnable() {
                     @Override
                     public void run() {
-                         event.getChannel().sendMessage("This is test spam.").queue();
+                         event.getChannel().sendMessage("Poggers! :poggers:").queue();
                          if (stop == true) {
                               event.getChannel().sendTyping().complete();
                               event.getChannel().sendMessage("Ending spam now...").complete();
