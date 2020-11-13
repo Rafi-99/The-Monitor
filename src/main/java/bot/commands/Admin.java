@@ -17,12 +17,12 @@ public class Admin extends ListenerAdapter {
      public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
           String [] admin = event.getMessage().getContentRaw().split("\\s+"); 
 
-          if(admin[0].equalsIgnoreCase(Monitor.prefix + "test")) {
+          if(admin[0].equalsIgnoreCase(Monitor.prefix + "test") && event.getAuthor().getId().equals("398215411998654466") && admin.length == 1) {
                ScheduledExecutorService test = Executors.newSingleThreadScheduledExecutor();
                test.scheduleAtFixedRate(new Runnable() {
                     @Override
                     public void run() {
-                         event.getChannel().sendMessage("Poggers! :poggers:").queue();
+                         event.getChannel().sendMessage("Poggers!").queue();
                          if (stop == true) {
                               event.getChannel().sendTyping().complete();
                               event.getChannel().sendMessage("Ending spam now...").complete();
@@ -33,7 +33,7 @@ public class Admin extends ListenerAdapter {
                     }
                }, 0, 1, TimeUnit.SECONDS);
           } 
-          else if (admin[0].equalsIgnoreCase(Monitor.prefix + "stopTest") && admin.length == 1) {
+          else if (admin[0].equalsIgnoreCase(Monitor.prefix + "stopTest") && event.getAuthor().getId().equals("398215411998654466") && admin.length == 1) {
                stop = true;
           }
 
@@ -57,7 +57,7 @@ public class Admin extends ListenerAdapter {
                }
           }
           
-          else if(admin[0].equalsIgnoreCase(Monitor.prefix + "link") && event.getAuthor().getId().equals("398215411998654466")) {
+          else if(admin[0].equalsIgnoreCase(Monitor.prefix + "link") && event.getAuthor().getId().equals("398215411998654466") && admin.length == 1) {
                event.getChannel().sendTyping().queue();
                event.getChannel().sendMessage(Monitor.myBot.getInviteUrl(Permission.ADMINISTRATOR)).queue();
           }          
