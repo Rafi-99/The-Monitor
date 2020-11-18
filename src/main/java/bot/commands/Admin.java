@@ -23,7 +23,7 @@ public class Admin extends ListenerAdapter {
                     @Override
                     public void run() {
                          event.getChannel().sendMessage("Poggers!").queue();
-                         if (stop == true) {
+                         if (stop) {
                               event.getChannel().sendTyping().complete();
                               event.getChannel().sendMessage("Ending spam now...").complete();
                               event.getChannel().sendMessage("Ended.").complete();
