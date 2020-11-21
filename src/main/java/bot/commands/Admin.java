@@ -60,6 +60,13 @@ public class Admin extends ListenerAdapter {
           else if(admin[0].equalsIgnoreCase(Monitor.prefix + "link") && event.getAuthor().getId().equals("398215411998654466") && admin.length == 1) {
                event.getChannel().sendTyping().queue();
                event.getChannel().sendMessage(Monitor.myBot.getInviteUrl(Permission.ADMINISTRATOR)).queue();
-          }          
+          }
+          
+          // Testing automated link spam deletion
+          else if(event.getMessage().getContentRaw().startsWith("https://") || event.getMessage().getContentRaw().startsWith("http://")) {
+               if(event.getChannel().getId().equals("713310744145428540")) {
+                    event.getMessage().delete().queue(); 
+               }
+          }
      }
 }
