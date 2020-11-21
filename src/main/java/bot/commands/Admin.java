@@ -7,6 +7,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -62,9 +63,10 @@ public class Admin extends ListenerAdapter {
                event.getChannel().sendMessage(Monitor.myBot.getInviteUrl(Permission.ADMINISTRATOR)).queue();
           }
           
-          // Testing automated link spam deletion
+          // Automated link spam deletion
           else if(event.getMessage().getContentRaw().startsWith("https://") || event.getMessage().getContentRaw().startsWith("http://")) {
-               if(event.getChannel().getId().equals("713310744145428540")) {
+               Role staff = event.getGuild().getRoleById("710398399085805599");
+               if(event.getChannel().getId().equals("709259200651591747") && !event.getMember().getRoles().contains(staff)) {
                     event.getMessage().delete().queue(); 
                }
           }
