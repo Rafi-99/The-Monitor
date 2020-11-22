@@ -146,13 +146,13 @@ public class MusicCommands extends ListenerAdapter {
           else if(commands[0].equalsIgnoreCase(Monitor.prefix + "pause") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && commands.length == 1) {
                if(event.getMember().getVoiceState().getChannel() != null && event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel() && manager.isConnected()) {
                     if(pause) {
-                         guildMusicManager.player.setPaused(pause);
+                         guildMusicManager.player.setPaused(true);
                          pause = false;
                          event.getChannel().sendTyping().queue();
                          event.getChannel().sendMessage("Player has been paused.").queue();
                     }
                     else {
-                         guildMusicManager.player.setPaused(pause);
+                         guildMusicManager.player.setPaused(false);
                          pause = true;
                          event.getChannel().sendTyping().queue();
                          event.getChannel().sendMessage("Player has been resumed.").queue();
@@ -219,7 +219,7 @@ public class MusicCommands extends ListenerAdapter {
 
           else if(commands[0].equalsIgnoreCase(Monitor.prefix + "loopTrack") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && commands.length == 1) {
                if(event.getMember().getVoiceState().getChannel() != null && event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel() && manager.isConnected()) {
-                    boolean trackRepeat = !guildMusicManager.scheduler.trackLoop;
+                    final boolean trackRepeat = !guildMusicManager.scheduler.trackLoop;
                     guildMusicManager.scheduler.trackLoop = trackRepeat;
 
                     if(trackRepeat) {
