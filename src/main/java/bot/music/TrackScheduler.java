@@ -12,6 +12,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class TrackScheduler extends AudioEventAdapter {
      private final AudioPlayer player;
      private final BlockingQueue<AudioTrack> queue;
+     public boolean trackLoop = false;
 
      // @param player The audio player this scheduler uses
      public TrackScheduler(AudioPlayer player) {
@@ -48,6 +49,9 @@ public class TrackScheduler extends AudioEventAdapter {
      public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
           // Only start the next track if the end reason is suitable for it (FINISHED or LOAD_FAILED)
           if(endReason.mayStartNext) {
+               if(this.trackLoop) {
+                    this.player.startTrack(track.makeClone(), false);
+               }
                nextTrack();
           }
      }
