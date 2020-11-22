@@ -39,6 +39,7 @@ public class MusicCommands extends ListenerAdapter {
      @Override
      public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
           AudioManager manager = event.getGuild().getAudioManager();
+          GuildMusicManager guildMusicManager = PlayerManager.getInstance().getMusicManager(event.getGuild()); 
           BlockingQueue<AudioTrack> playerQueue = PlayerManager.getInstance().getMusicManager(event.getGuild()).scheduler.getQueue();
           String [] commands = event.getMessage().getContentRaw().split("\\s+");
 
@@ -113,13 +114,13 @@ public class MusicCommands extends ListenerAdapter {
 
           else if(commands[0].equalsIgnoreCase(Monitor.prefix + "np") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && commands.length == 1) {
                if(event.getMember().getVoiceState().getChannel() != null && event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel() && manager.isConnected()) {
-                    if(PlayerManager.getInstance().getMusicManager(event.getGuild()).player.getPlayingTrack() == null) {
+                    if(guildMusicManager.player.getPlayingTrack() == null) {
                          event.getChannel().sendTyping().queue();
                          event.getChannel().sendMessage("Nothing is being played currently.").queue();
                          return;
                     }
                     event.getChannel().sendTyping().queue();
-                    event.getChannel().sendMessage("Currently playing: " + PlayerManager.getInstance().getMusicManager(event.getGuild()).player.getPlayingTrack().getInfo().title).queue();
+                    event.getChannel().sendMessage("Currently playing: " + guildMusicManager.player.getPlayingTrack().getInfo().title).queue();
                }
                else {
                     event.getChannel().sendTyping().queue();
@@ -129,9 +130,9 @@ public class MusicCommands extends ListenerAdapter {
 
           else if(commands[0].equalsIgnoreCase(Monitor.prefix + "clear") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && commands.length == 1) {
                if (event.getMember().getVoiceState().getChannel() != null && event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel() && manager.isConnected()) {
-                    PlayerManager.getInstance().getMusicManager(event.getGuild()).scheduler.getQueue().clear();
-                    PlayerManager.getInstance().getMusicManager(event.getGuild()).player.stopTrack();
-                    PlayerManager.getInstance().getMusicManager(event.getGuild()).player.setPaused(false);
+                    guildMusicManager.scheduler.getQueue().clear();
+                    guildMusicManager.player.stopTrack();
+                    guildMusicManager.player.setPaused(false);
                     event.getChannel().sendTyping().queue();
                     event.getChannel().sendMessage("The queue has been cleared successfully!").queue();
                }
@@ -145,13 +146,13 @@ public class MusicCommands extends ListenerAdapter {
           else if(commands[0].equalsIgnoreCase(Monitor.prefix + "pause") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && commands.length == 1) {
                if(event.getMember().getVoiceState().getChannel() != null && event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel() && manager.isConnected()) {
                     if(pause) {
-                         PlayerManager.getInstance().getMusicManager(event.getGuild()).player.setPaused(pause);
+                         guildMusicManager.player.setPaused(pause);
                          pause = false;
                          event.getChannel().sendTyping().queue();
                          event.getChannel().sendMessage("Player has been paused.").queue();
                     }
                     else {
-                         PlayerManager.getInstance().getMusicManager(event.getGuild()).player.setPaused(pause);
+                         guildMusicManager.player.setPaused(pause);
                          pause = true;
                          event.getChannel().sendTyping().queue();
                          event.getChannel().sendMessage("Player has been resumed.").queue();
@@ -166,10 +167,10 @@ public class MusicCommands extends ListenerAdapter {
           else if(commands[0].equalsIgnoreCase(Monitor.prefix + "skip") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && commands.length == 1) {
                if(event.getMember().getVoiceState().getChannel() != null && event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel() && manager.isConnected()) {
                     if(playerQueue.size() > 0) {
-                         PlayerManager.getInstance().getMusicManager(event.getGuild()).scheduler.nextTrack();
+                         guildMusicManager.scheduler.nextTrack();
                          event.getChannel().sendTyping().queue();
                          event.getChannel().sendMessage("Track skipped.").queue();
-                         event.getChannel().sendMessage("Now playing: " + PlayerManager.getInstance().getMusicManager(event.getGuild()).player.getPlayingTrack().getInfo().title).queue();
+                         event.getChannel().sendMessage("Now playing: " + guildMusicManager.player.getPlayingTrack().getInfo().title).queue();
                     }
                     else {
                          event.getChannel().sendTyping().queue();
@@ -215,6 +216,29 @@ public class MusicCommands extends ListenerAdapter {
                     event.getChannel().sendMessage("You have to be in the same voice channel as me to view the queue.").queue();
                }
           }
+
+          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "loopTrack") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && commands.length == 1) {
+               if(event.getMember().getVoiceState().getChannel() != null && event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel() && manager.isConnected()) {
+                    boolean trackRepeat = !guildMusicManager.scheduler.trackLoop;
+                    guildMusicManager.scheduler.trackLoop = trackRepeat;
+
+                    if(trackRepeat) {
+                         event.getChannel().sendTyping().queue();
+                         event.getChannel().sendMessage("Looping the current song.").queue();
+
+                    }
+                    else {
+                         event.getChannel().sendTyping().queue();
+                         event.getChannel().sendMessage("Track looping has been disabled").queue();
+                    }
+
+               }
+               else {
+                    event.getChannel().sendTyping().queue();
+                    event.getChannel().sendMessage("You have to be in the same voice channel as me to loop a song.").queue();
+               }
+          }
+          
      }
      private boolean isUrl(String url) {
           try {
