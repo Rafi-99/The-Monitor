@@ -29,7 +29,7 @@ public class General extends ListenerAdapter {
                     info.addField("**Moderation**", "setPrefix, ticketSetup, createInvite, mute, unmute, purge, kick, ban, unban", true);
                     info.addField("**General**", "botInfo, serverInfo, ping", true);
                     info.addField("**Fun**", "roast, wholesome, simp, avatar, pp", true);
-                    info.addField("**Music**", "join, leave, np, play, pause, skip, queue, clear", true);
+                    info.addField("**Music**", "join, leave, np, play, loopTrack, pause, skip, queue, clear", true);
                     info.setFooter(botOwner.getOwner().getName() + " | Bot Developer", botOwner.getOwner().getEffectiveAvatarUrl());
                     event.getChannel().sendTyping().queue();
                     event.getChannel().sendMessage(info.build()).queue();
