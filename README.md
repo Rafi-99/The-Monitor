@@ -1,6 +1,33 @@
-# Monitor
-A Multipurpose Discord Server Bot Implemented in Java   
-# Features
-* Server Moderation 
-* Music 
-
+# The Monitor ™
+A Multipurpose Java Discord Server Bot
+## Features
+* ### Server Moderation Commands
+  * setPrefix
+  * ticketSetup
+  * createInvite
+  * mute 
+  * unmute
+  * purge 
+  * kick
+  * ban 
+  * unban
+* ### General Commands
+  * botInfo
+  * serverInfo
+  * ping
+* ### Fun Commands
+  * roast
+  * wholesome
+  * simp
+  * avatar
+  * pp
+* ### Music Commands
+  * join
+  * leave
+  * np
+  * play
+  * loopTrack
+  * pause
+  * skip 
+  * queue
+  * clear 
