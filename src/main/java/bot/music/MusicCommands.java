@@ -64,9 +64,12 @@ public class MusicCommands extends ListenerAdapter {
 
           else if(commands[0].equalsIgnoreCase(Monitor.prefix + "leave") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && commands.length == 1) {
                if(event.getMember().getVoiceState().getChannel() != null && event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel() && manager.isConnected()) {
+                    guildMusicManager.scheduler.trackLoop = false;
+                    guildMusicManager.scheduler.getQueue().clear();
+                    guildMusicManager.player.stopTrack();
                     manager.closeAudioConnection();
                     event.getChannel().sendTyping().queue();
-                    event.getChannel().sendMessage("Successfully disconnected!").queue();
+                    event.getChannel().sendMessage("Successfully disconnected and cleared the queue!").queue();
                }
                else {
                     event.getChannel().sendTyping().queue();
