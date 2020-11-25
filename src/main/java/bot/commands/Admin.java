@@ -64,7 +64,7 @@ public class Admin extends ListenerAdapter {
           }
           
           // Automated link spam deletion
-          else if(event.getMessage().getContentRaw().contains("https://") || event.getMessage().getContentRaw().contains("http://")) {
+          else if(event.getMessage().getContentRaw().startsWith("https://") || event.getMessage().getContentRaw().startsWith("http://")) {
                Role staff = event.getGuild().getRoleById("710398399085805599");
                if(event.getChannel().getId().equals("709259200651591747") && !event.getMember().getRoles().contains(staff)) {
                     event.getMessage().delete().queue(); 
