@@ -277,6 +277,5 @@ public class Moderation extends ListenerAdapter {
                // Welcome message in #general with @user
                event.getGuild().getTextChannelById("693237215404359715").sendMessage("Hello " + event.getMember().getAsMention() + "! Welcome to our server >:)").queue();
           }
-     
      } 
 }    
