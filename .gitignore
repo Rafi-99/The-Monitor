@@ -6,3 +6,9 @@ build
 
 # Ignore .idea project folders from IntelliJ IDEA
 .idea 
+
+# Ignore project folders from VSCode
+.vscode
+
+# Ignore bin 
+bin
