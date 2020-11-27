@@ -7,8 +7,11 @@ build
 # Ignore .idea project folders from IntelliJ IDEA
 .idea 
 
-# Ignore project folders from VSCode
+# Ignore project folders and files from VSCode
 .vscode
+.project
+.classpath 
+.settings
 
 # Ignore bin 
 bin
