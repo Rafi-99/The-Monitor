@@ -58,6 +58,7 @@ public class PlayerManager {
                }
                @Override
                public void loadFailed(FriendlyException exception) {
+                    exception.printStackTrace();
                     channel.sendTyping().queue();
                     channel.sendMessage("Sorry, failed to load your request. Invalid Format.").queue();
                }
