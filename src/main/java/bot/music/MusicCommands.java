@@ -259,7 +259,7 @@ public class MusicCommands extends ListenerAdapter {
                .setMaxResults(1L)
                //.setType("video, playlist")
                .setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)")
-               .setKey("AIzaSyBHEJQW65A0ZQweGShQFGEM-L2PjzXBR6c")
+               .setKey(System.getenv("YouTube_KEY"))
                .execute()
                .getItems();
 
