@@ -17,7 +17,7 @@ public class Monitor {
     public static String prefix = "m!";
     
     public static void main(String[] args) throws LoginException, InterruptedException {
-         myBot = JDABuilder.createDefault(System.getenv("botToken"))
+         myBot = JDABuilder.createDefault(System.getenv("BOT_TOKEN"))
          .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_VOICE_STATES)
          .setMemberCachePolicy(MemberCachePolicy.ALL)
          .enableCache(CacheFlag.VOICE_STATE)
