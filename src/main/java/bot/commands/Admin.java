@@ -70,5 +70,9 @@ public class Admin extends ListenerAdapter {
                     event.getMessage().delete().queue(); 
                }
           }
+
+          else if(admin[0].equalsIgnoreCase(Monitor.prefix + "guilds")) {
+               System.out.println(Monitor.myBot.getGuilds());
+          }
      }
 }
