@@ -17,14 +17,14 @@ public class Monitor {
     public static String prefix = "m!";
     
     public static void main(String[] args) throws LoginException, InterruptedException {
-         myBot = JDABuilder.createDefault(System.getenv("BOT_TOKEN"))
-         .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_VOICE_STATES)
-         .setMemberCachePolicy(MemberCachePolicy.ALL)
-         .enableCache(CacheFlag.VOICE_STATE)
-         .addEventListeners(new Admin(), new Fun(), new General(), new Moderation(), new MusicCommands())
-         .build()
-         .awaitReady();
+        myBot = JDABuilder.createDefault(System.getenv("BOT_TOKEN"))
+        .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_VOICE_STATES)
+        .setMemberCachePolicy(MemberCachePolicy.ALL)
+        .enableCache(CacheFlag.VOICE_STATE)
+        .addEventListeners(new Admin(), new Fun(), new General(), new Moderation(), new MusicCommands())
+        .build()
+        .awaitReady();
 
-         myBot.getPresence().setActivity(Activity.playing(Monitor.prefix + "botInfo"));
+        myBot.getPresence().setActivity(Activity.playing(Monitor.prefix + "botInfo"));
     }
 }
