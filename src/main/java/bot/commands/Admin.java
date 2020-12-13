@@ -6,6 +6,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -24,7 +25,7 @@ public class Admin extends ListenerAdapter {
                     @Override
                     public void run() {
                          event.getChannel().sendMessage("Poggers!").queue();
-                         if (stop) {
+                         if(stop) {
                               event.getChannel().sendTyping().complete();
                               event.getChannel().sendMessage("Ending spam now...").complete();
                               event.getChannel().sendMessage("Ended.").complete();
@@ -34,27 +35,33 @@ public class Admin extends ListenerAdapter {
                     }
                }, 0, 1, TimeUnit.SECONDS);
           } 
-          else if (admin[0].equalsIgnoreCase(Monitor.prefix + "stopTest") && event.getAuthor().getId().equals("398215411998654466") && admin.length == 1) {
+          else if(admin[0].equalsIgnoreCase(Monitor.prefix + "stopTest") && event.getAuthor().getId().equals("398215411998654466") && admin.length == 1) {
                stop = true;
           }
 
-          else if(admin[0].equalsIgnoreCase(Monitor.prefix + "testing")) {
-               event.getChannel().sendMessage("Sent to DM!").queue();
+          else if(admin[0].equalsIgnoreCase(Monitor.prefix + "admin") && event.getAuthor().getId().equals("398215411998654466") && admin.length == 1) {
+               event.getChannel().sendMessage("The information has been sent to your DM!").queue();
                event.getAuthor().openPrivateChannel().queue(privateChannel -> {
-                    privateChannel.sendMessage("Hello there!").queue();
+                    EmbedBuilder adminInfo = new EmbedBuilder();
+                    adminInfo.setColor(0x05055e);
+                    adminInfo.setTitle("Admin");
+                    adminInfo.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                    adminInfo.setDescription("Commands available for your usage: \n test \n stopTest \n admin \n restart \n link \n guilds");
+                    privateChannel.sendMessage(adminInfo.build()).queue();
+                    adminInfo.clear();
                     privateChannel.close().queue();
                });
           }
 
-          else if(admin[0].equalsIgnoreCase(Monitor.prefix + "terminate") && admin.length == 1) {
+          else if(admin[0].equalsIgnoreCase(Monitor.prefix + "restart") && admin.length == 1) {
                if(event.getAuthor().getId().equals("398215411998654466") || event.getAuthor().getId().equals("658118412098076682")) {
                     event.getChannel().sendTyping().complete();
                     event.getChannel().sendMessage("Terminating...").complete();
-                    event.getChannel().sendMessage("Bot is now offline.").complete();
+                    event.getChannel().sendMessage("Bot is now going offline and restarting.").complete();
                     System.exit(0);
                }
                else {
-                    event.getChannel().sendMessage("Sorry, only the bot owner can terminate me.").queue();
+                    event.getChannel().sendMessage("Access denied.").queue();
                }
           }
           
@@ -63,16 +70,16 @@ public class Admin extends ListenerAdapter {
                event.getChannel().sendMessage(Monitor.myBot.getInviteUrl(Permission.ADMINISTRATOR)).queue();
           }
           
-          // Automated link spam deletion
+          else if(admin[0].equalsIgnoreCase(Monitor.prefix + "guilds") && event.getAuthor().getId().equals("398215411998654466") && admin.length == 1) {
+               event.getChannel().sendMessage(Monitor.myBot.getGuilds().toString()).queue();
+          }
+
+          // Automated link spam deletion in Goddess's Parthenon 
           else if(event.getMessage().getContentRaw().contains("https://") || event.getMessage().getContentRaw().contains("http://")) {
                Role staff = event.getGuild().getRoleById("710398399085805599");
                if(event.getChannel().getId().equals("709259200651591747") && !event.getMember().getRoles().contains(staff)) {
                     event.getMessage().delete().queue(); 
                }
-          }
-
-          else if(admin[0].equalsIgnoreCase(Monitor.prefix + "guilds")) {
-               System.out.println(Monitor.myBot.getGuilds());
           }
      }
 }
