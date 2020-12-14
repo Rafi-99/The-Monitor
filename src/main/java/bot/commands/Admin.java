@@ -13,13 +13,17 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.utils.concurrent.Task;
 
 public class Admin extends ListenerAdapter {
      boolean stop = false;
 
      @Override
      public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
-          String [] admin = event.getMessage().getContentRaw().split("\\s+"); 
+          String [] admin = event.getMessage().getContentRaw().split("\\s+");
+          Task<List<Member>> loadMembers = event.getGuild().loadMembers();
+          List <Member> members = loadMembers.get();
+          int count = 0; 
 
           if(admin[0].equalsIgnoreCase(Monitor.prefix + "test") && event.getAuthor().getId().equals("398215411998654466") && admin.length == 1) {
                ScheduledExecutorService test = Executors.newSingleThreadScheduledExecutor();
@@ -76,9 +80,7 @@ public class Admin extends ListenerAdapter {
                event.getChannel().sendMessage(Monitor.myBot.getGuilds().toString()).queue();
           }
 
-          else if (admin[0].equalsIgnoreCase(Monitor.prefix + "members") && event.getAuthor().getId().equals("398215411998654466") && admin.length == 1) {
-               List<Member> members = event.getGuild().getMembers();
-               int count = 0;
+          else if (admin[0].equalsIgnoreCase(Monitor.prefix + "members") && event.getAuthor().getId().equals("398215411998654466") && admin.length == 1) { 
                for (int i = 0; i < members.size(); i++) {
                     if(members.get(i).getUser().isBot() == false) {
                          count++;
@@ -87,7 +89,7 @@ public class Admin extends ListenerAdapter {
                event.getChannel().sendTyping().queue();
                event.getChannel().sendMessage("Real people: " + count).queue();               
           }
-          
+
           // Automated link spam deletion in Goddess's Parthenon 
           else if(event.getMessage().getContentRaw().contains("https://") || event.getMessage().getContentRaw().contains("http://")) {
                Role staff = event.getGuild().getRoleById("710398399085805599");
