@@ -2,28 +2,22 @@ package bot.commands;
 
 import bot.driver.Monitor;
 
-import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.utils.concurrent.Task;
 
 public class Admin extends ListenerAdapter {
      boolean stop = false;
 
      @Override
      public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
-          String [] admin = event.getMessage().getContentRaw().split("\\s+");
-          Task<List<Member>> loadMembers = event.getGuild().loadMembers();
-          List <Member> members = loadMembers.get();
-          int count = 0; 
+          String [] admin = event.getMessage().getContentRaw().split("\\s+"); 
 
           if(admin[0].equalsIgnoreCase(Monitor.prefix + "test") && event.getAuthor().getId().equals("398215411998654466") && admin.length == 1) {
                ScheduledExecutorService test = Executors.newSingleThreadScheduledExecutor();
@@ -32,9 +26,9 @@ public class Admin extends ListenerAdapter {
                     public void run() {
                          event.getChannel().sendMessage("Poggers!").queue();
                          if(stop) {
-                              event.getChannel().sendTyping().complete();
-                              event.getChannel().sendMessage("Ending spam now...").complete();
-                              event.getChannel().sendMessage("Ended.").complete();
+                              event.getChannel().sendTyping().queue();
+                              event.getChannel().sendMessage("Ending spam now...").queue();
+                              event.getChannel().sendMessage("Ended.").queue();
                               test.shutdownNow();
                               stop = false;
                          }
@@ -61,9 +55,9 @@ public class Admin extends ListenerAdapter {
 
           else if(admin[0].equalsIgnoreCase(Monitor.prefix + "restart") && admin.length == 1) {
                if(event.getAuthor().getId().equals("398215411998654466") || event.getAuthor().getId().equals("658118412098076682")) {
-                    event.getChannel().sendTyping().complete();
-                    event.getChannel().sendMessage("Terminating...").complete();
-                    event.getChannel().sendMessage("Bot is now going offline and restarting.").complete();
+                    event.getChannel().sendTyping().queue();
+                    event.getChannel().sendMessage("Terminating...").queue();
+                    event.getChannel().sendMessage("Bot is now going offline and restarting.").queue();
                     System.exit(0);
                }
                else {
@@ -78,16 +72,6 @@ public class Admin extends ListenerAdapter {
           
           else if(admin[0].equalsIgnoreCase(Monitor.prefix + "guilds") && event.getAuthor().getId().equals("398215411998654466") && admin.length == 1) {
                event.getChannel().sendMessage(Monitor.myBot.getGuilds().toString()).queue();
-          }
-
-          else if (admin[0].equalsIgnoreCase(Monitor.prefix + "members") && event.getAuthor().getId().equals("398215411998654466") && admin.length == 1) { 
-               for (int i = 0; i < members.size(); i++) {
-                    if(members.get(i).getUser().isBot() == false) {
-                         count++;
-                    }
-               }
-               event.getChannel().sendTyping().queue();
-               event.getChannel().sendMessage("Real people: " + count).queue();               
           }
 
           // Automated link spam deletion in Goddess's Parthenon 
