@@ -55,8 +55,9 @@ public class Admin extends ListenerAdapter {
 
           else if(admin[0].equalsIgnoreCase(Monitor.prefix + "restart") && admin.length == 1) {
                if(event.getAuthor().getId().equals("398215411998654466") || event.getAuthor().getId().equals("658118412098076682")) {
-                    event.getChannel().sendTyping().queue();
-                    event.getChannel().sendMessage("Terminating... \n Bot is now going offline and restarting.").queue();
+                    event.getChannel().sendTyping().complete();
+                    event.getChannel().sendMessage("Terminating...").complete();
+                    event.getChannel().sendMessage("Bot is now going offline and restarting.").complete(); 
                     System.exit(0);
                }
                else {
