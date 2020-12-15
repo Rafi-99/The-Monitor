@@ -77,14 +77,14 @@ public class Admin extends ListenerAdapter {
           // Automated link spam deletion in Goddess's Parthenon 
           else if(event.getMessage().getContentRaw().contains("https://") || event.getMessage().getContentRaw().contains("http://")) {
                Role staff = event.getGuild().getRoleById("710398399085805599");
+
                if(event.getChannel().getId().equals("709259200651591747") && !Objects.requireNonNull(event.getMember()).getRoles().contains(staff)) {
                     event.getMessage().delete().complete(); 
                }
+               if(event.getMessage().getContentRaw().contains("https://discord.gg/") && event.getGuild().getId().equals("709259200651591742")) {
+                    event.getMessage().delete().queue();
+               }
           }
-
-          // Automated discord link spam deletion in Goddess's Parthenon 
-          else if(event.getMessage().getContentRaw().contains("https://discord.gg/") && event.getGuild().getName().equals("The Goddess's Parthenon")) {
-               event.getMessage().delete().complete();
-          }
+          
      }
 }
