@@ -4,6 +4,7 @@ import bot.driver.Monitor;
 
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Objects;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -14,13 +15,24 @@ import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEve
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class Moderation extends ListenerAdapter {
-     
+
+     private void accessDenied(GuildMessageReceivedEvent event) {
+          EmbedBuilder denied = new EmbedBuilder();
+          denied.setColor(0x05055e);
+          denied.setTitle("❌ Access Denied! ❌");
+          denied.setDescription("Sorry, you don't have the required permissions to use this command.");
+          denied.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+          event.getChannel().sendTyping().queue();
+          event.getChannel().sendMessage(denied.build()).queue();
+          denied.clear();
+     }
+
      @Override
      public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
           String [] mod = event.getMessage().getContentRaw().split("\\s+");
 
           if(mod[0].equalsIgnoreCase(Monitor.prefix + "ban") || mod[0].equalsIgnoreCase(Monitor.prefix + "unban")) {
-               if(event.getMember().hasPermission(Permission.BAN_MEMBERS)) {
+               if(Objects.requireNonNull(event.getMember()).hasPermission(Permission.BAN_MEMBERS)) {
                     if(mod[0].equalsIgnoreCase(Monitor.prefix + "ban")) {
                          if(mod.length < 2) {
                               EmbedBuilder ban = new EmbedBuilder();
@@ -69,18 +81,11 @@ public class Moderation extends ListenerAdapter {
                     }
                }
                else {
-                    EmbedBuilder denied = new EmbedBuilder();
-                    denied.setColor(0x05055e);
-                    denied.setTitle("❌ Access Denied! ❌");
-                    denied.setDescription("Sorry, you don't have the required permissions to use this command.");
-                    denied.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-                    event.getChannel().sendTyping().queue();
-                    event.getChannel().sendMessage(denied.build()).queue();
-                    denied.clear();                             
+                    accessDenied(event);
                }
           }
           else if(mod[0].equalsIgnoreCase(Monitor.prefix + "kick")) {
-               if(event.getMember().hasPermission(Permission.KICK_MEMBERS)) {
+               if(Objects.requireNonNull(event.getMember()).hasPermission(Permission.KICK_MEMBERS)) {
                     if(mod.length < 2) {
                          EmbedBuilder kick = new EmbedBuilder();
                          kick.setColor(0x05055e);
@@ -104,18 +109,11 @@ public class Moderation extends ListenerAdapter {
                     }
                }
                else {
-                    EmbedBuilder denied = new EmbedBuilder();
-                    denied.setColor(0x05055e);
-                    denied.setTitle("❌ Access Denied! ❌");
-                    denied.setDescription("Sorry, you don't have the required permissions to use this command.");
-                    denied.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-                    event.getChannel().sendTyping().queue();
-                    event.getChannel().sendMessage(denied.build()).queue();
-                    denied.clear();                                                 
+                    accessDenied(event);
                }
           }
           else if(mod[0].equalsIgnoreCase(Monitor.prefix + "purge") || mod[0].equalsIgnoreCase(Monitor.prefix + "setPrefix") ) {
-               if(event.getMember().hasPermission(Permission.MESSAGE_MANAGE)) {
+               if(Objects.requireNonNull(event.getMember()).hasPermission(Permission.MESSAGE_MANAGE)) {
                     if(mod[0].equalsIgnoreCase(Monitor.prefix + "purge")) {
                          if(mod.length < 2) {            	  
                               EmbedBuilder usage = new EmbedBuilder();
@@ -204,34 +202,20 @@ public class Moderation extends ListenerAdapter {
                     }
                }
                else {
-                    EmbedBuilder denied = new EmbedBuilder();
-                    denied.setColor(0x05055e);
-                    denied.setTitle("❌ Access Denied! ❌");
-                    denied.setDescription("Sorry, you don't have the required permissions to use this command.");
-                    denied.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-                    event.getChannel().sendTyping().queue();
-                    event.getChannel().sendMessage(denied.build()).queue();
-                    denied.clear();         
+                    accessDenied(event);
                }
           }
           else if(mod[0].equalsIgnoreCase(Monitor.prefix + "createInvite") && mod.length == 1) {
-               if(event.getMember().hasPermission(Permission.CREATE_INSTANT_INVITE)) {
+               if(Objects.requireNonNull(event.getMember()).hasPermission(Permission.CREATE_INSTANT_INVITE)) {
                     event.getChannel().sendTyping().queue();
                     event.getChannel().sendMessage("Invite created! Copy the link below and send it to someone!").queue();
                     event.getChannel().sendMessage(event.getChannel().createInvite().setMaxAge(0).complete().getUrl()).queue();
                }
                else {
-                    EmbedBuilder denied = new EmbedBuilder();
-                    denied.setColor(0x05055e);
-                    denied.setTitle("❌ Access Denied! ❌");
-                    denied.setDescription("Sorry, you don't have the required permissions to use this command.");
-                    denied.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-                    event.getChannel().sendTyping().queue();
-                    event.getChannel().sendMessage(denied.build()).queue();
-                    denied.clear();                             
+                    accessDenied(event);
                }
           }
-          else if (mod[0].equalsIgnoreCase(Monitor.prefix + "ticketSetup") && event.getMember().hasPermission(Permission.MESSAGE_MANAGE)) {
+          else if (mod[0].equalsIgnoreCase(Monitor.prefix + "ticketSetup") && Objects.requireNonNull(event.getMember()).hasPermission(Permission.MESSAGE_MANAGE)) {
                EmbedBuilder ticket = new EmbedBuilder();
                ticket.setColor(0x05055e);
                ticket.setTitle("**Create a Support Ticket**");
@@ -246,12 +230,12 @@ public class Moderation extends ListenerAdapter {
           if(event.getChannel().getId().equals("709557615708864522") && event.getReactionEmote().getAsReactionCode().equals("📩") && !(event.getUser().isBot())) {
                event.getReaction().removeReaction(event.getUser()).queue(); 
                event.getGuild().createTextChannel("Support Ticket")
-               .addPermissionOverride(event.getGuild().getRoleById("709259200651591742"), null, EnumSet.of(Permission.VIEW_CHANNEL))
-               .addPermissionOverride(event.getGuild().getRoleById("710398399085805599"), EnumSet.of(Permission.VIEW_CHANNEL), null)
+               .addPermissionOverride(Objects.requireNonNull(event.getGuild().getRoleById("709259200651591742")), null, EnumSet.of(Permission.VIEW_CHANNEL))
+               .addPermissionOverride(Objects.requireNonNull(event.getGuild().getRoleById("710398399085805599")), EnumSet.of(Permission.VIEW_CHANNEL), null)
                .addPermissionOverride(event.getMember(), EnumSet.of(Permission.VIEW_CHANNEL, Permission.MESSAGE_WRITE, Permission.MESSAGE_ATTACH_FILES), null)
                .queue(support -> {
                     support.sendMessage("Welcome to support! " + event.getMember().getAsMention()).queue();
-                    support.sendMessage("A staff member will arrive to assist you shortly. " + event.getGuild().getRoleById("710398399085805599").getAsMention()).queue();
+                    support.sendMessage("A staff member will arrive to assist you shortly. " + Objects.requireNonNull(event.getGuild().getRoleById("710398399085805599")).getAsMention()).queue();
                });  
           }
      }
@@ -259,23 +243,23 @@ public class Moderation extends ListenerAdapter {
      public void onGuildMemberJoin(GuildMemberJoinEvent event) {
           if(event.getGuild().getName().equals("The Goddess's Parthenon")) {
                // Wanderer
-               event.getGuild().addRoleToMember(event.getMember().getId(), event.getGuild().getRoleById("709505726640291877")).queue();
+               event.getGuild().addRoleToMember(event.getMember().getId(), Objects.requireNonNull(event.getGuild().getRoleById("709505726640291877"))).queue();
                // Agreed to Rules 
-               event.getGuild().addRoleToMember(event.getMember().getId(), event.getGuild().getRoleById("709505763583852565")).queue();
+               event.getGuild().addRoleToMember(event.getMember().getId(), Objects.requireNonNull(event.getGuild().getRoleById("709505763583852565"))).queue();
                // Welcome message that gets sent in #general with @user and @Welcomer mentions
-               event.getGuild().getTextChannelById("709259200651591747").sendMessage("Hello " + event.getMember().getAsMention() + "! Welcome to our server, **The Goddess's Parthenon**! " + event.getGuild().getRoleById("727010870403530760").getAsMention() + " please make our new friend feel welcome!!! :)").queue();
+               Objects.requireNonNull(event.getGuild().getTextChannelById("709259200651591747")).sendMessage("Hello " + event.getMember().getAsMention() + "! Welcome to our server, **The Goddess's Parthenon**! " + Objects.requireNonNull(event.getGuild().getRoleById("727010870403530760")).getAsMention() + " please make our new friend feel welcome!!! :)").queue();
           }
           else if(event.getGuild().getName().equals("Friends :)")) {
                // Members
-               event.getGuild().addRoleToMember(event.getMember().getId(), event.getGuild().getRoleById("754614035529597038")).queue();
+               event.getGuild().addRoleToMember(event.getMember().getId(), Objects.requireNonNull(event.getGuild().getRoleById("754614035529597038"))).queue();
                // Welcome message that gets sent in #general with @user 
-               event.getGuild().getTextChannelById("753717833937977388").sendMessage("Hello " + event.getMember().getAsMention() + "! Welcome to our server, **Friends :)**! Enjoy your stay :)").queue();
+               Objects.requireNonNull(event.getGuild().getTextChannelById("753717833937977388")).sendMessage("Hello " + event.getMember().getAsMention() + "! Welcome to our server, **Friends :)**! Enjoy your stay :)").queue();
           }
           else if(event.getGuild().getName().equals("Wholesome Study Boys")) {
                // No Catfishing >:) 
-               event.getGuild().addRoleToMember(event.getMember().getId(), event.getGuild().getRoleById("694032141058834432")).queue();
+               event.getGuild().addRoleToMember(event.getMember().getId(), Objects.requireNonNull(event.getGuild().getRoleById("694032141058834432"))).queue();
                // Welcome message in #general with @user
-               event.getGuild().getTextChannelById("693237215404359715").sendMessage("Hello " + event.getMember().getAsMention() + "! Welcome to our server >:)").queue();
+               Objects.requireNonNull(event.getGuild().getTextChannelById("693237215404359715")).sendMessage("Hello " + event.getMember().getAsMention() + "! Welcome to our server >:)").queue();
           }
      } 
 }    
