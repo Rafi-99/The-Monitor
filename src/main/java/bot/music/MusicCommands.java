@@ -3,6 +3,7 @@ package bot.music;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
@@ -36,6 +37,7 @@ public class MusicCommands extends ListenerAdapter {
           } 
           youTube = temp;
      }
+
      @Override
      public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
           AudioManager manager = event.getGuild().getAudioManager();
@@ -43,11 +45,11 @@ public class MusicCommands extends ListenerAdapter {
           BlockingQueue<AudioTrack> playerQueue = PlayerManager.getInstance().getMusicManager(event.getGuild()).scheduler.getQueue();
           String [] commands = event.getMessage().getContentRaw().split("\\s+");
 
-          if(commands[0].equalsIgnoreCase(Monitor.prefix + "join") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && commands.length == 1) {
+          if(commands[0].equalsIgnoreCase(Monitor.prefix + "join") && Objects.requireNonNull(event.getMember()).hasPermission(Permission.VOICE_CONNECT) && commands.length == 1) {
                if(!manager.isConnected()) {
-                    if(event.getMember().getVoiceState().getChannel() != null) {
+                    if(Objects.requireNonNull(event.getMember().getVoiceState()).getChannel() != null) {
                          manager.openAudioConnection(event.getMember().getVoiceState().getChannel());
-                         String name = event.getMember().getVoiceState().getChannel().toString().replace("VC:", "");
+                         String name = Objects.requireNonNull(event.getMember().getVoiceState().getChannel()).toString().replace("VC:", "");
                          event.getChannel().sendTyping().queue();
                          event.getChannel().sendMessage("Successfully connected to: " + name.substring(name.indexOf(""), name.indexOf("("))).queue();
                     }
@@ -62,8 +64,8 @@ public class MusicCommands extends ListenerAdapter {
                }     
           }
 
-          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "leave") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && commands.length == 1) {
-               if(event.getMember().getVoiceState().getChannel() != null && event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel() && manager.isConnected()) {
+          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "leave") && Objects.requireNonNull(event.getMember()).hasPermission(Permission.VOICE_CONNECT) && commands.length == 1) {
+               if(Objects.requireNonNull(event.getMember().getVoiceState()).getChannel() != null && event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel() && manager.isConnected()) {
                     guildMusicManager.scheduler.trackLoop = false;
                     guildMusicManager.scheduler.getQueue().clear();
                     guildMusicManager.player.stopTrack();
@@ -77,7 +79,7 @@ public class MusicCommands extends ListenerAdapter {
                }
           }
 
-          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "play") && event.getMember().hasPermission(Permission.VOICE_CONNECT)) {
+          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "play") && Objects.requireNonNull(event.getMember()).hasPermission(Permission.VOICE_CONNECT)) {
                if(commands.length == 1) {
                     EmbedBuilder play = new EmbedBuilder();
                     play.setColor(0x05055e);
@@ -89,7 +91,7 @@ public class MusicCommands extends ListenerAdapter {
                     play.clear();
                }
                else {
-                    if(event.getMember().getVoiceState().getChannel() != null && event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel() && manager.isConnected()) {
+                    if(Objects.requireNonNull(event.getMember().getVoiceState()).getChannel() != null && event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel() && manager.isConnected()) {
                          String link = String.join(" ", commands).replace(commands[0], "");
                          
                          if(!isUrl(link)) {
@@ -115,8 +117,8 @@ public class MusicCommands extends ListenerAdapter {
                }
           }
 
-          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "np") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && commands.length == 1) {
-               if(event.getMember().getVoiceState().getChannel() != null && event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel() && manager.isConnected()) {
+          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "np") && Objects.requireNonNull(event.getMember()).hasPermission(Permission.VOICE_CONNECT) && commands.length == 1) {
+               if(Objects.requireNonNull(event.getMember().getVoiceState()).getChannel() != null && event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel() && manager.isConnected()) {
                     if(guildMusicManager.player.getPlayingTrack() == null) {
                          event.getChannel().sendTyping().queue();
                          event.getChannel().sendMessage("Nothing is being played currently.").queue();
@@ -131,8 +133,8 @@ public class MusicCommands extends ListenerAdapter {
                }
           }
 
-          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "clear") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && commands.length == 1) {
-               if (event.getMember().getVoiceState().getChannel() != null && event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel() && manager.isConnected()) {
+          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "clear") && Objects.requireNonNull(event.getMember()).hasPermission(Permission.VOICE_CONNECT) && commands.length == 1) {
+               if (Objects.requireNonNull(event.getMember().getVoiceState()).getChannel() != null && event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel() && manager.isConnected()) {
                     guildMusicManager.scheduler.getQueue().clear();
                     guildMusicManager.player.stopTrack();
                     guildMusicManager.player.setPaused(false);
@@ -146,8 +148,8 @@ public class MusicCommands extends ListenerAdapter {
           }
 
           //pause command pauses and resumes the player
-          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "pause") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && commands.length == 1) {
-               if(event.getMember().getVoiceState().getChannel() != null && event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel() && manager.isConnected()) {
+          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "pause") && Objects.requireNonNull(event.getMember()).hasPermission(Permission.VOICE_CONNECT) && commands.length == 1) {
+               if(Objects.requireNonNull(event.getMember().getVoiceState()).getChannel() != null && event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel() && manager.isConnected()) {
                     if(pause) {
                          guildMusicManager.player.setPaused(true);
                          pause = false;
@@ -167,8 +169,8 @@ public class MusicCommands extends ListenerAdapter {
                }
           }
 
-          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "skip") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && commands.length == 1) {
-               if(event.getMember().getVoiceState().getChannel() != null && event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel() && manager.isConnected()) {
+          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "skip") && Objects.requireNonNull(event.getMember()).hasPermission(Permission.VOICE_CONNECT) && commands.length == 1) {
+               if(Objects.requireNonNull(event.getMember().getVoiceState()).getChannel() != null && event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel() && manager.isConnected()) {
                     if(playerQueue.size() > 0) {
                          guildMusicManager.scheduler.nextTrack();
                          event.getChannel().sendTyping().queue();
@@ -186,8 +188,8 @@ public class MusicCommands extends ListenerAdapter {
                }
           }
 
-          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "queue") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && commands.length == 1) {
-               if(event.getMember().getVoiceState().getChannel() != null && event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel() && manager.isConnected()) {
+          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "queue") && Objects.requireNonNull(event.getMember()).hasPermission(Permission.VOICE_CONNECT) && commands.length == 1) {
+               if(Objects.requireNonNull(event.getMember().getVoiceState()).getChannel() != null && event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel() && manager.isConnected()) {
                     if (playerQueue.isEmpty()) {
                          event.getChannel().sendTyping().queue();
                          event.getChannel().sendMessage("The queue is empty.").queue();
@@ -220,8 +222,8 @@ public class MusicCommands extends ListenerAdapter {
                }
           }
 
-          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "loopTrack") && event.getMember().hasPermission(Permission.VOICE_CONNECT) && commands.length == 1) {
-               if(event.getMember().getVoiceState().getChannel() != null && event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel() && manager.isConnected()) {
+          else if(commands[0].equalsIgnoreCase(Monitor.prefix + "loopTrack") && Objects.requireNonNull(event.getMember()).hasPermission(Permission.VOICE_CONNECT) && commands.length == 1) {
+               if(Objects.requireNonNull(event.getMember().getVoiceState()).getChannel() != null && event.getMember().getVoiceState().getChannel() == manager.getConnectedChannel() && manager.isConnected()) {
                     final boolean trackRepeat = !guildMusicManager.scheduler.trackLoop;
                     guildMusicManager.scheduler.trackLoop = trackRepeat;
 
@@ -243,6 +245,7 @@ public class MusicCommands extends ListenerAdapter {
           }
           
      }
+
      private boolean isUrl(String url) {
           try {
                new URL(url).toURI();
@@ -251,13 +254,13 @@ public class MusicCommands extends ListenerAdapter {
                return false;
           }
      }
+
      private String youtubeSearch(String searchInput) {
           try {
                List<SearchResult> result = youTube.search()
                .list("id,snippet")
                .setQ(searchInput)
                .setMaxResults(1L)
-               //.setType("video, playlist")
                .setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)")
                .setKey(System.getenv("YouTube_KEY"))
                .execute()
