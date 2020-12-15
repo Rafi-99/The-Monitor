@@ -113,7 +113,7 @@ public class Fun extends ListenerAdapter {
                     schlong.setColor(0x05055e);
                     schlong.setTitle("Penis Generator");
                     schlong.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-                    schlong.setDescription(event.getMessage().getMentionedMembers().get(0).getEffectiveName() + "'s penis \n"+ built);
+                    schlong.setDescription(event.getMessage().getMentionedMembers().get(0).getEffectiveName() + "'s penis \n"+ maleObject);
                     event.getChannel().sendTyping().queue();
                     event.getChannel().sendMessage(schlong.build()).queue();
                     schlong.clear();
