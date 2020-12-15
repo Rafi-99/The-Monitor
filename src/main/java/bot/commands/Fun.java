@@ -8,7 +8,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class Fun extends ListenerAdapter {
 
-     String Roasts[] = { 
+     String [] roasts = {
           "Your birth certificate is an apology letter from the abortion clinic.",
           "I fucking hate you LOL!", "Don't play hard to get when you are hard to want.",
           "At least my dad didn't leave me.",
@@ -30,12 +30,13 @@ public class Fun extends ListenerAdapter {
 
      @Override
      public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
+
           String [] fun = event.getMessage().getContentRaw().split("\\s+"); 
 
           if(fun[0].equalsIgnoreCase(Monitor.prefix + "roast")) {
                if(fun.length == 2) {
                     event.getChannel().sendTyping().queue();
-                    event.getChannel().sendMessage(fun[1] +" "+ Roasts[(int) (Math.random() * 20)]).queue();
+                    event.getChannel().sendMessage(fun[1] +" "+ roasts[(int) (Math.random() * 20)]).queue();
                }
                else {
                     event.getChannel().sendTyping().queue();
@@ -96,16 +97,17 @@ public class Fun extends ListenerAdapter {
           }
 
           else if(fun[0].equalsIgnoreCase(Monitor.prefix + "pp")) {
-               int pp = (int) (Math.random()*13);
-               String built = "";
-               String shaft = "";
+
+               int length = (int) (Math.random()*13);
+               String maleObject = "";
+               String growth = "";
 
                if(fun.length == 2) {
-                    for (int i = 0; i < pp; i++) {
+                    for (int i = 0; i < length; i++) {
                          String inches = "=";
-                         shaft += inches;
+                         growth += inches;
                     }
-                    built = "8" + shaft + "D";
+                    maleObject = "8" + growth + "D";
 
                     EmbedBuilder schlong = new EmbedBuilder();
                     schlong.setColor(0x05055e);
@@ -123,5 +125,6 @@ public class Fun extends ListenerAdapter {
                     
                }
           }
+
      } 
 }
