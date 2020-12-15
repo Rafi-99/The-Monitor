@@ -81,5 +81,12 @@ public class Admin extends ListenerAdapter {
                     event.getMessage().delete().queue(); 
                }
           }
+
+          // Automated discord link spam deletion in Goddess's Parthenon 
+          else if(event.getMessage().getContentRaw().contains("https://discord.gg") || event.getMessage().getContentRaw().contains("http://discord.gg")) {
+               if(event.getGuild().getId().equals("709259200651591742")) {
+                    event.getMessage().delete().queue();
+               }
+          }
      }
 }
