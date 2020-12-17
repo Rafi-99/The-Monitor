@@ -99,15 +99,14 @@ public class Fun extends ListenerAdapter {
           else if(fun[0].equalsIgnoreCase(Monitor.prefix + "pp")) {
 
                int length = (int) (Math.random()*13);
-               String maleObject = "";
-               String growth = "";
+               StringBuilder growth = new StringBuilder();
 
                if(fun.length == 2) {
                     for (int i = 0; i < length; i++) {
                          String inches = "=";
-                         growth += inches;
+                         growth.append(inches);
                     }
-                    maleObject = "8" + growth + "D";
+                    String maleObject = "8" + growth + "D";
 
                     EmbedBuilder schlong = new EmbedBuilder();
                     schlong.setColor(0x05055e);
