@@ -125,5 +125,66 @@ public class Fun extends ListenerAdapter {
                }
           }
 
-     } 
+          else if(fun[0].equalsIgnoreCase(Monitor.prefix + "rps") && fun.length == 1) {
+               event.getChannel().sendTyping().queue();
+               event.getChannel().sendMessage("Type in 'rock', 'paper', or 'scissors'").queue();
+
+               int rps = (int) (Math.random() * 3) + 1;
+
+               if(rps == 1) {
+                    if(event.getMessage().getContentRaw().equalsIgnoreCase("Rock")) {
+                         event.getChannel().sendTyping().queue();
+                         event.getChannel().sendMessage("It's a tie!").queue();
+                    }
+                    else if(event.getMessage().getContentRaw().equalsIgnoreCase("Paper")) {
+                         event.getChannel().sendTyping().queue();
+                         event.getChannel().sendMessage("You won!").queue();
+                    }
+                    else if (event.getMessage().getContentRaw().equalsIgnoreCase("Scissors")) {
+                         event.getChannel().sendTyping().queue();
+                         event.getChannel().sendMessage("You lost!").queue();
+                    }
+                    else {
+                         event.getChannel().sendTyping().queue();
+                         event.getChannel().sendMessage("Invalid input.").queue();
+                    }
+               }
+               else if(rps == 2) {
+                    if(event.getMessage().getContentRaw().equalsIgnoreCase("Paper")) {
+                         event.getChannel().sendTyping().queue();
+                         event.getChannel().sendMessage("It's a tie!").queue();
+                    }
+                    else if(event.getMessage().getContentRaw().equalsIgnoreCase("Scissors")) {
+                         event.getChannel().sendTyping().queue();
+                         event.getChannel().sendMessage("You won!").queue();
+                    }
+                    else if(event.getMessage().getContentRaw().equalsIgnoreCase("Rock")) {
+                         event.getChannel().sendTyping().queue();
+                         event.getChannel().sendMessage("You lost!").queue();
+                    }
+                    else {
+                         event.getChannel().sendTyping().queue();
+                         event.getChannel().sendMessage("Invalid input.").queue();
+                    }
+               }
+               else if (rps == 3) {
+                    if(event.getMessage().getContentRaw().equalsIgnoreCase("Scissors")) {
+                         event.getChannel().sendTyping().queue();
+                         event.getChannel().sendMessage("It's a tie!").queue();
+                    }
+                    else if(event.getMessage().getContentRaw().equalsIgnoreCase("Rock")) {
+                         event.getChannel().sendTyping().queue();
+                         event.getChannel().sendMessage("You won!").queue();
+                    }
+                    else if(event.getMessage().getContentRaw().equalsIgnoreCase("Paper")) {
+                         event.getChannel().sendTyping().queue();
+                         event.getChannel().sendMessage("You lost!").queue();
+                    }
+                    else {
+                         event.getChannel().sendTyping().queue();
+                         event.getChannel().sendMessage("Invalid input.").queue();
+                    }
+               }
+          }
+     }
 }
