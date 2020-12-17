@@ -14,9 +14,9 @@ public class General extends ListenerAdapter {
 
      @Override
      public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
-          String[] args = event.getMessage().getContentRaw().split("\\s+");
+          String [] general = event.getMessage().getContentRaw().split("\\s+");
           // Code for the bot info command
-          if (args[0].equalsIgnoreCase(Monitor.prefix + "botInfo") && args.length == 1) {
+          if (general[0].equalsIgnoreCase(Monitor.prefix + "botInfo") && general.length == 1) {
                // lambda to create the embed and have the retrieved owner name and avatar inside the footer
                Monitor.myBot.retrieveApplicationInfo().queue(botOwner -> {
                     EmbedBuilder info = new EmbedBuilder();
@@ -37,7 +37,7 @@ public class General extends ListenerAdapter {
                });
           }
           // Code for the server info command 
-          else if(args[0].equalsIgnoreCase(Monitor.prefix + "serverInfo") && args.length == 1) { 
+          else if(general[0].equalsIgnoreCase(Monitor.prefix + "serverInfo") && general.length == 1) {
                // Consumer is used to create the embed with the retrieved owner
                Consumer <Member> owner = (o) -> { 
                     EmbedBuilder server = new EmbedBuilder();
@@ -63,7 +63,7 @@ public class General extends ListenerAdapter {
                event.getGuild().retrieveOwner().queue(owner);     
           }  
           // Code for the ping command         
-          else if(args[0].equalsIgnoreCase(Monitor.prefix + "ping") && args.length == 1) {
+          else if(general[0].equalsIgnoreCase(Monitor.prefix + "ping") && general.length == 1) {
                event.getChannel().sendTyping().queue();
                event.getChannel().sendMessage("Pinging...").queue(p -> 
                { 
