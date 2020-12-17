@@ -126,10 +126,8 @@ public class Fun extends ListenerAdapter {
           }
 
           else if(fun[0].equalsIgnoreCase(Monitor.prefix + "rps")) {
-               event.getChannel().sendTyping().queue();
-               event.getChannel().sendMessage("Type in 'rock', 'paper', or 'scissors'").queue();
-
                int rps = (int) (Math.random() * 3) + 1;
+
                if(fun.length == 2) {
                     if(rps == 1) {
                          if(fun[1].equalsIgnoreCase("Rock")) {
