@@ -261,5 +261,9 @@ public class Moderation extends ListenerAdapter {
                // Welcome message in #general with @user
                Objects.requireNonNull(event.getGuild().getTextChannelById("693237215404359715")).sendMessage("Hello " + event.getMember().getAsMention() + "! Welcome to our server >:)").queue();
           }
+          else if(event.getGuild().getName().equals("Playground")) {
+               event.getGuild().addRoleToMember(event.getMember().getId(), Objects.requireNonNull(event.getGuild().getRoleById("756889036026675290"))).queue();
+               Objects.requireNonNull(event.getGuild().getTextChannelById("710434525611688009")).sendMessage("Welcome to Playground! " + event.getMember().getAsMention()).queue();
+          }
      } 
 }    
