@@ -81,7 +81,7 @@ public class Admin extends ListenerAdapter {
                if(event.getChannel().getId().equals("709259200651591747") && !Objects.requireNonNull(event.getMember()).getRoles().contains(staff)) {
                     event.getMessage().delete().complete(); 
                }
-               if(event.getMessage().getContentRaw().contains("https://discord.gg/") && event.getGuild().getId().equals("709259200651591742")) {
+               if(event.getMessage().getContentRaw().contains("https://discord.gg/") && event.getGuild().getId().equals("709259200651591742") && !event.getChannel().getId().equals("717870479272312934")) {
                     event.getMessage().delete().queue();
                }
           }
