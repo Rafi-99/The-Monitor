@@ -46,7 +46,7 @@ public class Admin extends ListenerAdapter {
                     adminInfo.setColor(0x05055e);
                     adminInfo.setTitle("Admin");
                     adminInfo.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-                    adminInfo.setDescription("Commands available for your usage: \n ``` test \n stopTest \n admin \n restart \n link \n guilds ```");
+                    adminInfo.setDescription("Commands available for your usage: \n```test \nstopTest \nadmin \nrestart \nlink \nguilds```");
                     privateChannel.sendMessage(adminInfo.build()).queue();
                     adminInfo.clear();
                     privateChannel.close().queue();
