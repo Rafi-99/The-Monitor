@@ -132,15 +132,15 @@ public class Fun extends ListenerAdapter {
                     if(rps == 1) {
                          if(fun[1].equalsIgnoreCase("Rock")) {
                               event.getChannel().sendTyping().queue();
-                              event.getChannel().sendMessage("It's a tie!").queue();
+                              event.getChannel().sendMessage("The computer was: Rock \n It's a tie!").queue();
                          }
                          else if(fun[1].equalsIgnoreCase("Paper")) {
                               event.getChannel().sendTyping().queue();
-                              event.getChannel().sendMessage("You won!").queue();
+                              event.getChannel().sendMessage("The computer was: Rock \n You won!").queue();
                          }
                          else if (fun[1].equalsIgnoreCase("Scissors")) {
                               event.getChannel().sendTyping().queue();
-                              event.getChannel().sendMessage("You lost!").queue();
+                              event.getChannel().sendMessage("The computer was: Rock \n You lost!").queue();
                          }
                          else {
                               event.getChannel().sendTyping().queue();
@@ -150,15 +150,15 @@ public class Fun extends ListenerAdapter {
                     else if(rps == 2) {
                          if(fun[1].equalsIgnoreCase("Paper")) {
                               event.getChannel().sendTyping().queue();
-                              event.getChannel().sendMessage("It's a tie!").queue();
+                              event.getChannel().sendMessage("The computer was: Paper \n It's a tie!").queue();
                          }
                          else if(fun[1].equalsIgnoreCase("Scissors")) {
                               event.getChannel().sendTyping().queue();
-                              event.getChannel().sendMessage("You won!").queue();
+                              event.getChannel().sendMessage("The computer was: Paper \n You won!").queue();
                          }
                          else if(fun[1].equalsIgnoreCase("Rock")) {
                               event.getChannel().sendTyping().queue();
-                              event.getChannel().sendMessage("You lost!").queue();
+                              event.getChannel().sendMessage("The computer was: Paper \n You lost!").queue();
                          }
                          else {
                               event.getChannel().sendTyping().queue();
@@ -168,15 +168,15 @@ public class Fun extends ListenerAdapter {
                     else if (rps == 3) {
                          if(fun[1].equalsIgnoreCase("Scissors")) {
                               event.getChannel().sendTyping().queue();
-                              event.getChannel().sendMessage("It's a tie!").queue();
+                              event.getChannel().sendMessage("The computer was: Scissors \n It's a tie!").queue();
                          }
                          else if(fun[1].equalsIgnoreCase("Rock")) {
                               event.getChannel().sendTyping().queue();
-                              event.getChannel().sendMessage("You won!").queue();
+                              event.getChannel().sendMessage("The computer was: Scissors \n You won!").queue();
                          }
                          else if(fun[1].equalsIgnoreCase("Paper")) {
                               event.getChannel().sendTyping().queue();
-                              event.getChannel().sendMessage("You lost!").queue();
+                              event.getChannel().sendMessage("The computer was: Scissors \n You lost!").queue();
                          }
                          else {
                               event.getChannel().sendTyping().queue();
@@ -186,8 +186,10 @@ public class Fun extends ListenerAdapter {
                }
                else {
                     event.getChannel().sendTyping().queue();
-                    event.getChannel().sendMessage("Type in "+ Monitor.prefix +"rps [rock OR paper OR scissors] to use this command!").queue();
+                    event.getChannel().sendMessage("Type in "+ Monitor.prefix +"rps [rock/paper/scissors] to use this command!").queue();
                }
           }
+
+
      }
 }
