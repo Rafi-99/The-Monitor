@@ -31,54 +31,120 @@ public class Fun extends ListenerAdapter {
      private void rpsGame(GuildMessageReceivedEvent event, String [] fun, int rps) {
           if(rps == 1) {
                if(fun[1].equalsIgnoreCase("Rock")) {
+                    EmbedBuilder rpsBuilder = new EmbedBuilder();
+                    rpsBuilder.setColor(0x05055e);
+                    rpsBuilder.setTitle("Rock Paper Scissors");
+                    rpsBuilder.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                    rpsBuilder.setDescription("The computer was: Rock :moyai: \nIt's a tie!");
                     event.getChannel().sendTyping().queue();
-                    event.getChannel().sendMessage("The computer was: Rock \nIt's a tie!").queue();
+                    event.getChannel().sendMessage(rpsBuilder.build()).queue();
+                    rpsBuilder.clear();
                }
                else if(fun[1].equalsIgnoreCase("Paper")) {
+                    EmbedBuilder rpsBuilder = new EmbedBuilder();
+                    rpsBuilder.setColor(0x05055e);
+                    rpsBuilder.setTitle("Rock Paper Scissors");
+                    rpsBuilder.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                    rpsBuilder.setDescription("The computer was: Rock :moyai: \nYou won!");
                     event.getChannel().sendTyping().queue();
-                    event.getChannel().sendMessage("The computer was: Rock \nYou won!").queue();
+                    event.getChannel().sendMessage(rpsBuilder.build()).queue();
+                    rpsBuilder.clear();
                }
                else if (fun[1].equalsIgnoreCase("Scissors")) {
+                    EmbedBuilder rpsBuilder = new EmbedBuilder();
+                    rpsBuilder.setColor(0x05055e);
+                    rpsBuilder.setTitle("Rock Paper Scissors");
+                    rpsBuilder.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                    rpsBuilder.setDescription("The computer was: Rock :moyai: \nYou lost!");
                     event.getChannel().sendTyping().queue();
-                    event.getChannel().sendMessage("The computer was: Rock \nYou lost!").queue();
+                    event.getChannel().sendMessage(rpsBuilder.build()).queue();
+                    rpsBuilder.clear();
                }
                else {
-                    event.getChannel().sendTyping().queue();
-                    event.getChannel().sendMessage("Invalid input.").queue();
+                    rpsError(event);
                }
           }
           else if(rps == 2) {
                if(fun[1].equalsIgnoreCase("Paper")) {
+                    EmbedBuilder rpsBuilder = new EmbedBuilder();
+                    rpsBuilder.setColor(0x05055e);
+                    rpsBuilder.setTitle("Rock Paper Scissors");
+                    rpsBuilder.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                    rpsBuilder.setDescription("The computer was: Paper :newspaper: \nIt's a tie!");
                     event.getChannel().sendTyping().queue();
-                    event.getChannel().sendMessage("The computer was: Paper \nIt's a tie!").queue();
+                    event.getChannel().sendMessage(rpsBuilder.build()).queue();
+                    rpsBuilder.clear();
                }
                else if(fun[1].equalsIgnoreCase("Scissors")) {
+                    EmbedBuilder rpsBuilder = new EmbedBuilder();
+                    rpsBuilder.setColor(0x05055e);
+                    rpsBuilder.setTitle("Rock Paper Scissors");
+                    rpsBuilder.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                    rpsBuilder.setDescription("The computer was: Paper :newspaper: \nYou won!");
                     event.getChannel().sendTyping().queue();
-                    event.getChannel().sendMessage("The computer was: Paper \nYou won!").queue();
+                    event.getChannel().sendMessage(rpsBuilder.build()).queue();
+                    rpsBuilder.clear();
                }
                else if(fun[1].equalsIgnoreCase("Rock")) {
+                    EmbedBuilder rpsBuilder = new EmbedBuilder();
+                    rpsBuilder.setColor(0x05055e);
+                    rpsBuilder.setTitle("Rock Paper Scissors");
+                    rpsBuilder.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                    rpsBuilder.setDescription("The computer was: Paper :newspaper: \nYou lost!");
                     event.getChannel().sendTyping().queue();
-                    event.getChannel().sendMessage("The computer was: Paper \nYou lost!").queue();
+                    event.getChannel().sendMessage(rpsBuilder.build()).queue();
+                    rpsBuilder.clear();
                }
                else {
-                    event.getChannel().sendTyping().queue();
-                    event.getChannel().sendMessage("Invalid input.").queue();
+                    rpsError(event);
                }
           }
           else if (rps == 3) {
                if(fun[1].equalsIgnoreCase("Scissors")) {
+                    EmbedBuilder rpsBuilder = new EmbedBuilder();
+                    rpsBuilder.setColor(0x05055e);
+                    rpsBuilder.setTitle("Rock Paper Scissors");
+                    rpsBuilder.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                    rpsBuilder.setDescription("The computer was: Scissors :scissors: \nIt's a tie!");
                     event.getChannel().sendTyping().queue();
-                    event.getChannel().sendMessage("The computer was: Scissors \nIt's a tie!").queue();
+                    event.getChannel().sendMessage(rpsBuilder.build()).queue();
+                    rpsBuilder.clear();
                }
                else if(fun[1].equalsIgnoreCase("Rock")) {
+                    EmbedBuilder rpsBuilder = new EmbedBuilder();
+                    rpsBuilder.setColor(0x05055e);
+                    rpsBuilder.setTitle("Rock Paper Scissors");
+                    rpsBuilder.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                    rpsBuilder.setDescription("The computer was: Scissors :scissors: \nYou won!");
                     event.getChannel().sendTyping().queue();
-                    event.getChannel().sendMessage("The computer was: Scissors \nYou won!").queue();
+                    event.getChannel().sendMessage(rpsBuilder.build()).queue();
+                    rpsBuilder.clear();
                }
                else if(fun[1].equalsIgnoreCase("Paper")) {
+                    EmbedBuilder rpsBuilder = new EmbedBuilder();
+                    rpsBuilder.setColor(0x05055e);
+                    rpsBuilder.setTitle("Rock Paper Scissors");
+                    rpsBuilder.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                    rpsBuilder.setDescription("The computer was: Scissors :scissors: \nYou lost!");
                     event.getChannel().sendTyping().queue();
-                    event.getChannel().sendMessage("The computer was: Scissors \nYou lost!").queue();
+                    event.getChannel().sendMessage(rpsBuilder.build()).queue();
+                    rpsBuilder.clear();
+               }
+               else {
+                    rpsError(event);
                }
           }
+     }
+
+     private void rpsError(GuildMessageReceivedEvent event) {
+          EmbedBuilder rpsBuilder = new EmbedBuilder();
+          rpsBuilder.setColor(0x05055e);
+          rpsBuilder.setTitle("Rock Paper Scissors");
+          rpsBuilder.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+          rpsBuilder.setDescription("Invalid input.");
+          event.getChannel().sendTyping().queue();
+          event.getChannel().sendMessage(rpsBuilder.build()).queue();
+          rpsBuilder.clear();
      }
 
      @Override
@@ -190,6 +256,5 @@ public class Fun extends ListenerAdapter {
                     event.getChannel().sendMessage("Type in "+ Monitor.prefix +"rps [rock/paper/scissors] to use this command!").queue();
                }
           }
-
      }
 }
