@@ -14,6 +14,7 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class Admin extends ListenerAdapter {
+
      boolean stop = false;
 
      @Override
@@ -34,11 +35,9 @@ public class Admin extends ListenerAdapter {
                     }
                }, 0, 1, TimeUnit.SECONDS);
           } 
-
           else if(admin[0].equalsIgnoreCase(Monitor.prefix + "stopTest") && event.getAuthor().getId().equals("398215411998654466") && admin.length == 1) {
                stop = true;
           }
-
           else if(admin[0].equalsIgnoreCase(Monitor.prefix + "admin") && event.getAuthor().getId().equals("398215411998654466") && admin.length == 1) {
                event.getChannel().sendMessage("The information has been sent to your DM!").queue();
                event.getAuthor().openPrivateChannel().queue(privateChannel -> {
@@ -52,8 +51,8 @@ public class Admin extends ListenerAdapter {
                     privateChannel.close().queue();
                });
           }
-
           else if(admin[0].equalsIgnoreCase(Monitor.prefix + "restart") && admin.length == 1) {
+               
                if(event.getAuthor().getId().equals("398215411998654466") || event.getAuthor().getId().equals("658118412098076682")) {
                     event.getChannel().sendTyping().complete();
                     event.getChannel().sendMessage("Terminating...").complete();
@@ -64,27 +63,26 @@ public class Admin extends ListenerAdapter {
                     event.getChannel().sendMessage("Access denied.").queue();
                }
           }
-          
           else if(admin[0].equalsIgnoreCase(Monitor.prefix + "link") && event.getAuthor().getId().equals("398215411998654466") && admin.length == 1) {
                event.getChannel().sendTyping().queue();
                event.getChannel().sendMessage(Monitor.myBot.getInviteUrl(Permission.ADMINISTRATOR)).queue();
           }
-          
           else if(admin[0].equalsIgnoreCase(Monitor.prefix + "guilds") && event.getAuthor().getId().equals("398215411998654466") && admin.length == 1) {
                event.getChannel().sendMessage(Monitor.myBot.getGuilds().toString()).queue();
           }
-
-          // Automated link spam deletion in Goddess's Parthenon 
+          /* 
+           * Automated link spam deletion in Goddess's Parthenon.
+           */ 
           else if(event.getMessage().getContentRaw().contains("https://") || event.getMessage().getContentRaw().contains("http://")) {
                Role staff = event.getGuild().getRoleById("710398399085805599");
 
                if(event.getChannel().getId().equals("709259200651591747") && !Objects.requireNonNull(event.getMember()).getRoles().contains(staff)) {
                     event.getMessage().delete().complete(); 
                }
+
                if(event.getMessage().getContentRaw().contains("https://discord.gg/") && event.getGuild().getId().equals("709259200651591742") && !event.getChannel().getId().equals("717870479272312934")) {
                     event.getMessage().delete().queue();
                }
           }
-          
      }
 }
