@@ -21,6 +21,7 @@ A Multipurpose Java Discord Server Bot
   * simp
   * avatar
   * pp
+  * rps
 * ### Music Commands
   * join
   * leave
