@@ -29,11 +29,15 @@ public class Moderation extends ListenerAdapter {
 
      @Override
      public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
+
           String [] mod = event.getMessage().getContentRaw().split("\\s+");
 
           if(mod[0].equalsIgnoreCase(Monitor.prefix + "ban") || mod[0].equalsIgnoreCase(Monitor.prefix + "unban")) {
+               
                if(Objects.requireNonNull(event.getMember()).hasPermission(Permission.BAN_MEMBERS)) {
+                    
                     if(mod[0].equalsIgnoreCase(Monitor.prefix + "ban")) {
+                         
                          if(mod.length < 2) {
                               EmbedBuilder ban = new EmbedBuilder();
                               ban.setColor(0x05055e);
@@ -57,6 +61,7 @@ public class Moderation extends ListenerAdapter {
                          }
                     }
                     else if(mod[0].equalsIgnoreCase(Monitor.prefix + "unban")) {
+                         
                          if(mod.length < 2) {
                               EmbedBuilder unban = new EmbedBuilder();
                               unban.setColor(0x05055e);
@@ -85,7 +90,9 @@ public class Moderation extends ListenerAdapter {
                }
           }
           else if(mod[0].equalsIgnoreCase(Monitor.prefix + "kick")) {
+               
                if(Objects.requireNonNull(event.getMember()).hasPermission(Permission.KICK_MEMBERS)) {
+                    
                     if(mod.length < 2) {
                          EmbedBuilder kick = new EmbedBuilder();
                          kick.setColor(0x05055e);
@@ -113,8 +120,11 @@ public class Moderation extends ListenerAdapter {
                }
           }
           else if(mod[0].equalsIgnoreCase(Monitor.prefix + "purge") || mod[0].equalsIgnoreCase(Monitor.prefix + "setPrefix") ) {
+               
                if(Objects.requireNonNull(event.getMember()).hasPermission(Permission.MESSAGE_MANAGE)) {
+                    
                     if(mod[0].equalsIgnoreCase(Monitor.prefix + "purge")) {
+                         
                          if(mod.length < 2) {            	  
                               EmbedBuilder usage = new EmbedBuilder();
                               usage.setColor(0x05055e);
@@ -129,7 +139,9 @@ public class Moderation extends ListenerAdapter {
                               try {                                   
                                    List<Message> messages = event.getChannel().getHistory().retrievePast(Integer.parseInt(mod[1])).complete();
                                    event.getChannel().purgeMessages(messages);
-                                   //Notifies user if messages have been successfully deleted 
+                                   /* 
+                                    * Notifies user if messages have been successfully deleted.
+                                    */
                                    EmbedBuilder purgeSuccess = new EmbedBuilder();
                                    purgeSuccess.setColor(0x05055e);
                                    purgeSuccess.setTitle("✅ Success! ✅");
@@ -138,8 +150,6 @@ public class Moderation extends ListenerAdapter {
                                    event.getChannel().sendTyping().queue();
                                    event.getChannel().sendMessage(purgeSuccess.build()).queue();
                                    purgeSuccess.clear();
-                                   //Logic of how to delete the embed is below
-                                   //event.getChannel().purgeMessages(event.getChannel().getHistory().retrievePast(1).complete());
                               }
                               catch(NumberFormatException n) {            		
                                    EmbedBuilder purgeError = new EmbedBuilder();
@@ -178,6 +188,7 @@ public class Moderation extends ListenerAdapter {
                          }
                     }
                     else if(mod[0].equalsIgnoreCase(Monitor.prefix + "setPrefix")) {
+
                          if(mod.length < 2) {           	  
                               EmbedBuilder prefixInfo = new EmbedBuilder();
                               prefixInfo.setColor(0x05055e);
@@ -206,6 +217,7 @@ public class Moderation extends ListenerAdapter {
                }
           }
           else if(mod[0].equalsIgnoreCase(Monitor.prefix + "createInvite") && mod.length == 1) {
+
                if(Objects.requireNonNull(event.getMember()).hasPermission(Permission.CREATE_INSTANT_INVITE)) {
                     event.getChannel().sendTyping().queue();
                     event.getChannel().sendMessage("Invite created! Copy the link below and send it to someone!").queue();
@@ -239,26 +251,26 @@ public class Moderation extends ListenerAdapter {
                });  
           }
      }
+
      @Override
      public void onGuildMemberJoin(GuildMemberJoinEvent event) {
           if(event.getGuild().getName().equals("The Goddess's Parthenon")) {
-               // Wanderer
+               /* 
+                * Adds Wanderer and Agreed to Rules roles. Welcome message is sent in general and @Welcomer is pinged  
+                */
                event.getGuild().addRoleToMember(event.getMember().getId(), Objects.requireNonNull(event.getGuild().getRoleById("709505726640291877"))).queue();
-               // Agreed to Rules 
                event.getGuild().addRoleToMember(event.getMember().getId(), Objects.requireNonNull(event.getGuild().getRoleById("709505763583852565"))).queue();
-               // Welcome message that gets sent in #general with @user and @Welcomer mentions
                Objects.requireNonNull(event.getGuild().getTextChannelById("709259200651591747")).sendMessage("Hello " + event.getMember().getAsMention() + "! Welcome to our server, **The Goddess's Parthenon**! " + Objects.requireNonNull(event.getGuild().getRoleById("727010870403530760")).getAsMention() + " please make our new friend feel welcome!!! :)").queue();
           }
           else if(event.getGuild().getName().equals("Friends :)")) {
-               // Members
                event.getGuild().addRoleToMember(event.getMember().getId(), Objects.requireNonNull(event.getGuild().getRoleById("754614035529597038"))).queue();
-               // Welcome message that gets sent in #general with @user 
                Objects.requireNonNull(event.getGuild().getTextChannelById("753717833937977388")).sendMessage("Hello " + event.getMember().getAsMention() + "! Welcome to our server, **Friends :)**! Enjoy your stay :)").queue();
           }
           else if(event.getGuild().getName().equals("Wholesome Study Boys")) {
-               // No Catfishing >:) 
+               /*
+                * No Catfishing role is added and welcome message is sent in general chat. 
+                */
                event.getGuild().addRoleToMember(event.getMember().getId(), Objects.requireNonNull(event.getGuild().getRoleById("694032141058834432"))).queue();
-               // Welcome message in #general with @user
                Objects.requireNonNull(event.getGuild().getTextChannelById("693237215404359715")).sendMessage("Hello " + event.getMember().getAsMention() + "! Welcome to our server >:)").queue();
           }
           else if(event.getGuild().getName().equals("Playground")) {
