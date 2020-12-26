@@ -30,6 +30,7 @@ public class Fun extends ListenerAdapter {
 
      private void rpsGame(GuildMessageReceivedEvent event, String [] fun, int rps) {
           if(rps == 1) {
+
                if(fun[1].equalsIgnoreCase("Rock")) {
                     EmbedBuilder rpsBuilder = new EmbedBuilder();
                     rpsBuilder.setColor(0x05055e);
@@ -65,6 +66,7 @@ public class Fun extends ListenerAdapter {
                }
           }
           else if(rps == 2) {
+
                if(fun[1].equalsIgnoreCase("Paper")) {
                     EmbedBuilder rpsBuilder = new EmbedBuilder();
                     rpsBuilder.setColor(0x05055e);
@@ -100,6 +102,7 @@ public class Fun extends ListenerAdapter {
                }
           }
           else if (rps == 3) {
+
                if(fun[1].equalsIgnoreCase("Scissors")) {
                     EmbedBuilder rpsBuilder = new EmbedBuilder();
                     rpsBuilder.setColor(0x05055e);
@@ -153,6 +156,7 @@ public class Fun extends ListenerAdapter {
           String [] fun = event.getMessage().getContentRaw().split("\\s+"); 
 
           if(fun[0].equalsIgnoreCase(Monitor.prefix + "roast")) {
+
                if(fun.length == 2) {
                     event.getChannel().sendTyping().queue();
                     event.getChannel().sendMessage(fun[1] +" "+ roasts[(int) (Math.random() * 20)]).queue();
@@ -162,8 +166,8 @@ public class Fun extends ListenerAdapter {
                     event.getChannel().sendMessage("Type in "+ Monitor.prefix +"roast and mention the person you want to roast!").queue();
                }
           }
-
           else if(fun[0].equalsIgnoreCase(Monitor.prefix + "wholesome")) {
+
                if(fun.length == 2) {
                     EmbedBuilder wholesome = new EmbedBuilder();
                     wholesome.setColor(0x05055e);
@@ -179,8 +183,8 @@ public class Fun extends ListenerAdapter {
                     event.getChannel().sendMessage("Type in "+ Monitor.prefix +"wholesome and mention someone to use this command!").queue();
                }
           }
-
           else if(fun[0].equalsIgnoreCase(Monitor.prefix + "simp")) {
+
                if(fun.length == 2) {
                     EmbedBuilder simp = new EmbedBuilder();
                     simp.setColor(0x05055e);
@@ -196,8 +200,8 @@ public class Fun extends ListenerAdapter {
                     event.getChannel().sendMessage("Type in "+ Monitor.prefix +"simp and mention someone to use this command!").queue();
                }
           }
-          
           else if(fun[0].equalsIgnoreCase(Monitor.prefix + "avatar")) {
+
                if (fun.length == 2) {
                     EmbedBuilder avatar = new EmbedBuilder();
                     avatar.setColor(0x05055e);
@@ -214,7 +218,6 @@ public class Fun extends ListenerAdapter {
                     event.getChannel().sendMessage("Type in "+ Monitor.prefix +"avatar and mention a user to view their avatar!").queue();
                }
           }
-
           else if(fun[0].equalsIgnoreCase(Monitor.prefix + "pp")) {
 
                int length = (int) (Math.random()*13);
@@ -243,7 +246,6 @@ public class Fun extends ListenerAdapter {
                     
                }
           }
-
           else if(fun[0].equalsIgnoreCase(Monitor.prefix + "rps")) {
 
                int rps = (int) (Math.random() * 3) + 1;
