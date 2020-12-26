@@ -14,10 +14,13 @@ public class General extends ListenerAdapter {
 
      @Override
      public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
+
           String [] general = event.getMessage().getContentRaw().split("\\s+");
-          // Code for the bot info command
+          /* 
+           * Code for the bot info command. Lambda is used to create the embed and 
+           * get the retrieved owner name and avatar inside the footer of the embed.
+           */
           if (general[0].equalsIgnoreCase(Monitor.prefix + "botInfo") && general.length == 1) {
-               // lambda to create the embed and have the retrieved owner name and avatar inside the footer
                Monitor.myBot.retrieveApplicationInfo().queue(botOwner -> {
                     EmbedBuilder info = new EmbedBuilder();
                     info.setColor(0x05055e);
@@ -36,9 +39,10 @@ public class General extends ListenerAdapter {
                     info.clear();
                });
           }
-          // Code for the server info command 
+          /* 
+           * Code for the server info command. Consumer is used to create the embed with the retrieved owner inside.
+           */ 
           else if(general[0].equalsIgnoreCase(Monitor.prefix + "serverInfo") && general.length == 1) {
-               // Consumer is used to create the embed with the retrieved owner
                Consumer <Member> owner = (o) -> { 
                     EmbedBuilder server = new EmbedBuilder();
                     server.setColor(0x05055e);
@@ -59,10 +63,11 @@ public class General extends ListenerAdapter {
                     event.getChannel().sendMessage(server.build()).queue();
                     server.clear();   
                };
-               // This line of code runs all the code in the success consumer, thus creating the embed
+               /* 
+                * This line of code runs all the code inside the success consumer, thus creating the embed.
+                */
                event.getGuild().retrieveOwner().queue(owner);     
-          }  
-          // Code for the ping command         
+          }     
           else if(general[0].equalsIgnoreCase(Monitor.prefix + "ping") && general.length == 1) {
                event.getChannel().sendTyping().queue();
                event.getChannel().sendMessage("Pinging...").queue(p -> 
