@@ -1,6 +1,9 @@
 package bot.commands;
 
 import bot.driver.Monitor;
+import me.duncte123.botcommons.web.WebUtils;
+
+import java.time.Instant;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -257,6 +260,24 @@ public class Fun extends ListenerAdapter {
                     event.getChannel().sendTyping().queue();
                     event.getChannel().sendMessage("Type in "+ Monitor.prefix +"rps [rock/paper/scissors] to use this command!").queue();
                }
+          }
+          else if(fun[0].equalsIgnoreCase(Monitor.prefix + "meme") && fun.length == 1) {
+
+               WebUtils.ins.getJSONObject("http://localhost:3000/memes").async((json) -> {
+                    String title = json.get("data").get("title").asText();
+                    String url = json.get("data").get("url").asText();
+                    String image = json.get("data").get("image").asText();
+               
+                    EmbedBuilder meme = new EmbedBuilder();
+                    meme.setColor(0x05055e);
+                    meme.setTitle(title, url);
+                    meme.setImage(image);
+                    meme.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                    meme.setTimestamp(Instant.now());
+                    event.getChannel().sendTyping().queue();
+                    event.getChannel().sendMessage(meme.build()).queue();
+                    meme.clear();
+               });
           }
      }
 }
