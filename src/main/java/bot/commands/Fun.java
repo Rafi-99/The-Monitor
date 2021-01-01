@@ -263,7 +263,7 @@ public class Fun extends ListenerAdapter {
           }
           else if(fun[0].equalsIgnoreCase(Monitor.prefix + "meme") && fun.length == 1) {
 
-               WebUtils.ins.getJSONObject("http://localhost:3000/memes").async((json) -> {
+               WebUtils.ins.getJSONObject("https://meme-api-node-js.herokuapp.com/memes").async((json) -> {
                     String title = json.get("data").get("title").asText();
                     String url = json.get("data").get("url").asText();
                     String image = json.get("data").get("image").asText();
