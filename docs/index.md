@@ -1,3 +1,7 @@
+---
+description: A multipurpose Discord server bot created using the official Java Discord API wrapper.
+---
+
 # The Monitor ™
 
 ## About
