@@ -1,6 +1,8 @@
 # The Monitor ™
+
 ## About
 A multipurpose Discord server bot created using the official Java Discord API wrapper. Music and video playback is provided through LavaPlayer and the official YouTube API. Hosted on Heroku.
+
 ## Features
 
 ### Server Moderation Commands
