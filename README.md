@@ -16,12 +16,12 @@ A multipurpose Discord server bot created using the official Java Discord API wr
   * kick: kicks a member through mention or user id
   * ban: bans a member through mention or user id
   * unban: unbans a member through mention or user id
-
+  
 ### General Commands
 
   * botInfo: displays general bot information and commands 
   * serverInfo: displays general server information
-  * ping: displays ping 
+  * ping: displays ping
 
 ### Fun Commands
 
@@ -31,9 +31,9 @@ A multipurpose Discord server bot created using the official Java Discord API wr
   * avatar: displays profile picture of the mentioned member 
   * pp: creates a randomly generated pp length 
   * rps: play a game of rock paper scissors against the bot
-  * meme: displays a random meme from https://www.reddit.com/r/memes
-
-* ### Music Commands
+  * meme: displays a random meme from [Reddit](https://www.reddit.com/r/memes)
+  
+### Music Commands
 
   * join: makes the bot join a voice channel
   * leave: makes the bot leave the voice channel and clear the queue
@@ -44,8 +44,8 @@ A multipurpose Discord server bot created using the official Java Discord API wr
   * skip: skips the current song or video 
   * queue: displays the queue 
   * clear: clears the queue
-
-## Links to Dependancies
+  
+## Links to Dependencies
 
 * [Java Discord API Wrapper](https://github.com/DV8FromTheWorld/JDA) 
 * [LavaPlayer](https://github.com/sedmelluq/lavaplayer)

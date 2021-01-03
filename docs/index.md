@@ -45,7 +45,7 @@ A multipurpose Discord server bot created using the official Java Discord API wr
   * queue: displays the queue 
   * clear: clears the queue
   
-## Links to Dependancies
+## Links to Dependencies
 
 * [Java Discord API Wrapper](https://github.com/DV8FromTheWorld/JDA) 
 * [LavaPlayer](https://github.com/sedmelluq/lavaplayer)
