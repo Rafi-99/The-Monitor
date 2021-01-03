@@ -1,37 +1,40 @@
-## Welcome to GitHub Pages
-
-You can use the [editor on GitHub](https://github.com/Rafi-99/The-Monitor/edit/master/docs/index.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Rafi-99/The-Monitor/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+# The Monitor ™
+## About
+A multipurpose Discord server bot created using the official Java Discord API wrapper. Music and video playback is provided through LavaPlayer and the official YouTube API. Hosted on Heroku.
+## Features
+* ### Server Moderation Commands
+  * setPrefix: changes the prefix of the bot
+  * ticketSetup: creates a ticket system where server members can create private support tickets to interact with server staff
+  * createInvite: creates an invite link to the current Discord server
+  * mute: mutes the mentioned member and prevents them from typing in channels
+  * unmute: unmutes the mentioned member and enables them to type again
+  * purge: deletes messages 
+  * kick: kicks a member through mention or user id
+  * ban: bans a member through mention or user id
+  * unban: unbans a member through mention or user id
+* ### General Commands
+  * botInfo: displays general bot information and commands 
+  * serverInfo: displays general server information
+  * ping: displays ping 
+* ### Fun Commands
+  * roast: roasts the mentioned member 
+  * wholesome: rates how wholesome the mentioned member is (0-100%)
+  * simp: rates how much of a simp the mentioned member is (0-100%)
+  * avatar: displays profile picture of the mentioned member 
+  * pp: creates a randomly generated pp length 
+  * rps: play a game of rock paper scissors against the bot
+  * meme: displays a random meme from https://www.reddit.com/r/memes
+* ### Music Commands
+  * join: makes the bot join a voice channel
+  * leave: makes the bot leave the voice channel and clear the queue
+  * np: displays what's currently playing
+  * play: plays a song or video 
+  * loopTrack: loops the current track 
+  * pause: pauses the player 
+  * skip: skips the current song or video 
+  * queue: displays the queue 
+  * clear: clears the queue
+## Links to Dependancies
+* Java Discord API Wrapper: https://github.com/DV8FromTheWorld/JDA 
+* LavaPlayer: https://github.com/sedmelluq/lavaplayer
+* BotCommons: https://github.com/duncte123/botCommons
