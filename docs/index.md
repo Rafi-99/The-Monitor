@@ -53,3 +53,4 @@ A multipurpose Discord server bot created using the official Java Discord API wr
 
 ## More From This Site
 * [Home](https://rafi-99.github.io/The-Monitor/)
+* [Demo](https://rafi-99.github.io/The-Monitor/demo)
