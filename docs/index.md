@@ -13,13 +13,13 @@ A multipurpose Discord server bot created using the official Java Discord API wr
   * purge: deletes messages 
   * kick: kicks a member through mention or user id
   * ban: bans a member through mention or user id
-  * unban: unbans a member through mention or user id
+  * unban: unbans a member through mention or user id <br/>
   
 * ### General Commands
 
   * botInfo: displays general bot information and commands 
   * serverInfo: displays general server information
-  * ping: displays ping 
+  * ping: displays ping <br/>
 
 * ### Fun Commands
 
@@ -29,7 +29,7 @@ A multipurpose Discord server bot created using the official Java Discord API wr
   * avatar: displays profile picture of the mentioned member 
   * pp: creates a randomly generated pp length 
   * rps: play a game of rock paper scissors against the bot
-  * meme: displays a random meme from https://www.reddit.com/r/memes
+  * meme: displays a random meme from https://www.reddit.com/r/memes <br/>
   
 * ### Music Commands
 
