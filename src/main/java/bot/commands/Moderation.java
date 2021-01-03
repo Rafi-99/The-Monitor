@@ -163,7 +163,9 @@ public class Moderation extends ListenerAdapter {
                               }
                               catch (IllegalArgumentException e) {                                   
                                    if (e.toString().startsWith("java.lang.IllegalArgumentException: Message retrieval")) {  
-                                        // Messages >100 API limit error
+                                        /*
+                                         * Messages >100 API limit error.
+                                         */
                                         EmbedBuilder purgeError = new EmbedBuilder();
                                         purgeError.setColor(0x05055e);
                                         purgeError.setTitle("❌ Selected Messages Are Out of Range ❌");
@@ -174,7 +176,9 @@ public class Moderation extends ListenerAdapter {
                                         purgeError.clear();
                                    } 
                                    else { 
-                                        // Messages are too old error
+                                        /* 
+                                         * Messages are too old error.
+                                         */
                                         EmbedBuilder purgeError = new EmbedBuilder();
                                         purgeError.setColor(0x05055e);
                                         purgeError.setTitle("❌ Selected Messages Are Older Than 2 Weeks ❌");
@@ -256,7 +260,7 @@ public class Moderation extends ListenerAdapter {
      public void onGuildMemberJoin(GuildMemberJoinEvent event) {
           if(event.getGuild().getName().equals("The Goddess's Parthenon")) {
                /* 
-                * Adds Wanderer and Agreed to Rules roles. Welcome message is sent in general and @Welcomer is pinged  
+                * Adds Wanderer and Agreed to Rules roles. Welcome message is sent in general and @Welcomer is pinged.  
                 */
                event.getGuild().addRoleToMember(event.getMember().getId(), Objects.requireNonNull(event.getGuild().getRoleById("709505726640291877"))).queue();
                event.getGuild().addRoleToMember(event.getMember().getId(), Objects.requireNonNull(event.getGuild().getRoleById("709505763583852565"))).queue();
