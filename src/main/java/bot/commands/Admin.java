@@ -39,6 +39,7 @@ public class Admin extends ListenerAdapter {
                stop = true;
           }
           else if(admin[0].equalsIgnoreCase(Monitor.prefix + "admin") && event.getAuthor().getId().equals("398215411998654466") && admin.length == 1) {
+               event.getChannel().sendTyping().queue();
                event.getChannel().sendMessage("The information has been sent to your DM!").queue();
                event.getAuthor().openPrivateChannel().queue(privateChannel -> {
                     EmbedBuilder adminInfo = new EmbedBuilder();
@@ -46,6 +47,7 @@ public class Admin extends ListenerAdapter {
                     adminInfo.setTitle("Admin");
                     adminInfo.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                     adminInfo.setDescription("Commands available for your usage: \n```test \nstopTest \nadmin \nrestart \nlink \nguilds```");
+                    privateChannel.sendTyping().queue();
                     privateChannel.sendMessage(adminInfo.build()).queue();
                     adminInfo.clear();
                     privateChannel.close().queue();
@@ -60,6 +62,7 @@ public class Admin extends ListenerAdapter {
                     System.exit(0);
                }
                else {
+                    event.getChannel().sendTyping().queue();
                     event.getChannel().sendMessage("Access denied.").queue();
                }
           }
@@ -68,7 +71,10 @@ public class Admin extends ListenerAdapter {
                event.getChannel().sendMessage(Monitor.myBot.getInviteUrl(Permission.ADMINISTRATOR)).queue();
           }
           else if(admin[0].equalsIgnoreCase(Monitor.prefix + "guilds") && event.getAuthor().getId().equals("398215411998654466") && admin.length == 1) {
-               event.getChannel().sendMessage(Monitor.myBot.getGuilds().toString()).queue();
+               Monitor.myBot.getGuilds().get(0).getName();
+               for (int i = 0; i < Monitor.myBot.getGuilds().size(); i++) {
+                    event.getChannel().sendMessage(Monitor.myBot.getGuilds().get(i).getName()).queue();
+               }
           }
           /* 
            * Automated link spam deletion in Goddess's Parthenon.
