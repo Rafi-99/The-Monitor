@@ -1,14 +1,3 @@
 theme: jekyll-theme-cayman
 title: The Monitor
-defaults:
-  - scope:
-      path: "docs/demo.md"
-    values:
-      theme: jekyll-theme-cayman
-      description: A demonstration of The Monitor discord bot.
-      permalink: /demo 
-  - scope:
-      path: "docs/index.md"
-    values:
-      theme: jekyll-theme-cayman
-      description: A multipurpose Discord server bot created using the official Java Discord API wrapper.
+description: A multipurpose Discord server bot created using the official Java Discord API wrapper.
