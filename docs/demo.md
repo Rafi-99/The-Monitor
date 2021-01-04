@@ -1,6 +1,4 @@
 ---
-layout: page
-title: The Monitor
-description: A demonstration of The Monitor discord bot.
+layout: default
 permalink: /demo
 ---
