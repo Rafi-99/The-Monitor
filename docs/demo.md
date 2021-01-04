@@ -1,4 +1,4 @@
 ---
-layout: default
+theme: jekyll-theme-cayman
 permalink: /demo
 ---
