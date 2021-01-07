@@ -8,7 +8,7 @@ permalink: /botinfo
 This command serves as a help command to help users know which bot commands are available to use. 
 
 ## Code
-```java
+{% highlight java %}
 String [] general = event.getMessage().getContentRaw().split("\\s+");
 
 if (general[0].equalsIgnoreCase(Monitor.prefix + "botInfo") && general.length == 1) {
@@ -30,7 +30,7 @@ if (general[0].equalsIgnoreCase(Monitor.prefix + "botInfo") && general.length ==
         info.clear();
     });
 }
-```
+{% endhighlight %}
 
 ## More From This Site
 * [Home](https://rafi-99.github.io/The-Monitor/)
