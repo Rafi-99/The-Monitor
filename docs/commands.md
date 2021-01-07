@@ -5,7 +5,7 @@ permalink: /commands
 # Bot Commands
 
 ## About
-Scroll down and click on any of the links in the table to read about the commands in further detail!
+Here you will find some of the many commands my bot can execute. Click on the links in the table below to read about the commands in further detail!
 
 <table>
     <tbody>
