@@ -2,10 +2,10 @@
 theme: jekyll-theme-cayman
 permalink: /commands
 ---
-# The Monitor ™ Commands
+# Bot Commands
 
 ## About
-Scroll down and click on any of the links to read about the commands in further detail!
+Scroll down and click on any of the links in the table to read about the commands in further detail!
 
 <table>
     <tbody>
