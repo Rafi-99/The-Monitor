@@ -210,7 +210,7 @@ public class Fun extends ListenerAdapter {
                     avatar.setColor(0x05055e);
                     avatar.setTitle("Avatar");
                     avatar.setDescription(event.getMessage().getMentionedUsers().get(0).getName());
-                    avatar.setImage(event.getMessage().getMentionedUsers().get(0).getEffectiveAvatarUrl().replace("?size=512", "?size=4096"));
+                    avatar.setImage(event.getMessage().getMentionedUsers().get(0).getEffectiveAvatarUrl() + "?size=4096");
                     avatar.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                     event.getChannel().sendTyping().queue();
                     event.getChannel().sendMessage(avatar.build()).queue();
