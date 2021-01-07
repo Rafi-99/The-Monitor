@@ -1,3 +1,5 @@
 theme: jekyll-theme-cayman
 title: The Monitor ™
 description: A multipurpose Discord server bot created using the official Java Discord API wrapper.
+markdown: kramdown
+highlighter: rouge
