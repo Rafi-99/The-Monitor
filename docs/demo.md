@@ -7,39 +7,34 @@ permalink: /demo
 ## About
 Scroll down to see some examples of The Monitor ™ in action!
 
-The botInfo and ping commands
-![drawing](images/bot.png)
-
-The serverInfo command
-![drawing](images/server.png)
-
-Meme command
-![drawing](images/meme.png)
-
-Rock paper scissors command
-![drawing](images/rps.png)
-
-Music commands
-![drawing](images/music.png)
-
-Playing YouTube and SoundCloud links
-![drawing](images/musicLinks.png)
-
-Queue Command
-![drawing](images/queue.png)
-
-Command to clear the queue
-![drawing](images/clear.png)
-
-Moderation commands
-![drawing](images/moderation.png)
-
-Ticket setup command
-![drawing](images/ticketSetup.png)
-![drawing](images/ticketChannel.png)
-
-Purge messages command 
-![drawing](images/purge.png)
+<table>
+    <tbody>
+        <tr>
+            <td>Bot Info</td>
+            <td><img src="images/bot.png"></td>
+            <td>Server Info</td>
+            <td><img src="images/server.png"></td>
+        </tr>
+        <tr>
+            <td>Meme Command</td>
+            <td><img src="images/meme.png"></td>
+            <td>Rock Paper Scissors</td>
+            <td><img src="images/rps.png"></td>
+        </tr>
+        <tr>
+            <td>Music</td>
+            <td><img src="images/musicLinks.png"></td>
+            <td>Moderation</td>
+            <td><img src="images/moderation.png"></td>
+        </tr>
+        <tr>
+            <td>Ticket System</td>
+            <td><img src="images/ticketSetup.png"></td>
+            <td>Message Purge</td>
+            <td><img src="images/purge.png"></td>
+        </tr>
+    </tbody>
+</table>
 
 ## More From This Site
 * [Home](https://rafi-99.github.io/The-Monitor/)
