@@ -2,7 +2,6 @@
 theme: jekyll-theme-cayman
 permalink: /botinfo
 ---
-<link rel="stylesheet" type="text/css" media="all" href="docs/_layouts/styles.css"/>
 
 # Bot Info Command
 
