@@ -68,8 +68,9 @@ public class Moderation extends ListenerAdapter {
                                    event.getChannel().sendTyping().queue();
                                    event.getChannel().sendMessage(banError.build()).queue();
                                    banError.clear(); 
+                              } catch (Exception n) {
+                                   System.out.println("Error");
                               }
-                         
                          }
                     }
                     else if(mod[0].equalsIgnoreCase(Monitor.prefix + "unban")) {
