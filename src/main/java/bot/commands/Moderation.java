@@ -53,7 +53,7 @@ public class Moderation extends ListenerAdapter {
                               EmbedBuilder banSuccess = new EmbedBuilder();
                               banSuccess.setColor(0x05055e);
                               banSuccess.setTitle("✅ Success! ✅");
-                              banSuccess.setDescription(mod[1] +" has been banned successfully!");
+                              banSuccess.setDescription(Objects.requireNonNull(event.getGuild().getMemberById(mod[1])).getEffectiveName() +" has been banned successfully!");
                               banSuccess.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                               event.getChannel().sendTyping().queue();
                               event.getChannel().sendMessage(banSuccess.build()).queue();
