@@ -53,7 +53,7 @@ public class Moderation extends ListenerAdapter {
                               EmbedBuilder banSuccess = new EmbedBuilder();
                               banSuccess.setColor(0x05055e);
                               banSuccess.setTitle("✅ Success! ✅");
-                              banSuccess.setDescription(mod[1] +" has been banned successfully!");
+                              banSuccess.setDescription("<@" + mod[1] + ">" + " has been banned successfully!");
                               banSuccess.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                               event.getChannel().sendTyping().queue();
                               event.getChannel().sendMessage(banSuccess.build()).queue();
@@ -77,7 +77,7 @@ public class Moderation extends ListenerAdapter {
                               EmbedBuilder unbanSuccess = new EmbedBuilder();
                               unbanSuccess.setColor(0x05055e);
                               unbanSuccess.setTitle("✅ Success! ✅");
-                              unbanSuccess.setDescription(mod[1] +" has been unbanned successfully!");
+                              unbanSuccess.setDescription("<@" + mod[1] + ">" + " has been unbanned successfully!");
                               unbanSuccess.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                               event.getChannel().sendTyping().queue();
                               event.getChannel().sendMessage(unbanSuccess.build()).queue();
@@ -108,7 +108,7 @@ public class Moderation extends ListenerAdapter {
                          EmbedBuilder kicked = new EmbedBuilder();
                          kicked.setColor(0x05055e);
                          kicked.setTitle("✅ Success! ✅");
-                         kicked.setDescription(mod[1] +" has been kicked successfully!");
+                         kicked.setDescription("<@" + mod[1] + ">" + " has been kicked successfully!");
                          kicked.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                          event.getChannel().sendTyping().queue();
                          event.getChannel().sendMessage(kicked.build()).queue();
