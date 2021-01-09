@@ -49,7 +49,6 @@ public class Moderation extends ListenerAdapter {
                               ban.clear();
                          }
                          else {
-                              event.getGuild().ban(mod[1].replace("<@!", "").replace("<@", "").replace(">", ""), 7).queue();                              
                               EmbedBuilder banSuccess = new EmbedBuilder();
                               banSuccess.setColor(0x05055e);
                               banSuccess.setTitle("✅ Success! ✅");
@@ -58,6 +57,8 @@ public class Moderation extends ListenerAdapter {
                               event.getChannel().sendTyping().queue();
                               event.getChannel().sendMessage(banSuccess.build()).queue();
                               banSuccess.clear();
+
+                              event.getGuild().ban(mod[1].replace("<@!", "").replace("<@", "").replace(">", ""), 7).queue();
                          }
                     }
                     else if(mod[0].equalsIgnoreCase(Monitor.prefix + "unban")) {
