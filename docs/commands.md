@@ -7,6 +7,14 @@ permalink: /commands
 ## About
 Here you will find some of the many commands my bot can execute. Click on the links in the table below to read about the commands in further detail!
 
+<style>
+img {
+    width:auto;
+    height:auto;
+    max-width:100px;
+    max-height:100px; 
+}
+</style>    
 <table>
     <tbody>
         <tr>
