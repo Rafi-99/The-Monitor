@@ -104,15 +104,19 @@ public class Moderation extends ListenerAdapter {
                          kick.clear();        		 
                     }
                     else {
-                         event.getGuild().kick(mod[1].replace("<@!", "").replace("<@", "").replace(">", "")).queue();        	 
-                         EmbedBuilder kicked = new EmbedBuilder();
-                         kicked.setColor(0x05055e);
-                         kicked.setTitle("✅ Success! ✅");
-                         kicked.setDescription("<@" + mod[1] + ">" + " has been kicked successfully!");
-                         kicked.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-                         event.getChannel().sendTyping().queue();
-                         event.getChannel().sendMessage(kicked.build()).queue();
-                         kicked.clear();
+                         try {  
+                              event.getGuild().kick(mod[1].replace("<@!", "").replace("<@", "").replace(">", "")).queue();        	 
+                              EmbedBuilder kicked = new EmbedBuilder();
+                              kicked.setColor(0x05055e);
+                              kicked.setTitle("✅ Success! ✅");
+                              kicked.setDescription("<@" + mod[1] + ">" + " has been kicked successfully!");
+                              kicked.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                              event.getChannel().sendTyping().queue();
+                              event.getChannel().sendMessage(kicked.build()).queue();
+                              kicked.clear();
+                         } catch (NumberFormatException n) {
+                              n.printStackTrace();
+                         }
                     }
                }
                else {
