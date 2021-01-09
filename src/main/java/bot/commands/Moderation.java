@@ -220,7 +220,7 @@ public class Moderation extends ListenerAdapter {
                     accessDenied(event);
                }
           }
-          else if(mod[0].equalsIgnoreCase(Monitor.prefix + "createInvite") && mod.length == 1) {
+          else if(mod[0].equalsIgnoreCase(Monitor.prefix + "invite") && mod.length == 1) {
 
                if(Objects.requireNonNull(event.getMember()).hasPermission(Permission.CREATE_INSTANT_INVITE)) {
                     event.getChannel().sendTyping().queue();

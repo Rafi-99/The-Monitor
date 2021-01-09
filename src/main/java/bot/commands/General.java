@@ -29,7 +29,7 @@ public class General extends ListenerAdapter {
                     info.setThumbnail(Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                     info.addField("**Default prefix**", "m!", true);
                     info.addField("**Command Usage Example**", Monitor.prefix + "botInfo", false);
-                    info.addField("**Moderation**", "setPrefix, ticketSetup, createInvite, mute, unmute, purge, kick, ban, unban", true);
+                    info.addField("**Moderation**", "setPrefix, ticketSetup, invite, mute, unmute, purge, kick, ban, unban", true);
                     info.addField("**General**", "botInfo, serverInfo, ping", true);
                     info.addField("**Fun**", "roast, wholesome, simp, avatar, pp, rps, meme", true);
                     info.addField("**Music**", "join, leave, np, play, loopTrack, pause, skip, queue, clear", true);

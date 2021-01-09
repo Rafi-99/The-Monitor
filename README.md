@@ -9,7 +9,7 @@ A multipurpose Discord server bot created using the official Java Discord API wr
 
 * setPrefix: changes the prefix of the bot
 * ticketSetup: creates a ticket system where server members can create private support tickets to interact with server staff
-* createInvite: creates an invite link to the current Discord server
+* invite: creates an invite link to the current Discord server
 * mute: mutes the mentioned member and prevents them from typing in channels
 * unmute: unmutes the mentioned member and enables them to type again
 * purge: deletes messages 
