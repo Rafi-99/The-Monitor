@@ -49,15 +49,27 @@ public class Moderation extends ListenerAdapter {
                               ban.clear();
                          }
                          else {
-                              event.getGuild().ban(mod[1].replace("<@!", "").replace("<@", "").replace(">", ""), 7).queue();
-                              EmbedBuilder banSuccess = new EmbedBuilder();
-                              banSuccess.setColor(0x05055e);
-                              banSuccess.setTitle("✅ Success! ✅");
-                              banSuccess.setDescription("<@" + mod[1] + ">" + " has been banned successfully!");
-                              banSuccess.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-                              event.getChannel().sendTyping().queue();
-                              event.getChannel().sendMessage(banSuccess.build()).queue();
-                              banSuccess.clear();
+                              try {
+                                   event.getGuild().ban(mod[1].replace("<@!", "").replace("<@", "").replace(">", ""), 7).queue();
+                                   EmbedBuilder banSuccess = new EmbedBuilder();
+                                   banSuccess.setColor(0x05055e);
+                                   banSuccess.setTitle("✅ Success! ✅");
+                                   banSuccess.setDescription("<@" + mod[1] + ">" + " has been banned successfully!");
+                                   banSuccess.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                                   event.getChannel().sendTyping().queue();
+                                   event.getChannel().sendMessage(banSuccess.build()).queue();
+                                   banSuccess.clear();
+                              } catch (NumberFormatException n) {
+                                   EmbedBuilder banError = new EmbedBuilder();
+                                   banError.setColor(0x05055e);
+                                   banError.setTitle("❌ Invalid Argument ❌");
+                                   banError.setDescription("Users that are no longer in a guild cannot be mentioned. Try executing the command again with user ID.");
+                                   banError.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                                   event.getChannel().sendTyping().queue();
+                                   event.getChannel().sendMessage(banError.build()).queue();
+                                   banError.clear(); 
+                              }
+                         
                          }
                     }
                     else if(mod[0].equalsIgnoreCase(Monitor.prefix + "unban")) {
@@ -73,15 +85,26 @@ public class Moderation extends ListenerAdapter {
                               unban.clear();
                          }
                          else {
-                              event.getGuild().unban(mod[1].replace("<@!", "").replace("<@", "").replace(">", "")).queue();                              
-                              EmbedBuilder unbanSuccess = new EmbedBuilder();
-                              unbanSuccess.setColor(0x05055e);
-                              unbanSuccess.setTitle("✅ Success! ✅");
-                              unbanSuccess.setDescription("<@" + mod[1] + ">" + " has been unbanned successfully!");
-                              unbanSuccess.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-                              event.getChannel().sendTyping().queue();
-                              event.getChannel().sendMessage(unbanSuccess.build()).queue();
-                              unbanSuccess.clear();
+                              try {
+                                   event.getGuild().unban(mod[1].replace("<@!", "").replace("<@", "").replace(">", "")).queue();                              
+                                   EmbedBuilder unbanSuccess = new EmbedBuilder();
+                                   unbanSuccess.setColor(0x05055e);
+                                   unbanSuccess.setTitle("✅ Success! ✅");
+                                   unbanSuccess.setDescription("<@" + mod[1] + ">" + " has been unbanned successfully!");
+                                   unbanSuccess.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                                   event.getChannel().sendTyping().queue();
+                                   event.getChannel().sendMessage(unbanSuccess.build()).queue();
+                                   unbanSuccess.clear();
+                              } catch (NumberFormatException n) {
+                                   EmbedBuilder unbanError = new EmbedBuilder();
+                                   unbanError.setColor(0x05055e);
+                                   unbanError.setTitle("❌ Invalid Argument ❌");
+                                   unbanError.setDescription("Users that are no longer in a guild cannot be mentioned. Try executing the command again with user ID.");
+                                   unbanError.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                                   event.getChannel().sendTyping().queue();
+                                   event.getChannel().sendMessage(unbanError.build()).queue();
+                                   unbanError.clear();
+                              }
                          }
                     }
                }
