@@ -1,1 +1,1 @@
-worker: java $JAVA_OPTS -jar build/libs/Discord-1.0-all.jar
+worker: java $JAVA_OPTS -jar build/libs/The Monitor-1.0-all.jar
