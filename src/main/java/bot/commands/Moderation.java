@@ -12,6 +12,7 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
+import net.dv8tion.jda.api.exceptions.ErrorResponseException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class Moderation extends ListenerAdapter {
@@ -59,7 +60,7 @@ public class Moderation extends ListenerAdapter {
                                    event.getChannel().sendTyping().queue();
                                    event.getChannel().sendMessage(banSuccess.build()).queue();
                                    banSuccess.clear();
-                              } catch (IllegalArgumentException n) {
+                              } catch (IllegalArgumentException | ErrorResponseException n) {
                                    EmbedBuilder banError = new EmbedBuilder();
                                    banError.setColor(0x05055e);
                                    banError.setTitle("❌ Invalid Argument ❌");
@@ -68,8 +69,6 @@ public class Moderation extends ListenerAdapter {
                                    event.getChannel().sendTyping().queue();
                                    event.getChannel().sendMessage(banError.build()).queue();
                                    banError.clear(); 
-                              } catch (Exception n) {
-                                   System.out.println("Error");
                               }
                          }
                     }
@@ -96,7 +95,7 @@ public class Moderation extends ListenerAdapter {
                                    event.getChannel().sendTyping().queue();
                                    event.getChannel().sendMessage(unbanSuccess.build()).queue();
                                    unbanSuccess.clear();
-                              } catch (IllegalArgumentException n) {
+                              } catch (IllegalArgumentException | ErrorResponseException n) {
                                    EmbedBuilder unbanError = new EmbedBuilder();
                                    unbanError.setColor(0x05055e);
                                    unbanError.setTitle("❌ Invalid Argument ❌");
@@ -138,7 +137,7 @@ public class Moderation extends ListenerAdapter {
                               event.getChannel().sendTyping().queue();
                               event.getChannel().sendMessage(kicked.build()).queue();
                               kicked.clear();
-                         } catch (IllegalArgumentException n) {
+                         } catch (IllegalArgumentException | ErrorResponseException n) {
                               EmbedBuilder kickError = new EmbedBuilder();
                               kickError.setColor(0x05055e);
                               kickError.setTitle("❌ Invalid Argument ❌");
