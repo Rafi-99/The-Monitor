@@ -95,7 +95,7 @@ public class Moderation extends ListenerAdapter {
                                    event.getChannel().sendTyping().queue();
                                    event.getChannel().sendMessage(unbanSuccess.build()).queue();
                                    unbanSuccess.clear();
-                              } catch (NumberFormatException n) {
+                              } catch (IllegalArgumentException n) {
                                    EmbedBuilder unbanError = new EmbedBuilder();
                                    unbanError.setColor(0x05055e);
                                    unbanError.setTitle("❌ Invalid Argument ❌");
