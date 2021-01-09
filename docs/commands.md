@@ -11,10 +11,11 @@ Here you will find some of the many commands my bot can execute. Click on the li
 img {
     width:auto;
     height:auto;
-    max-width:100px;
-    max-height:100px; 
+    max-width:300px;
+    max-height:300px; 
 }
-</style>    
+</style>
+
 <table>
     <tbody>
         <tr>
