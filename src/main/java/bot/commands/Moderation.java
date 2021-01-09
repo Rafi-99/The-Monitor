@@ -59,11 +59,11 @@ public class Moderation extends ListenerAdapter {
                                    event.getChannel().sendTyping().queue();
                                    event.getChannel().sendMessage(banSuccess.build()).queue();
                                    banSuccess.clear();
-                              } catch (NumberFormatException n) {
+                              } catch (IllegalArgumentException n) {
                                    EmbedBuilder banError = new EmbedBuilder();
                                    banError.setColor(0x05055e);
                                    banError.setTitle("❌ Invalid Argument ❌");
-                                   banError.setDescription("Users that are no longer in a guild cannot be mentioned. Try executing the command again with user ID.");
+                                   banError.setDescription("Users that are no longer in a guild cannot be mentioned. Please try executing the command again with a valid user mention or user ID.");
                                    banError.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                                    event.getChannel().sendTyping().queue();
                                    event.getChannel().sendMessage(banError.build()).queue();
@@ -99,7 +99,7 @@ public class Moderation extends ListenerAdapter {
                                    EmbedBuilder unbanError = new EmbedBuilder();
                                    unbanError.setColor(0x05055e);
                                    unbanError.setTitle("❌ Invalid Argument ❌");
-                                   unbanError.setDescription("Users that are no longer in a guild cannot be mentioned. Try executing the command again with user ID.");
+                                   unbanError.setDescription("Users that are no longer in a guild cannot be mentioned. Please try executing the command again with a valid user mention or user ID.");
                                    unbanError.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                                    event.getChannel().sendTyping().queue();
                                    event.getChannel().sendMessage(unbanError.build()).queue();
@@ -137,11 +137,11 @@ public class Moderation extends ListenerAdapter {
                               event.getChannel().sendTyping().queue();
                               event.getChannel().sendMessage(kicked.build()).queue();
                               kicked.clear();
-                         } catch (NumberFormatException n) {
+                         } catch (IllegalArgumentException n) {
                               EmbedBuilder kickError = new EmbedBuilder();
                               kickError.setColor(0x05055e);
                               kickError.setTitle("❌ Invalid Argument ❌");
-                              kickError.setDescription("Users that are no longer in a guild cannot be mentioned. Try executing the command again with user ID.");
+                              kickError.setDescription("Users that are no longer in a guild cannot be mentioned. Please try executing the command again with a valid user mention or user ID.");
                               kickError.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                               event.getChannel().sendTyping().queue();
                               event.getChannel().sendMessage(kickError.build()).queue();
