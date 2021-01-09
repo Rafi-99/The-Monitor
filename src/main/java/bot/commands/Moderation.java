@@ -115,7 +115,14 @@ public class Moderation extends ListenerAdapter {
                               event.getChannel().sendMessage(kicked.build()).queue();
                               kicked.clear();
                          } catch (NumberFormatException n) {
-                              n.printStackTrace();
+                              EmbedBuilder kickError = new EmbedBuilder();
+                              kickError.setColor(0x05055e);
+                              kickError.setTitle("❌ Invalid Argument ❌");
+                              kickError.setDescription("Users that are no longer in a guild cannot be mentioned. Try executing the command again with user ID.");
+                              kickError.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                              event.getChannel().sendTyping().queue();
+                              event.getChannel().sendMessage(kickError.build()).queue();
+                              kickError.clear();
                          }
                     }
                }
