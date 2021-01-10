@@ -50,6 +50,7 @@ public class Moderation extends ListenerAdapter {
                               ban.clear();
                          }
                          else {
+
                               try {
                                    event.getGuild().ban(mod[1].replace("<@!", "").replace("<@", "").replace(">", ""), 7).queue();
                                    EmbedBuilder banSuccess = new EmbedBuilder();
@@ -85,6 +86,7 @@ public class Moderation extends ListenerAdapter {
                               unban.clear();
                          }
                          else {
+
                               try {
                                    event.getGuild().unban(mod[1].replace("<@!", "").replace("<@", "").replace(">", "")).queue();                              
                                    EmbedBuilder unbanSuccess = new EmbedBuilder();
@@ -127,21 +129,36 @@ public class Moderation extends ListenerAdapter {
                          kick.clear();        		 
                     }
                     else {
-                         try {  
-                              event.getGuild().kick(mod[1].replace("<@!", "").replace("<@", "").replace(">", "")).queue();        	 
-                              EmbedBuilder kicked = new EmbedBuilder();
-                              kicked.setColor(0x05055e);
-                              kicked.setTitle("✅ Success! ✅");
-                              kicked.setDescription("<@" + mod[1] + ">" + " has been kicked successfully!");
-                              kicked.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-                              event.getChannel().sendTyping().queue();
-                              event.getChannel().sendMessage(kicked.build()).queue();
-                              kicked.clear();
+
+                         try {
+
+                              if(event.getGuild().getMemberById(mod[1].replace("<@!", "").replace("<@", "").replace(">", "")) != null) {
+                                   event.getGuild().kick(mod[1].replace("<@!", "").replace("<@", "").replace(">", "")).queue();        	 
+                                   EmbedBuilder kicked = new EmbedBuilder();
+                                   kicked.setColor(0x05055e);
+                                   kicked.setTitle("✅ Success! ✅");
+                                   kicked.setDescription("<@" + mod[1] + ">" + " has been kicked successfully!");
+                                   kicked.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                                   event.getChannel().sendTyping().queue();
+                                   event.getChannel().sendMessage(kicked.build()).queue();
+                                   kicked.clear();
+                              } 
+                              else {
+                                   EmbedBuilder kickError = new EmbedBuilder();
+                                   kickError.setColor(0x05055e);
+                                   kickError.setTitle("❌ Error ❌");
+                                   kickError.setDescription("Users that are no longer in a guild cannot be kicked. Please try executing the command again with a valid user mention or user ID.");
+                                   kickError.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                                   event.getChannel().sendTyping().queue();
+                                   event.getChannel().sendMessage(kickError.build()).queue();
+                                   kickError.clear();
+
+                              } 
                          } catch (IllegalArgumentException | ErrorResponseException n) {
                               EmbedBuilder kickError = new EmbedBuilder();
                               kickError.setColor(0x05055e);
                               kickError.setTitle("❌ Invalid Argument ❌");
-                              kickError.setDescription("Users that are no longer in a guild cannot be mentioned. Please try executing the command again with a valid user mention or user ID.");
+                              kickError.setDescription("Invalid format. Please try executing the command again with a valid user mention or user ID.");
                               kickError.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                               event.getChannel().sendTyping().queue();
                               event.getChannel().sendMessage(kickError.build()).queue();
