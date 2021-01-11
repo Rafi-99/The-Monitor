@@ -2,18 +2,22 @@ package bot.commands;
 
 import bot.driver.Monitor;
 
+import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.Guild.Ban;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
-import net.dv8tion.jda.api.exceptions.ErrorResponseException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.requests.RestAction;
 
 public class Moderation extends ListenerAdapter {
 
@@ -36,9 +40,9 @@ public class Moderation extends ListenerAdapter {
           if(mod[0].equalsIgnoreCase(Monitor.prefix + "ban") || mod[0].equalsIgnoreCase(Monitor.prefix + "unban")) {
                
                if(Objects.requireNonNull(event.getMember()).hasPermission(Permission.BAN_MEMBERS)) {
-                    
+
                     if(mod[0].equalsIgnoreCase(Monitor.prefix + "ban")) {
-                         
+
                          if(mod.length < 2) {
                               EmbedBuilder ban = new EmbedBuilder();
                               ban.setColor(0x05055e);
@@ -52,16 +56,54 @@ public class Moderation extends ListenerAdapter {
                          else {
 
                               try {
-                                   event.getGuild().ban(mod[1].replace("<@!", "").replace("<@", "").replace(">", ""), 7).queue();
-                                   EmbedBuilder banSuccess = new EmbedBuilder();
-                                   banSuccess.setColor(0x05055e);
-                                   banSuccess.setTitle("✅ Success! ✅");
-                                   banSuccess.setDescription("<@" + mod[1] + ">" + " has been banned successfully!");
-                                   banSuccess.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-                                   event.getChannel().sendTyping().queue();
-                                   event.getChannel().sendMessage(banSuccess.build()).queue();
-                                   banSuccess.clear();
-                              } catch (IllegalArgumentException | ErrorResponseException n) {
+                                   RestAction<User> banEvent = event.getJDA().retrieveUserById(mod[1].replace("<@!", "").replace("<@", "").replace(">", ""));
+                                   banEvent.queue((user) -> {
+
+                                        if (user != null) {
+
+                                             Consumer<? super List<Ban>> banListConsumer = (b) -> {
+
+                                                  List<User> banIDList = new ArrayList<User>(b.size());
+                                                  for(int i=0; i < b.size(); i++) {
+                                                       banIDList.add(i, b.get(i).getUser());
+                                                  }
+
+                                                  if (banIDList.contains(user)) {
+                                                       EmbedBuilder banError = new EmbedBuilder();
+                                                       banError.setColor(0x05055e);
+                                                       banError.setTitle("❌ User Already Banned ❌");
+                                                       banError.setDescription("Cannot ban users that already have a ban.");
+                                                       banError.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                                                       event.getChannel().sendTyping().queue();
+                                                       event.getChannel().sendMessage(banError.build()).queue();
+                                                       banError.clear(); 
+                                                  } 
+                                                  else {
+                                                       event.getGuild().ban(user, 7).queue();
+                                                       EmbedBuilder banSuccess = new EmbedBuilder();
+                                                       banSuccess.setColor(0x05055e);
+                                                       banSuccess.setTitle("✅ Success! ✅");
+                                                       banSuccess.setDescription(user.getAsMention() + " has been banned successfully!");
+                                                       banSuccess.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                                                       event.getChannel().sendTyping().queue();
+                                                       event.getChannel().sendMessage(banSuccess.build()).queue();
+                                                       banSuccess.clear();
+                                                  }
+                                             };
+                                             //retrieves the ban list then runs the code inside the consumer
+                                             event.getGuild().retrieveBanList().queue(banListConsumer);
+                                        }},
+                                        (error) -> {
+                                             EmbedBuilder banError = new EmbedBuilder();
+                                             banError.setColor(0x05055e);
+                                             banError.setTitle("❌ Invalid Argument ❌");
+                                             banError.setDescription("Users that are no longer in a guild cannot be mentioned. Please try executing the command again with a valid user mention or user ID.");
+                                             banError.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                                             event.getChannel().sendTyping().queue();
+                                             event.getChannel().sendMessage(banError.build()).queue();
+                                             banError.clear();
+                                        });
+                              } catch (Exception e) {
                                    EmbedBuilder banError = new EmbedBuilder();
                                    banError.setColor(0x05055e);
                                    banError.setTitle("❌ Invalid Argument ❌");
@@ -97,7 +139,7 @@ public class Moderation extends ListenerAdapter {
                                    event.getChannel().sendTyping().queue();
                                    event.getChannel().sendMessage(unbanSuccess.build()).queue();
                                    unbanSuccess.clear();
-                              } catch (IllegalArgumentException | ErrorResponseException n) {
+                              } catch (Exception e) {
                                    EmbedBuilder unbanError = new EmbedBuilder();
                                    unbanError.setColor(0x05055e);
                                    unbanError.setTitle("❌ Invalid Argument ❌");
@@ -154,7 +196,7 @@ public class Moderation extends ListenerAdapter {
                                    kickError.clear();
 
                               } 
-                         } catch (IllegalArgumentException | ErrorResponseException n) {
+                         } catch (Exception e) {
                               EmbedBuilder kickError = new EmbedBuilder();
                               kickError.setColor(0x05055e);
                               kickError.setTitle("❌ Invalid Argument ❌");
@@ -186,7 +228,8 @@ public class Moderation extends ListenerAdapter {
                               event.getChannel().sendMessage(usage.build()).queue();
                               usage.clear();
                          }
-                         else {                              
+                         else {  
+
                               try {                                   
                                    List<Message> messages = event.getChannel().getHistory().retrievePast(Integer.parseInt(mod[1])).complete();
                                    event.getChannel().purgeMessages(messages);
@@ -212,7 +255,8 @@ public class Moderation extends ListenerAdapter {
                                    event.getChannel().sendMessage(purgeError.build()).queue();
                                    purgeError.clear();
                               }
-                              catch (IllegalArgumentException e) {                                   
+                              catch (IllegalArgumentException e) { 
+
                                    if (e.toString().startsWith("java.lang.IllegalArgumentException: Message retrieval")) {  
                                         /*
                                          * Messages >100 API limit error.
@@ -282,7 +326,7 @@ public class Moderation extends ListenerAdapter {
                     accessDenied(event);
                }
           }
-          else if (mod[0].equalsIgnoreCase(Monitor.prefix + "ticketSetup") && Objects.requireNonNull(event.getMember()).hasPermission(Permission.MESSAGE_MANAGE)) {
+          else if(mod[0].equalsIgnoreCase(Monitor.prefix + "ticketSetup") && Objects.requireNonNull(event.getMember()).hasPermission(Permission.MESSAGE_MANAGE)) {
                EmbedBuilder ticket = new EmbedBuilder();
                ticket.setColor(0x05055e);
                ticket.setTitle("**Create a Support Ticket**");
