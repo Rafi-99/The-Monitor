@@ -1,4 +1,4 @@
-package bot.music;
+package bot.handlers.music;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;

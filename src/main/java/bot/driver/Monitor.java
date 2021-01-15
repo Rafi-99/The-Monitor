@@ -1,7 +1,6 @@
 package bot.driver;
 
-import bot.commands.*;
-import bot.music.MusicCommands;
+import bot.handlers.event.EventListener;
 
 import javax.security.auth.login.LoginException;
 
@@ -23,7 +22,7 @@ public class Monitor {
         .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_VOICE_STATES)
         .setMemberCachePolicy(MemberCachePolicy.ALL)
         .enableCache(CacheFlag.VOICE_STATE)
-        .addEventListeners(new Admin(), new Fun(), new General(), new Moderation(), new MusicCommands())
+        .addEventListeners(new EventListener())
         .build()
         .awaitReady();
 
