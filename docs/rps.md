@@ -7,7 +7,7 @@ permalink: /rps
 ## About
 A game of Rock Paper Scissors! Test your luck against the bot.
 
-##Code
+## Source Code
 ```java
 package bot.commands.fun;
 
