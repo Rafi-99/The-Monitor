@@ -38,7 +38,6 @@ public class BanCommand implements CommandInterface {
                     banEvent.queue((user) -> {
 
                         if (user != null) {
-
                             Consumer<? super List<Ban>> banListConsumer = (b) -> {
 
                                 List<User> banIDList = new ArrayList<>(b.size());
@@ -68,19 +67,19 @@ public class BanCommand implements CommandInterface {
                                     banSuccess.clear();
                                 }
                             };
-                            //retrieves the ban list then runs the code inside the consumer
+                            //Retrieves the ban list then runs the code inside the consumer to ban the user.
                             c.getGuild().retrieveBanList().queue(banListConsumer);
-
-                        }}, (error) -> {
-                            EmbedBuilder banError = new EmbedBuilder();
-                            banError.setColor(0x05055e);
-                            banError.setTitle("❌ Invalid Argument ❌");
-                            banError.setDescription("Users that are no longer in a guild cannot be mentioned. Please try executing the command again with a valid user mention or user ID.");
-                            banError.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-                            c.getChannel().sendTyping().queue();
-                            c.getChannel().sendMessage(banError.build()).queue();
-                            banError.clear();
-                        });
+                        }
+                    }, (error) -> {
+                        EmbedBuilder banError = new EmbedBuilder();
+                        banError.setColor(0x05055e);
+                        banError.setTitle("❌ Invalid Argument ❌");
+                        banError.setDescription("Users that are no longer in a guild cannot be mentioned. Please try executing the command again with a valid user mention or user ID.");
+                        banError.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                        c.getChannel().sendTyping().queue();
+                        c.getChannel().sendMessage(banError.build()).queue();
+                        banError.clear();
+                    });
                 }
                 catch (Exception e) {
                     EmbedBuilder banError = new EmbedBuilder();
