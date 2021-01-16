@@ -7,7 +7,7 @@ permalink: /ping
 ## About
 Displays the ping!
 
-##Source Code
+## Source Code
 ```java
 package bot.commands.general;
 
