@@ -7,7 +7,7 @@ permalink: /purge
 ## About
 This command allows you to permanently erase up to 100 messages at a time.
 
-##Code
+## Source Code
 ```java
 package bot.commands.moderation;
 
