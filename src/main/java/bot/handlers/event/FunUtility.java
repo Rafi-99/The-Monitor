@@ -31,34 +31,13 @@ public class FunUtility {
         if(rps == 1) {
 
             if(fun[0].equalsIgnoreCase("Rock")) {
-                EmbedBuilder rpsBuilder = new EmbedBuilder();
-                rpsBuilder.setColor(0x05055e);
-                rpsBuilder.setTitle("Rock Paper Scissors");
-                rpsBuilder.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-                rpsBuilder.setDescription("The computer was: Rock :moyai: \nIt's a tie!");
-                event.getChannel().sendTyping().queue();
-                event.getChannel().sendMessage(rpsBuilder.build()).queue();
-                rpsBuilder.clear();
+                rpsEmbed(event, "The computer was: Rock :moyai: \nIt's a tie!");
             }
             else if(fun[0].equalsIgnoreCase("Paper")) {
-                EmbedBuilder rpsBuilder = new EmbedBuilder();
-                rpsBuilder.setColor(0x05055e);
-                rpsBuilder.setTitle("Rock Paper Scissors");
-                rpsBuilder.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-                rpsBuilder.setDescription("The computer was: Rock :moyai: \nYou won!");
-                event.getChannel().sendTyping().queue();
-                event.getChannel().sendMessage(rpsBuilder.build()).queue();
-                rpsBuilder.clear();
+                rpsEmbed(event, "The computer was: Rock :moyai: \nYou won!");
             }
             else if (fun[0].equalsIgnoreCase("Scissors")) {
-                EmbedBuilder rpsBuilder = new EmbedBuilder();
-                rpsBuilder.setColor(0x05055e);
-                rpsBuilder.setTitle("Rock Paper Scissors");
-                rpsBuilder.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-                rpsBuilder.setDescription("The computer was: Rock :moyai: \nYou lost!");
-                event.getChannel().sendTyping().queue();
-                event.getChannel().sendMessage(rpsBuilder.build()).queue();
-                rpsBuilder.clear();
+                rpsEmbed(event, "The computer was: Rock :moyai: \nYou lost!");
             }
             else {
                 rpsError(event);
@@ -67,34 +46,13 @@ public class FunUtility {
         else if(rps == 2) {
 
             if(fun[0].equalsIgnoreCase("Paper")) {
-                EmbedBuilder rpsBuilder = new EmbedBuilder();
-                rpsBuilder.setColor(0x05055e);
-                rpsBuilder.setTitle("Rock Paper Scissors");
-                rpsBuilder.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-                rpsBuilder.setDescription("The computer was: Paper :newspaper: \nIt's a tie!");
-                event.getChannel().sendTyping().queue();
-                event.getChannel().sendMessage(rpsBuilder.build()).queue();
-                rpsBuilder.clear();
+                rpsEmbed(event, "The computer was: Paper :newspaper: \nIt's a tie!");
             }
             else if(fun[0].equalsIgnoreCase("Scissors")) {
-                EmbedBuilder rpsBuilder = new EmbedBuilder();
-                rpsBuilder.setColor(0x05055e);
-                rpsBuilder.setTitle("Rock Paper Scissors");
-                rpsBuilder.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-                rpsBuilder.setDescription("The computer was: Paper :newspaper: \nYou won!");
-                event.getChannel().sendTyping().queue();
-                event.getChannel().sendMessage(rpsBuilder.build()).queue();
-                rpsBuilder.clear();
+                rpsEmbed(event, "The computer was: Paper :newspaper: \nYou won!");
             }
             else if(fun[0].equalsIgnoreCase("Rock")) {
-                EmbedBuilder rpsBuilder = new EmbedBuilder();
-                rpsBuilder.setColor(0x05055e);
-                rpsBuilder.setTitle("Rock Paper Scissors");
-                rpsBuilder.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-                rpsBuilder.setDescription("The computer was: Paper :newspaper: \nYou lost!");
-                event.getChannel().sendTyping().queue();
-                event.getChannel().sendMessage(rpsBuilder.build()).queue();
-                rpsBuilder.clear();
+                rpsEmbed(event, "The computer was: Paper :newspaper: \nYou lost!");
             }
             else {
                 rpsError(event);
@@ -103,34 +61,13 @@ public class FunUtility {
         else if (rps == 3) {
 
             if(fun[0].equalsIgnoreCase("Scissors")) {
-                EmbedBuilder rpsBuilder = new EmbedBuilder();
-                rpsBuilder.setColor(0x05055e);
-                rpsBuilder.setTitle("Rock Paper Scissors");
-                rpsBuilder.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-                rpsBuilder.setDescription("The computer was: Scissors :scissors: \nIt's a tie!");
-                event.getChannel().sendTyping().queue();
-                event.getChannel().sendMessage(rpsBuilder.build()).queue();
-                rpsBuilder.clear();
+                rpsEmbed(event, "The computer was: Scissors :scissors: \nIt's a tie!");
             }
             else if(fun[0].equalsIgnoreCase("Rock")) {
-                EmbedBuilder rpsBuilder = new EmbedBuilder();
-                rpsBuilder.setColor(0x05055e);
-                rpsBuilder.setTitle("Rock Paper Scissors");
-                rpsBuilder.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-                rpsBuilder.setDescription("The computer was: Scissors :scissors: \nYou won!");
-                event.getChannel().sendTyping().queue();
-                event.getChannel().sendMessage(rpsBuilder.build()).queue();
-                rpsBuilder.clear();
+                rpsEmbed(event, "The computer was: Scissors :scissors: \nYou won!");
             }
             else if(fun[0].equalsIgnoreCase("Paper")) {
-                EmbedBuilder rpsBuilder = new EmbedBuilder();
-                rpsBuilder.setColor(0x05055e);
-                rpsBuilder.setTitle("Rock Paper Scissors");
-                rpsBuilder.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-                rpsBuilder.setDescription("The computer was: Scissors :scissors: \nYou lost!");
-                event.getChannel().sendTyping().queue();
-                event.getChannel().sendMessage(rpsBuilder.build()).queue();
-                rpsBuilder.clear();
+                rpsEmbed(event, "The computer was: Scissors :scissors: \nYou lost!");
             }
             else {
                 rpsError(event);
@@ -139,13 +76,24 @@ public class FunUtility {
     }
 
     public static void rpsError(GuildMessageReceivedEvent event) {
-        EmbedBuilder rpsBuilder = new EmbedBuilder();
-        rpsBuilder.setColor(0x05055e);
-        rpsBuilder.setTitle("Rock Paper Scissors");
-        rpsBuilder.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-        rpsBuilder.setDescription("Invalid input.");
+        EmbedBuilder rpsErrorBuilder = new EmbedBuilder();
+        rpsErrorBuilder.setColor(0x05055e);
+        rpsErrorBuilder.setTitle("Rock Paper Scissors");
+        rpsErrorBuilder.setDescription("Invalid input.");
+        rpsErrorBuilder.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
         event.getChannel().sendTyping().queue();
-        event.getChannel().sendMessage(rpsBuilder.build()).queue();
-        rpsBuilder.clear();
+        event.getChannel().sendMessage(rpsErrorBuilder.build()).queue();
+        rpsErrorBuilder.clear();
+    }
+
+    public static void rpsEmbed(GuildMessageReceivedEvent event, String description) {
+        EmbedBuilder rpsEmbedBuilder = new EmbedBuilder();
+        rpsEmbedBuilder.setColor(0x05055e);
+        rpsEmbedBuilder.setTitle("Rock Paper Scissors");
+        rpsEmbedBuilder.setDescription(description);
+        rpsEmbedBuilder.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+        event.getChannel().sendTyping().queue();
+        event.getChannel().sendMessage(rpsEmbedBuilder.build()).queue();
+        rpsEmbedBuilder.clear();
     }
 }
