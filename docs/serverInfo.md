@@ -7,7 +7,7 @@ permalink: /serverinfo
 ## About
 This command is used to display general information about a Discord server.
 
-##Source Code
+## Source Code
 ```java
 package bot.commands.general;
 
