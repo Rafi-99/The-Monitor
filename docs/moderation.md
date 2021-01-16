@@ -7,7 +7,7 @@ permalink: /moderation
 ## About
 Of all the moderation commands, I will be showcasing my ban command implementation. You use this command when you want to permanently remove a user from a Discord server.
 
-#Source Code
+# Source Code
 ```java
 package bot.commands.moderation;
 
