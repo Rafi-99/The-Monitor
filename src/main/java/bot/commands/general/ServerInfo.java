@@ -4,6 +4,7 @@ import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
 import bot.driver.Monitor;
 
+import java.time.format.DateTimeFormatter;
 import java.util.function.Consumer;
 
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -25,7 +26,7 @@ public class ServerInfo implements CommandInterface {
                 server.setThumbnail(c.getGuild().getIconUrl());
                 server.addField("**Server Name**", c.getGuild().getName(), true);
                 server.addField("**Server Owner**", o.getAsMention(), true);
-                server.addField("**Server Creation**", c.getGuild().getTimeCreated().getMonthValue() +"/"+ c.getGuild().getTimeCreated().getDayOfMonth() +"/"+ c.getGuild().getTimeCreated().getYear(), true);
+                server.addField("**Server Creation**", c.getGuild().getTimeCreated().format(DateTimeFormatter.ofPattern("MMMM dd yyyy 'at' hh:mm a")), true);
                 server.addField("**Server Location**", c.getGuild().getRegionRaw().toUpperCase().replace("-", " ") , true);
                 server.addField("**Member Count**", Integer.toString(c.getGuild().getMemberCount()), true);
                 server.addField("**Role Count**", Integer.toString(c.getGuild().getRoles().size()), true);
