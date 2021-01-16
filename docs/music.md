@@ -7,7 +7,7 @@ permalink: /music
 ## About
 Of all the music commands, I'm showcasing the play command. My bot is able to play links from SoundCloud and YouTube.
 
-##Source Code
+## Source Code
 ```java
 package bot.commands.music;
 
