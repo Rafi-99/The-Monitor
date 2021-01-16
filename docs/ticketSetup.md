@@ -7,7 +7,7 @@ permalink: /ticketsetup
 ## About
 This command allows Discord server members to create a support ticket and converse with server staff in a private channel.
 
-##Code
+## Source Code
 ```java
 package bot.commands.moderation;
 
