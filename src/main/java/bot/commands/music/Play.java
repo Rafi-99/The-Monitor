@@ -3,6 +3,7 @@ package bot.commands.music;
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
 import bot.driver.Monitor;
+import bot.handlers.event.FunUtility;
 import bot.handlers.music.PlayerManager;
 
 import java.net.URL;
@@ -14,7 +15,6 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.SearchResult;
 
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.managers.AudioManager;
 
@@ -79,14 +79,7 @@ public class Play implements CommandInterface {
         if(c.getMember().hasPermission(Permission.VOICE_CONNECT)) {
 
             if(c.getCommandParameters().isEmpty()) {
-                EmbedBuilder play = new EmbedBuilder();
-                play.setColor(0x05055e);
-                play.setTitle("Play Command Usage");
-                play.setDescription(Monitor.prefix +"play [insert link or search query here]");
-                play.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-                c.getChannel().sendTyping().queue();
-                c.getChannel().sendMessage(play.build()).queue();
-                play.clear();
+                FunUtility.setEmbed(c.getEvent(), "Play Command Usage", Monitor.prefix +"play [insert link or search query here]");
             }
             else {
 
