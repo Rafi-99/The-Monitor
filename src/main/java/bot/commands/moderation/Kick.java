@@ -7,6 +7,8 @@ import bot.handlers.event.ModerationUtility;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.requests.RestAction;
 
 public class Kick implements CommandInterface {
 
@@ -25,39 +27,36 @@ public class Kick implements CommandInterface {
                 kick.clear();
             }
             else {
-
                 try {
-                    String [] format = c.getCommandParameters().toArray(new String[0]);
-                    String memberID = format[0].replace("<@!", "").replace("<@", "").replace(">", "");
-
-                    if(c.getEvent().getGuild().getMemberById(memberID) != null) {
-                        c.getEvent().getGuild().kick(memberID).queue();
-                        EmbedBuilder kicked = new EmbedBuilder();
-                        kicked.setColor(0x05055e);
-                        kicked.setTitle("✅ Success! ✅");
-                        kicked.setDescription("<@" + c.getCommandParameters().get(0) + ">" + " has been kicked successfully!");
-                        kicked.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-                        c.getChannel().sendTyping().queue();
-                        c.getChannel().sendMessage(kicked.build()).queue();
-                        kicked.clear();
-                    }
-                    else {
+                    RestAction<Member> kickEvent = c.getGuild().retrieveMemberById(c.getCommandParameters().get(0).replace("<@!", "").replace("<@", "").replace(">", ""));
+                    kickEvent.queue((user) -> {
+                        if(c.getEvent().getGuild().getMemberById(user.getId()) != null) {
+                            c.getEvent().getGuild().kick(user).queue();
+                            EmbedBuilder kicked = new EmbedBuilder();
+                            kicked.setColor(0x05055e);
+                            kicked.setTitle("✅ Success! ✅");
+                            kicked.setDescription(user.getAsMention() +" has been kicked successfully!");
+                            kicked.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                            c.getChannel().sendTyping().queue();
+                            c.getChannel().sendMessage(kicked.build()).queue();
+                            kicked.clear();
+                        }
+                    }, (error) -> {
                         EmbedBuilder kickError = new EmbedBuilder();
                         kickError.setColor(0x05055e);
-                        kickError.setTitle("❌ Error ❌");
-                        kickError.setDescription("Users that are no longer in a guild cannot be kicked. Please try executing the command again with a valid user mention or user ID.");
+                        kickError.setTitle("❌ Failed to Kick ❌");
+                        kickError.setDescription("Invalid user. Users not in the guild can't be kicked. Please try executing the command again with a valid user mention or user ID.");
                         kickError.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                         c.getChannel().sendTyping().queue();
                         c.getChannel().sendMessage(kickError.build()).queue();
                         kickError.clear();
-
-                    }
-                    
-                } catch (Exception e) {
+                    });
+                } 
+                catch (Exception e) {
                     EmbedBuilder kickError = new EmbedBuilder();
                     kickError.setColor(0x05055e);
-                    kickError.setTitle("❌ Invalid Argument ❌");
-                    kickError.setDescription("Invalid format. Please try executing the command again with a valid user mention or user ID.");
+                    kickError.setTitle("❌ Failed to Kick ❌");
+                    kickError.setDescription("Bad format. Please try executing the command again with a valid user mention or user ID.");
                     kickError.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                     c.getChannel().sendTyping().queue();
                     c.getChannel().sendMessage(kickError.build()).queue();
