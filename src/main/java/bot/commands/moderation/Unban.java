@@ -3,13 +3,13 @@ package bot.commands.moderation;
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
 import bot.driver.Monitor;
+import bot.handlers.event.FunUtility;
 import bot.handlers.event.ModerationUtility;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.Guild.Ban;
@@ -22,14 +22,7 @@ public class Unban implements CommandInterface {
         if(c.getMember().hasPermission(Permission.BAN_MEMBERS)) {
 
             if(c.getCommandParameters().size() < 1) {
-                EmbedBuilder unban = new EmbedBuilder();
-                unban.setColor(0x05055e);
-                unban.setTitle("Remove Ban Command Usage");
-                unban.setDescription("Usage: "+ Monitor.prefix +"unban [user mention or ID]");
-                unban.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-                c.getChannel().sendTyping().queue();
-                c.getChannel().sendMessage(unban.build()).queue();
-                unban.clear();
+                FunUtility.setEmbed(c.getEvent(), "Remove Ban Command Usage", "Usage: "+ Monitor.prefix +"unban [user mention or ID]");
             }
             else {
 
@@ -47,49 +40,19 @@ public class Unban implements CommandInterface {
 
                                 if(banIDList.contains(user)) {
                                     c.getGuild().unban(user).queue();
-                                    EmbedBuilder unbanSuccess = new EmbedBuilder();
-                                    unbanSuccess.setColor(0x05055e);
-                                    unbanSuccess.setTitle("✅ Success! ✅");
-                                    unbanSuccess.setDescription(user.getAsMention() + " has been unbanned successfully!");
-                                    unbanSuccess.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-                                    c.getChannel().sendTyping().queue();
-                                    c.getChannel().sendMessage(unbanSuccess.build()).queue();
-                                    unbanSuccess.clear();
+                                    FunUtility.setEmbed(c.getEvent(), "✅ Success! ✅", user.getAsMention() + " has been unbanned successfully!");
                                 }
                                 else {
-                                    EmbedBuilder unbanError = new EmbedBuilder();
-                                    unbanError.setColor(0x05055e);
-                                    unbanError.setTitle("❌ Failed to Unban ❌");
-                                    unbanError.setDescription("Cannot unban users that aren't on the banlist.");
-                                    unbanError.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-                                    c.getChannel().sendTyping().queue();
-                                    c.getChannel().sendMessage(unbanError.build()).queue();
-                                    unbanError.clear();
+                                    FunUtility.setEmbed(c.getEvent(), "❌ Failed to Unban ❌", "Cannot unban users that aren't on the banlist.");
                                 }
                             };
                             //Retrieves the ban list then runs the code inside the consumer to unban the user.
                             c.getGuild().retrieveBanList().queue(banListConsumer);
                         }
-                    }, (error) -> {
-                        EmbedBuilder unbanError = new EmbedBuilder();
-                        unbanError.setColor(0x05055e);
-                        unbanError.setTitle("❌ Failed to Unban ❌");
-                        unbanError.setDescription("Invalid user. Please try executing the command again with a valid user mention or user ID.");
-                        unbanError.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-                        c.getChannel().sendTyping().queue();
-                        c.getChannel().sendMessage(unbanError.build()).queue();
-                        unbanError.clear();
-                    });
+                    }, (error) -> FunUtility.setEmbed(c.getEvent(), "❌ Failed to Unban ❌", "Invalid user. Please try executing the command again with a valid user mention or user ID."));
                 } 
                 catch (Exception e) {
-                    EmbedBuilder unbanError = new EmbedBuilder();
-                    unbanError.setColor(0x05055e);
-                    unbanError.setTitle("❌ Failed to Unban ❌");
-                    unbanError.setDescription("Bad format. Please try executing the command again with a valid user mention or user ID.");
-                    unbanError.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-                    c.getChannel().sendTyping().queue();
-                    c.getChannel().sendMessage(unbanError.build()).queue();
-                    unbanError.clear();
+                    FunUtility.setEmbed(c.getEvent(), "❌ Failed to Unban ❌", "Bad format. Please try executing the command again with a valid user mention or user ID.");
                 }
             }
         }
