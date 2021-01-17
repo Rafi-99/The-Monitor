@@ -3,11 +3,11 @@ package bot.commands.moderation;
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
 import bot.driver.Monitor;
+import bot.handlers.event.FunUtility;
 import bot.handlers.event.ModerationUtility;
 
 import java.util.List;
 
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Message;
 
@@ -18,14 +18,7 @@ public class Purge implements CommandInterface {
         if(c.getMember().hasPermission(Permission.MESSAGE_MANAGE)) {
 
             if(c.getCommandParameters().size() < 1) {
-                EmbedBuilder usage = new EmbedBuilder();
-                usage.setColor(0x05055e);
-                usage.setTitle("Message Deletion Usage");
-                usage.setDescription("Usage: " + Monitor.prefix + "purge [# of messages]");
-                usage.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-                c.getChannel().sendTyping().queue();
-                c.getChannel().sendMessage(usage.build()).queue();
-                usage.clear();
+                FunUtility.setEmbed(c.getEvent(), "Message Deletion Usage", "Usage: " + Monitor.prefix + "purge [# of messages]");
             }
             else {
                 
@@ -36,24 +29,10 @@ public class Purge implements CommandInterface {
                     /*
                      * Notifies user if messages have been successfully deleted.
                      */
-                    EmbedBuilder purgeSuccess = new EmbedBuilder();
-                    purgeSuccess.setColor(0x05055e);
-                    purgeSuccess.setTitle("✅ Success! ✅");
-                    purgeSuccess.setDescription("You have successfully deleted " + messageCount + " messages.");
-                    purgeSuccess.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-                    c.getChannel().sendTyping().queue();
-                    c.getChannel().sendMessage(purgeSuccess.build()).queue();
-                    purgeSuccess.clear();
+                    FunUtility.setEmbed(c.getEvent(), "✅ Success! ✅", "You have successfully deleted " + messageCount + " messages.");
                 }
                 catch(NumberFormatException n) {
-                    EmbedBuilder purgeError = new EmbedBuilder();
-                    purgeError.setColor(0x05055e);
-                    purgeError.setTitle("❌ Invalid Argument ❌");
-                    purgeError.setDescription("Enter a number.");
-                    purgeError.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-                    c.getChannel().sendTyping().queue();
-                    c.getChannel().sendMessage(purgeError.build()).queue();
-                    purgeError.clear();
+                    FunUtility.setEmbed(c.getEvent(), "❌ Invalid Argument ❌", "Please enter the number of messages you want to delete.");
                 }
                 catch (IllegalArgumentException e) {
 
@@ -61,27 +40,13 @@ public class Purge implements CommandInterface {
                         /*
                          * Messages >100 API limit error.
                          */
-                        EmbedBuilder purgeError = new EmbedBuilder();
-                        purgeError.setColor(0x05055e);
-                        purgeError.setTitle("❌ Selected Messages Are Out of Range ❌");
-                        purgeError.setDescription("Only 1-100 messages can be deleted at a time.");
-                        purgeError.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-                        c.getChannel().sendTyping().queue();
-                        c.getChannel().sendMessage(purgeError.build()).queue();
-                        purgeError.clear();
+                        FunUtility.setEmbed(c.getEvent(), "❌ Selected Messages Are Out of Range ❌", "Only 1-100 messages can be deleted at a time.");
                     }
                     else {
                         /*
                          * Messages are too old error.
                          */
-                        EmbedBuilder purgeError = new EmbedBuilder();
-                        purgeError.setColor(0x05055e);
-                        purgeError.setTitle("❌ Selected Messages Are Older Than 2 Weeks ❌");
-                        purgeError.setDescription("Messages older than 2 weeks cannot be deleted.");
-                        purgeError.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-                        c.getChannel().sendTyping().queue();
-                        c.getChannel().sendMessage(purgeError.build()).queue();
-                        purgeError.clear();
+                        FunUtility.setEmbed(c.getEvent(), "❌ Selected Messages Are Older Than 2 Weeks ❌", "Messages older than 2 weeks cannot be deleted.");
                     }
                 }
             }
