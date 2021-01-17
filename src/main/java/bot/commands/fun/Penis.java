@@ -5,7 +5,6 @@ import bot.commands.CommandInterface;
 import bot.driver.Monitor;
 
 import bot.handlers.event.FunUtility;
-import net.dv8tion.jda.api.EmbedBuilder;
 
 public class Penis implements CommandInterface {
 
