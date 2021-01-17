@@ -3,7 +3,6 @@ package bot.commands.fun;
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
 import bot.driver.Monitor;
-
 import bot.handlers.event.FunUtility;
 
 public class Penis implements CommandInterface {
