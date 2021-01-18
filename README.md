@@ -32,6 +32,7 @@ A multipurpose Discord server bot created using the official Java Discord API wr
 * pp: creates a randomly generated pp length 
 * rps: play a game of rock paper scissors against the bot
 * meme: displays a random meme from [Reddit](https://www.reddit.com/r/memes)
+* emotes: displays all the emotes from the current server
   
 ### Music Commands
 
