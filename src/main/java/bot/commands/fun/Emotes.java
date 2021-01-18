@@ -12,11 +12,15 @@ public class Emotes implements CommandInterface {
 
     @Override
     public void handle(CommandContext c) {
+
         StringBuilder emotes = new StringBuilder();
+
         List<Emote> guildEmotes = c.getGuild().getEmoteCache().asList();
+
         for (Emote emote : guildEmotes) {
             emotes.append(emote.getAsMention());
         }
+
         FunUtility.setEmbed(c.getEvent(), "Server Emotes", String.valueOf(emotes));
     }
 
