@@ -30,7 +30,7 @@ public class ServerInfo implements CommandInterface {
                 server.addField("**Server Location**", c.getGuild().getRegionRaw().toUpperCase().replace("-", " ") , true);
                 server.addField("**Member Count**", Integer.toString(c.getGuild().getMemberCount()), true);
                 server.addField("**Role Count**", Integer.toString(c.getGuild().getRoles().size()), true);
-                server.addField("**Emote Count**", Integer.toString(c.getGuild().getEmotes().size()), true);
+                server.addField("**Emote Count**", Integer.toString(c.getGuild().getEmoteCache().asList().size()), true);
                 server.addField("**Boost Tier**", c.getGuild().getBoostTier().toString().replace("TIER_", "Level "), true);
                 server.addField("**Boost Count**", Integer.toString(c.getGuild().getBoostCount()) , true);
                 server.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
