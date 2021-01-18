@@ -21,7 +21,7 @@ public class Monitor {
         myBot = JDABuilder.createDefault(System.getenv("BOT_TOKEN"))
         .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_VOICE_STATES)
         .setMemberCachePolicy(MemberCachePolicy.ALL)
-        .enableCache(CacheFlag.VOICE_STATE)
+        .enableCache(CacheFlag.VOICE_STATE, CacheFlag.EMOTE)
         .addEventListeners(new EventListener())
         .build()
         .awaitReady();
