@@ -29,6 +29,7 @@ public class CommandManager {
         addCommand(new Test());
         //Fun Commands (7)
         addCommand(new Avatar());
+        addCommand(new Emotes());
         addCommand(new Meme());
         addCommand(new Penis());
         addCommand(new Roast());
