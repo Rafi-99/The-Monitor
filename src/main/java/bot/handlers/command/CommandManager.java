@@ -85,7 +85,7 @@ public class CommandManager {
 
     public void handle(GuildMessageReceivedEvent event, String prefix) {
         //Gets rid of prefix and splits the event.getMessage.getContentRaw() from EventListener so the command name is stored at index 0
-        String [] split = event.getMessage().getContentRaw() .replaceFirst("(?i)" + Pattern.quote(prefix), "").split("\\s+");
+        String [] split = event.getMessage().getContentRaw().replaceFirst("(?i)" + Pattern.quote(prefix), "").split("\\s+");
         //Takes the command name and makes it lowercase
         String commandInvoke = split[0].toLowerCase();
         //Gets the command
