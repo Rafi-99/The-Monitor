@@ -4,6 +4,7 @@ import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
 import bot.driver.Monitor;
 import bot.handlers.event.FunUtility;
+import bot.handlers.music.MusicUtility;
 import bot.handlers.music.PlayerManager;
 
 import java.net.URL;
@@ -16,7 +17,6 @@ import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.SearchResult;
 
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.managers.AudioManager;
 
 public class Play implements CommandInterface {
 
@@ -74,8 +74,6 @@ public class Play implements CommandInterface {
 
     @Override
     public void handle(CommandContext c) {
-        AudioManager manager = c.getGuild().getAudioManager();
-
         if(c.getMember().hasPermission(Permission.VOICE_CONNECT)) {
 
             if(c.getCommandParameters().isEmpty()) {
@@ -83,7 +81,7 @@ public class Play implements CommandInterface {
             }
             else {
 
-                if(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null && c.getMember().getVoiceState().getChannel() == manager.getConnectedChannel() && manager.isConnected()) {
+                if(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null && c.getMember().getVoiceState().getChannel() == MusicUtility.guildAudioManager.getConnectedChannel() && MusicUtility.guildAudioManager.isConnected()) {
                     String link = String.join(" ", c.getCommandParameters());
 
                     if(!isUrl(link)) {
