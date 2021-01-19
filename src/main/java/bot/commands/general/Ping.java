@@ -10,7 +10,7 @@ public class Ping implements CommandInterface {
     public void handle(CommandContext c) {
         if(c.getCommandParameters().isEmpty()) {
             c.getChannel().sendTyping().queue();
-            c.getJDA().getRestPing().queue((ping) -> FunUtility.setEmbed(c.getEvent(), "Ping", "Bot Latency: "+ ping +" ms | Discord API Latency: "+ c.getJDA().getGatewayPing() +" ms"));
+            c.getJDA().getRestPing().queue((ping) -> FunUtility.setEmbed(c.getEvent(), "Ping 📶", "Bot Latency: "+ ping +" ms \nDiscord API Latency: "+ c.getJDA().getGatewayPing() +" ms"));
         }
     }
 
