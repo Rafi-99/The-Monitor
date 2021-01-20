@@ -14,10 +14,10 @@ public class Join implements CommandInterface {
     public void handle(CommandContext c) {
         if(c.getCommandParameters().isEmpty() && c.getMember().hasPermission(Permission.VOICE_CONNECT)) {
 
-            if(!MusicUtility.getAudioManager(c.getEvent()).isConnected()) {
+            if(!MusicUtility.getAudioManager(c).isConnected()) {
 
                 if(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null) {
-                    MusicUtility.getAudioManager(c.getEvent()).openAudioConnection(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel());
+                    MusicUtility.getAudioManager(c).openAudioConnection(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel());
                     String name = Objects.requireNonNull(c.getMember().getVoiceState().getChannel()).toString().replace("VC:", "");
                     c.getChannel().sendTyping().queue();
                     c.getChannel().sendMessage("Successfully connected to: " + name.substring(name.indexOf(""), name.indexOf("("))).queue();

@@ -14,15 +14,15 @@ public class NowPlaying implements CommandInterface {
     public void handle(CommandContext c) {
         if(c.getCommandParameters().isEmpty() && c.getMember().hasPermission(Permission.VOICE_CONNECT)) {
 
-            if(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null && Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() == MusicUtility.getAudioManager(c.getEvent()).getConnectedChannel() && MusicUtility.getAudioManager(c.getEvent()).isConnected()) {
+            if(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null && Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() == MusicUtility.getAudioManager(c).getConnectedChannel() && MusicUtility.getAudioManager(c).isConnected()) {
 
-                if(MusicUtility.getMusicManager(c.getEvent()).player.getPlayingTrack() == null) {
+                if(MusicUtility.getMusicManager(c).player.getPlayingTrack() == null) {
                     c.getChannel().sendTyping().queue();
                     c.getChannel().sendMessage("Nothing is being played currently.").queue();
                     return;
                 }
                 c.getChannel().sendTyping().queue();
-                c.getChannel().sendMessage("Currently playing: "+ MusicUtility.getMusicManager(c.getEvent()).player.getPlayingTrack().getInfo().title).queue();
+                c.getChannel().sendMessage("Currently playing: "+ MusicUtility.getMusicManager(c).player.getPlayingTrack().getInfo().title).queue();
             }
             else {
                 c.getChannel().sendTyping().queue();

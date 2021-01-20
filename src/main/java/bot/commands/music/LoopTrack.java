@@ -14,9 +14,9 @@ public class LoopTrack implements CommandInterface {
     public void handle(CommandContext c) {
         if(c.getCommandParameters().isEmpty() && c.getMember().hasPermission(Permission.VOICE_CONNECT)) {
 
-            if(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null && Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() == MusicUtility.getAudioManager(c.getEvent()).getConnectedChannel() && MusicUtility.getAudioManager(c.getEvent()).isConnected()) {
-                final boolean trackRepeat = !MusicUtility.getMusicManager(c.getEvent()).scheduler.trackLoop;
-                MusicUtility.getMusicManager(c.getEvent()).scheduler.trackLoop = trackRepeat;
+            if(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null && Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() == MusicUtility.getAudioManager(c).getConnectedChannel() && MusicUtility.getAudioManager(c).isConnected()) {
+                final boolean trackRepeat = !MusicUtility.getMusicManager(c).scheduler.trackLoop;
+                MusicUtility.getMusicManager(c).scheduler.trackLoop = trackRepeat;
                 c.getChannel().sendTyping().queue();
 
                 if(trackRepeat) {
