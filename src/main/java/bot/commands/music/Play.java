@@ -81,7 +81,7 @@ public class Play implements CommandInterface {
             }
             else {
 
-                if(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null && c.getMember().getVoiceState().getChannel() == MusicUtility.guildAudioManager.getConnectedChannel() && MusicUtility.guildAudioManager.isConnected()) {
+                if(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null && c.getMember().getVoiceState().getChannel() == MusicUtility.getAudioManager(c.getEvent()).getConnectedChannel() && MusicUtility.getAudioManager(c.getEvent()).isConnected()) {
                     String link = String.join(" ", c.getCommandParameters());
 
                     if(!isUrl(link)) {

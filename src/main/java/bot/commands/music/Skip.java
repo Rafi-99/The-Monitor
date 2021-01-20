@@ -14,13 +14,13 @@ public class Skip implements CommandInterface {
     public void handle(CommandContext c) {
         if(c.getCommandParameters().isEmpty() && c.getMember().hasPermission(Permission.VOICE_CONNECT)) {
 
-            if(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null && Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() == MusicUtility.guildAudioManager.getConnectedChannel() && MusicUtility.guildAudioManager.isConnected()) {
+            if(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null && Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() == MusicUtility.getAudioManager(c.getEvent()).getConnectedChannel() && MusicUtility.getAudioManager(c.getEvent()).isConnected()) {
 
-                if(MusicUtility.playerQueue.size() > 0) {
-                    MusicUtility.guildMusicManager.scheduler.nextTrack();
+                if(MusicUtility.getQueue(c.getEvent()).size() > 0) {
+                    MusicUtility.getMusicManager(c.getEvent()).scheduler.nextTrack();
                     c.getChannel().sendTyping().queue();
                     c.getChannel().sendMessage("Track skipped.").queue();
-                    c.getChannel().sendMessage("Now playing: " + MusicUtility.guildMusicManager.player.getPlayingTrack().getInfo().title).queue();
+                    c.getChannel().sendMessage("Now playing: " + MusicUtility.getMusicManager(c.getEvent()).player.getPlayingTrack().getInfo().title).queue();
                 }
                 else {
                     c.getChannel().sendTyping().queue();

@@ -21,19 +21,19 @@ public class Queue implements CommandInterface {
     public void handle(CommandContext c) {
         if(c.getCommandParameters().isEmpty() && c.getMember().hasPermission(Permission.VOICE_CONNECT)) {
 
-            if(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null && Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() == MusicUtility.guildAudioManager.getConnectedChannel() && MusicUtility.guildAudioManager.isConnected()) {
+            if(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null && Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() == MusicUtility.getAudioManager(c.getEvent()).getConnectedChannel() && MusicUtility.getAudioManager(c.getEvent()).isConnected()) {
 
-                if (MusicUtility.playerQueue.isEmpty()) {
+                if (MusicUtility.getQueue(c.getEvent()).isEmpty()) {
                     c.getChannel().sendTyping().queue();
                     c.getChannel().sendMessage("The queue is empty.").queue();
                 }
                 else {
-                    int minQueueView = Math.min(MusicUtility.playerQueue.size(), 30);
-                    List<AudioTrack> tracks = new ArrayList<>(MusicUtility.playerQueue);
+                    int minQueueView = Math.min(MusicUtility.getQueue(c.getEvent()).size(), 30);
+                    List<AudioTrack> tracks = new ArrayList<>(MusicUtility.getQueue(c.getEvent()));
 
                     EmbedBuilder queue = new EmbedBuilder();
                     queue.setColor(0x05055e);
-                    queue.setTitle("**Current Queue: **" + MusicUtility.playerQueue.size() + " **Tracks**");
+                    queue.setTitle("**Current Queue: **" + MusicUtility.getQueue(c.getEvent()).size() + " **Tracks**");
 
                     for (int i = 0; i < minQueueView; i++) {
                         AudioTrackInfo trackInfo = tracks.get(i).getInfo();
