@@ -45,6 +45,6 @@ public class Purge implements CommandInterface {
 
     @Override
     public String getName() {
-        return "delete";
+        return "purge";
     }
 }
