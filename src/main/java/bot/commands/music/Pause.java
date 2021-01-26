@@ -2,7 +2,7 @@ package bot.commands.music;
 
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
-import bot.handlers.music.MusicUtility;
+import bot.handlers.utilities.Constants;
 
 import java.util.Objects;
 
@@ -16,16 +16,16 @@ public class Pause implements CommandInterface {
     public void handle(CommandContext c) {
         if(c.getCommandParameters().isEmpty() && c.getMember().hasPermission(Permission.VOICE_CONNECT)) {
 
-            if(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null && Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() == MusicUtility.getAudioManager(c).getConnectedChannel() && MusicUtility.getAudioManager(c).isConnected()) {
+            if(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null && Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() == Constants.getAudioManager(c).getConnectedChannel() && Constants.getAudioManager(c).isConnected()) {
 
                 if(pause) {
-                    MusicUtility.getMusicManager(c).player.setPaused(true);
+                    Constants.getMusicManager(c).player.setPaused(true);
                     pause = false;
                     c.getChannel().sendTyping().queue();
                     c.getChannel().sendMessage("Player has been paused.").queue();
                 }
                 else {
-                    MusicUtility.getMusicManager(c).player.setPaused(false);
+                    Constants.getMusicManager(c).player.setPaused(false);
                     pause = true;
                     c.getChannel().sendTyping().queue();
                     c.getChannel().sendMessage("Player has been resumed.").queue();

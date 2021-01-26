@@ -2,7 +2,7 @@ package bot.commands.moderation;
 
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
-import bot.handlers.event.ModerationUtility;
+import bot.handlers.utilities.Constants;
 
 import net.dv8tion.jda.api.Permission;
 
@@ -19,7 +19,7 @@ public class Invite implements CommandInterface {
             }
         }
         else {
-            ModerationUtility.accessDenied(c.getEvent());
+            Constants.accessDenied(c.getEvent());
         }
     }
 

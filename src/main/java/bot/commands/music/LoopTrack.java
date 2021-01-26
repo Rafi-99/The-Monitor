@@ -2,7 +2,7 @@ package bot.commands.music;
 
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
-import bot.handlers.music.MusicUtility;
+import bot.handlers.utilities.Constants;
 
 import java.util.Objects;
 
@@ -14,9 +14,9 @@ public class LoopTrack implements CommandInterface {
     public void handle(CommandContext c) {
         if(c.getCommandParameters().isEmpty() && c.getMember().hasPermission(Permission.VOICE_CONNECT)) {
 
-            if(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null && Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() == MusicUtility.getAudioManager(c).getConnectedChannel() && MusicUtility.getAudioManager(c).isConnected()) {
-                final boolean trackRepeat = !MusicUtility.getMusicManager(c).scheduler.trackLoop;
-                MusicUtility.getMusicManager(c).scheduler.trackLoop = trackRepeat;
+            if(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null && Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() == Constants.getAudioManager(c).getConnectedChannel() && Constants.getAudioManager(c).isConnected()) {
+                final boolean trackRepeat = !Constants.getMusicManager(c).scheduler.trackLoop;
+                Constants.getMusicManager(c).scheduler.trackLoop = trackRepeat;
                 c.getChannel().sendTyping().queue();
 
                 if(trackRepeat) {

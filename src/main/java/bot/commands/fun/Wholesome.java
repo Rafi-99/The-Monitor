@@ -3,14 +3,14 @@ package bot.commands.fun;
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
 import bot.driver.Monitor;
-import bot.handlers.event.FunUtility;
+import bot.handlers.utilities.Constants;
 
 public class Wholesome implements CommandInterface {
 
     @Override
     public void handle(CommandContext c) {
         if(c.getCommandParameters().size() == 1) {
-            FunUtility.setEmbed(c.getEvent(), "Such Wholesome", c.getCommandParameters().get(0) + " is " + (int) (Math.random() * 101) + "% wholesome.");
+            Constants.setEmbed(c.getEvent(), "Such Wholesome", c.getCommandParameters().get(0) + " is " + (int) (Math.random() * 101) + "% wholesome.");
         }
         else {
             c.getChannel().sendTyping().queue();

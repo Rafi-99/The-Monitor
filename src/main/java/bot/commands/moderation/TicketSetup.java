@@ -3,7 +3,7 @@ package bot.commands.moderation;
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
 import bot.driver.Monitor;
-import bot.handlers.event.ModerationUtility;
+import bot.handlers.utilities.Constants;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -21,7 +21,7 @@ public class TicketSetup implements CommandInterface {
             c.getChannel().sendMessage(ticket.build()).queue(t -> t.addReaction("📩").queue());
         }
         else {
-            ModerationUtility.accessDenied(c.getEvent());
+            Constants.accessDenied(c.getEvent());
         }
     }
 

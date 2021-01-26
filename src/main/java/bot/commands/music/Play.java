@@ -3,8 +3,7 @@ package bot.commands.music;
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
 import bot.driver.Monitor;
-import bot.handlers.event.FunUtility;
-import bot.handlers.music.MusicUtility;
+import bot.handlers.utilities.Constants;
 import bot.handlers.music.PlayerManager;
 
 import java.net.URL;
@@ -77,11 +76,11 @@ public class Play implements CommandInterface {
         if(c.getMember().hasPermission(Permission.VOICE_CONNECT)) {
 
             if(c.getCommandParameters().isEmpty()) {
-                FunUtility.setEmbed(c.getEvent(), "Play Command Usage", Monitor.prefix +"play [insert link or search query here]");
+                Constants.setEmbed(c.getEvent(), "Play Command Usage", Monitor.prefix +"play [insert link or search query here]");
             }
             else {
 
-                if(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null && c.getMember().getVoiceState().getChannel() == MusicUtility.getAudioManager(c).getConnectedChannel() && MusicUtility.getAudioManager(c).isConnected()) {
+                if(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null && c.getMember().getVoiceState().getChannel() == Constants.getAudioManager(c).getConnectedChannel() && Constants.getAudioManager(c).isConnected()) {
                     String link = String.join(" ", c.getCommandParameters());
 
                     if(!isUrl(link)) {

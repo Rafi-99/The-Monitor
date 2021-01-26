@@ -2,7 +2,7 @@ package bot.commands.music;
 
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
-import bot.handlers.music.MusicUtility;
+import bot.handlers.utilities.Constants;
 
 import java.util.Objects;
 
@@ -14,13 +14,13 @@ public class Skip implements CommandInterface {
     public void handle(CommandContext c) {
         if(c.getCommandParameters().isEmpty() && c.getMember().hasPermission(Permission.VOICE_CONNECT)) {
 
-            if(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null && Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() == MusicUtility.getAudioManager(c).getConnectedChannel() && MusicUtility.getAudioManager(c).isConnected()) {
+            if(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null && Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() == Constants.getAudioManager(c).getConnectedChannel() && Constants.getAudioManager(c).isConnected()) {
 
-                if(MusicUtility.getQueue(c).size() > 0) {
-                    MusicUtility.getMusicManager(c).scheduler.nextTrack();
+                if(Constants.getQueue(c).size() > 0) {
+                    Constants.getMusicManager(c).scheduler.nextTrack();
                     c.getChannel().sendTyping().queue();
                     c.getChannel().sendMessage("Track skipped.").queue();
-                    c.getChannel().sendMessage("Now playing: " + MusicUtility.getMusicManager(c).player.getPlayingTrack().getInfo().title).queue();
+                    c.getChannel().sendMessage("Now playing: " + Constants.getMusicManager(c).player.getPlayingTrack().getInfo().title).queue();
                 }
                 else {
                     c.getChannel().sendTyping().queue();

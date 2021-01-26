@@ -2,8 +2,7 @@ package bot.commands.music;
 
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
-import bot.handlers.event.FunUtility;
-import bot.handlers.music.MusicUtility;
+import bot.handlers.utilities.Constants;
 
 import java.util.Objects;
 
@@ -14,8 +13,8 @@ public class NowPlaying implements CommandInterface {
     @Override
     public void handle(CommandContext c) {
         
-        long currentPositionMillis = MusicUtility.getMusicManager(c).player.getPlayingTrack().getPosition();
-        long totalDurationMillis = MusicUtility.getMusicManager(c).player.getPlayingTrack().getDuration();
+        long currentPositionMillis = Constants.getMusicManager(c).player.getPlayingTrack().getPosition();
+        long totalDurationMillis = Constants.getMusicManager(c).player.getPlayingTrack().getDuration();
 
         long currentPositionMinutes = (currentPositionMillis/1000)/60;
         long currentPositionSeconds = (currentPositionMillis/1000)%60;
@@ -27,14 +26,14 @@ public class NowPlaying implements CommandInterface {
 
         if(c.getCommandParameters().isEmpty() && c.getMember().hasPermission(Permission.VOICE_CONNECT)) {
 
-            if(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null && Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() == MusicUtility.getAudioManager(c).getConnectedChannel() && MusicUtility.getAudioManager(c).isConnected()) {
+            if(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null && Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() == Constants.getAudioManager(c).getConnectedChannel() && Constants.getAudioManager(c).isConnected()) {
 
-                if(MusicUtility.getMusicManager(c).player.getPlayingTrack() == null) {
+                if(Constants.getMusicManager(c).player.getPlayingTrack() == null) {
                     c.getChannel().sendTyping().queue();
                     c.getChannel().sendMessage("Nothing is being played currently.").queue();
                     return;
                 }
-                FunUtility.setEmbed(c.getEvent(), "Currently Playing: "+ MusicUtility.getMusicManager(c).player.getPlayingTrack().getInfo().title, message);
+                Constants.setEmbed(c.getEvent(), "Currently Playing: "+ Constants.getMusicManager(c).player.getPlayingTrack().getInfo().title, message);
             }
             else {
                 c.getChannel().sendTyping().queue();

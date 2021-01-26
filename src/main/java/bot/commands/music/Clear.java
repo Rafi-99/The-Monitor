@@ -2,7 +2,7 @@ package bot.commands.music;
 
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
-import bot.handlers.music.MusicUtility;
+import bot.handlers.utilities.Constants;
 
 import java.util.Objects;
 
@@ -15,10 +15,10 @@ public class Clear implements CommandInterface {
 
         if(c.getCommandParameters().isEmpty() && c.getMember().hasPermission(Permission.VOICE_CONNECT)) {
 
-            if (Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null && Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() == MusicUtility.getAudioManager(c).getConnectedChannel() && MusicUtility.getAudioManager(c).isConnected()) {
-                MusicUtility.getMusicManager(c).scheduler.getQueue().clear();
-                MusicUtility.getMusicManager(c).player.stopTrack();
-                MusicUtility.getMusicManager(c).player.setPaused(false);
+            if (Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null && Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() == Constants.getAudioManager(c).getConnectedChannel() && Constants.getAudioManager(c).isConnected()) {
+                Constants.getMusicManager(c).scheduler.getQueue().clear();
+                Constants.getMusicManager(c).player.stopTrack();
+                Constants.getMusicManager(c).player.setPaused(false);
                 c.getChannel().sendTyping().queue();
                 c.getChannel().sendMessage("The queue has been cleared successfully!").queue();
             }

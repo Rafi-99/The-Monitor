@@ -3,7 +3,7 @@ package bot.commands.music;
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
 import bot.driver.Monitor;
-import bot.handlers.music.MusicUtility;
+import bot.handlers.utilities.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,19 +21,19 @@ public class Queue implements CommandInterface {
     public void handle(CommandContext c) {
         if(c.getCommandParameters().isEmpty() && c.getMember().hasPermission(Permission.VOICE_CONNECT)) {
 
-            if(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null && Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() == MusicUtility.getAudioManager(c).getConnectedChannel() && MusicUtility.getAudioManager(c).isConnected()) {
+            if(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null && Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() == Constants.getAudioManager(c).getConnectedChannel() && Constants.getAudioManager(c).isConnected()) {
 
-                if (MusicUtility.getQueue(c).isEmpty()) {
+                if (Constants.getQueue(c).isEmpty()) {
                     c.getChannel().sendTyping().queue();
                     c.getChannel().sendMessage("The queue is empty.").queue();
                 }
                 else {
-                    int minQueueView = Math.min(MusicUtility.getQueue(c).size(), 30);
-                    List<AudioTrack> tracks = new ArrayList<>(MusicUtility.getQueue(c));
+                    int minQueueView = Math.min(Constants.getQueue(c).size(), 30);
+                    List<AudioTrack> tracks = new ArrayList<>(Constants.getQueue(c));
 
                     EmbedBuilder queue = new EmbedBuilder();
                     queue.setColor(0x05055e);
-                    queue.setTitle("**Current Queue: **" + MusicUtility.getQueue(c).size() + " **Tracks**");
+                    queue.setTitle("**Current Queue: **" + Constants.getQueue(c).size() + " **Tracks**");
 
                     for (int i = 0; i < minQueueView; i++) {
                         AudioTrackInfo trackInfo = tracks.get(i).getInfo();

@@ -3,8 +3,7 @@ package bot.commands.moderation;
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
 import bot.driver.Monitor;
-import bot.handlers.event.FunUtility;
-import bot.handlers.event.ModerationUtility;
+import bot.handlers.utilities.Constants;
 
 import net.dv8tion.jda.api.Permission;
 
@@ -15,7 +14,7 @@ public class Purge implements CommandInterface {
         if(c.getMember().hasPermission(Permission.MESSAGE_MANAGE)) {
 
             if(c.getCommandParameters().isEmpty()) {
-                FunUtility.setEmbed(c.getEvent(), "Message Deletion Usage", "Usage: " + Monitor.prefix + "purge [# of messages]");
+                Constants.setEmbed(c.getEvent(), "Message Deletion Usage", "Usage: " + Monitor.prefix + "purge [# of messages]");
             }
             else {
 
@@ -26,20 +25,20 @@ public class Purge implements CommandInterface {
                     if(num > 0 && num <= 1000) {
                         c.getChannel().getIterableHistory().takeAsync(num).thenAccept(messages -> {
                             c.getChannel().purgeMessages(messages);
-                            FunUtility.setEmbed(c.getEvent(), "✅ Success! ✅", "You have successfully deleted " + messages.size() + " messages.");
+                            Constants.setEmbed(c.getEvent(), "✅ Success! ✅", "You have successfully deleted " + messages.size() + " messages.");
                         });
                     }
                     else {
-                        FunUtility.setEmbed(c.getEvent(), "❌ Invalid Argument ❌", "Please enter a number between 1 and 1000.");
+                        Constants.setEmbed(c.getEvent(), "❌ Invalid Argument ❌", "Please enter a number between 1 and 1000.");
                     }
                 }
                 catch(Exception e) {
-                    FunUtility.setEmbed(c.getEvent(), "❌ Invalid Argument ❌", "Please enter a number between 1 and 1000.");
+                    Constants.setEmbed(c.getEvent(), "❌ Invalid Argument ❌", "Please enter a number between 1 and 1000.");
                 }
             }
         }
         else {
-            ModerationUtility.accessDenied(c.getEvent());
+            Constants.accessDenied(c.getEvent());
         }
     }
 

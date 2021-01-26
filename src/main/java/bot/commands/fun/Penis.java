@@ -3,7 +3,7 @@ package bot.commands.fun;
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
 import bot.driver.Monitor;
-import bot.handlers.event.FunUtility;
+import bot.handlers.utilities.Constants;
 
 public class Penis implements CommandInterface {
 
@@ -18,7 +18,7 @@ public class Penis implements CommandInterface {
                 growth.append(inches);
             }
             String maleObject = "8" + growth + "D";
-            FunUtility.setEmbed(c.getEvent(), "Penis Generator", c.getMessage().getMentionedMembers().get(0).getEffectiveName() + "'s penis \n"+ maleObject);
+            Constants.setEmbed(c.getEvent(), "Penis Generator", c.getMessage().getMentionedMembers().get(0).getEffectiveName() + "'s penis \n"+ maleObject);
         }
         else {
             c.getChannel().sendTyping().queue();

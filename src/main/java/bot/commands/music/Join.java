@@ -2,7 +2,7 @@ package bot.commands.music;
 
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
-import bot.handlers.music.MusicUtility;
+import bot.handlers.utilities.Constants;
 
 import java.util.Objects;
 
@@ -14,10 +14,10 @@ public class Join implements CommandInterface {
     public void handle(CommandContext c) {
         if(c.getCommandParameters().isEmpty() && c.getMember().hasPermission(Permission.VOICE_CONNECT)) {
 
-            if(!MusicUtility.getAudioManager(c).isConnected()) {
+            if(!Constants.getAudioManager(c).isConnected()) {
 
                 if(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null) {
-                    MusicUtility.getAudioManager(c).openAudioConnection(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel());
+                    Constants.getAudioManager(c).openAudioConnection(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel());
                     String name = Objects.requireNonNull(c.getMember().getVoiceState().getChannel()).toString().replace("VC:", "");
                     c.getChannel().sendTyping().queue();
                     c.getChannel().sendMessage("Successfully connected to: " + name.substring(name.indexOf(""), name.indexOf("("))).queue();

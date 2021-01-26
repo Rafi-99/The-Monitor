@@ -3,8 +3,7 @@ package bot.commands.moderation;
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
 import bot.driver.Monitor;
-import bot.handlers.event.FunUtility;
-import bot.handlers.event.ModerationUtility;
+import bot.handlers.utilities.Constants;
 
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
@@ -16,7 +15,7 @@ public class Kick implements CommandInterface {
     public void handle(CommandContext c) {
         if(c.getMember().hasPermission(Permission.KICK_MEMBERS)) {
             if(c.getCommandParameters().size() < 1) {
-                FunUtility.setEmbed(c.getEvent(), "Kick Command Usage", "Usage: "+ Monitor.prefix +"kick [user mention or ID]");
+                Constants.setEmbed(c.getEvent(), "Kick Command Usage", "Usage: "+ Monitor.prefix +"kick [user mention or ID]");
             }
             else {
                 try {
@@ -24,17 +23,17 @@ public class Kick implements CommandInterface {
                     kickEvent.queue((user) -> {
                         if(c.getEvent().getGuild().getMemberById(user.getId()) != null) {
                             c.getEvent().getGuild().kick(user).queue();
-                            FunUtility.setEmbed(c.getEvent(), "✅ Success! ✅", user.getAsMention() +" has been kicked successfully!");
+                            Constants.setEmbed(c.getEvent(), "✅ Success! ✅", user.getAsMention() +" has been kicked successfully!");
                         }
-                    }, (error) -> FunUtility.setEmbed(c.getEvent(), "❌ Failed to Kick ❌", "Invalid user. Users not in the guild can't be kicked. Please try executing the command again with a valid user mention or user ID."));
+                    }, (error) -> Constants.setEmbed(c.getEvent(), "❌ Failed to Kick ❌", "Invalid user. Users not in the guild can't be kicked. Please try executing the command again with a valid user mention or user ID."));
                 } 
                 catch (Exception e) {
-                    FunUtility.setEmbed(c.getEvent(), "❌ Failed to Kick ❌", "Bad format. Please try executing the command again with a valid user mention or user ID.");
+                    Constants.setEmbed(c.getEvent(), "❌ Failed to Kick ❌", "Bad format. Please try executing the command again with a valid user mention or user ID.");
                 }
             }
         }
         else {
-            ModerationUtility.accessDenied(c.getEvent());
+            Constants.accessDenied(c.getEvent());
         }
     }
 

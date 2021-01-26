@@ -3,8 +3,7 @@ package bot.commands.moderation;
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
 import bot.driver.Monitor;
-import bot.handlers.event.FunUtility;
-import bot.handlers.event.ModerationUtility;
+import bot.handlers.utilities.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +21,7 @@ public class BanCommand implements CommandInterface {
         if(c.getMember().hasPermission(Permission.BAN_MEMBERS)) {
 
             if(c.getCommandParameters().size() < 1) {
-                FunUtility.setEmbed(c.getEvent(), "Ban Command Usage", "Usage: "+ Monitor.prefix +"ban [user mention or ID]");
+                Constants.setEmbed(c.getEvent(), "Ban Command Usage", "Usage: "+ Monitor.prefix +"ban [user mention or ID]");
             }
             else {
 
@@ -39,25 +38,25 @@ public class BanCommand implements CommandInterface {
                                 }
 
                                 if (banIDList.contains(user)) {
-                                    FunUtility.setEmbed(c.getEvent(), "❌ User Already Banned ❌", "Cannot ban users that already have a ban.");
+                                    Constants.setEmbed(c.getEvent(), "❌ User Already Banned ❌", "Cannot ban users that already have a ban.");
                                 }
                                 else {
                                     c.getGuild().ban(user, 7).queue();
-                                    FunUtility.setEmbed(c.getEvent(), "✅ Success! ✅", user.getAsMention() + " has been banned successfully!");
+                                    Constants.setEmbed(c.getEvent(), "✅ Success! ✅", user.getAsMention() + " has been banned successfully!");
                                 }
                             };
                             //Retrieves the ban list then runs the code inside the consumer to ban the user.
                             c.getGuild().retrieveBanList().queue(banListConsumer);
                         }
-                    }, (error) -> FunUtility.setEmbed(c.getEvent(), "❌ Invalid Argument ❌", "Users that are no longer in a guild cannot be mentioned. Please try executing the command again with a valid user mention or user ID."));
+                    }, (error) -> Constants.setEmbed(c.getEvent(), "❌ Invalid Argument ❌", "Users that are no longer in a guild cannot be mentioned. Please try executing the command again with a valid user mention or user ID."));
                 }
                 catch (Exception e) {
-                    FunUtility.setEmbed(c.getEvent(), "❌ Invalid Argument ❌", "Users that are no longer in a guild cannot be mentioned. Please try executing the command again with a valid user mention or user ID.");
+                    Constants.setEmbed(c.getEvent(), "❌ Invalid Argument ❌", "Users that are no longer in a guild cannot be mentioned. Please try executing the command again with a valid user mention or user ID.");
                 }
             }
         }
         else {
-            ModerationUtility.accessDenied(c.getEvent());
+            Constants.accessDenied(c.getEvent());
         }
     }
 

@@ -2,7 +2,7 @@ package bot.commands.music;
 
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
-import bot.handlers.music.MusicUtility;
+import bot.handlers.utilities.Constants;
 
 import java.util.Objects;
 
@@ -14,11 +14,11 @@ public class Leave implements CommandInterface {
     public void handle(CommandContext c) {
         if(c.getCommandParameters().isEmpty() && c.getMember().hasPermission(Permission.VOICE_CONNECT)) {
 
-            if(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null && Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() == MusicUtility.getAudioManager(c).getConnectedChannel() && MusicUtility.getAudioManager(c).isConnected()) {
-                MusicUtility.getMusicManager(c).scheduler.trackLoop = false;
-                MusicUtility.getMusicManager(c).scheduler.getQueue().clear();
-                MusicUtility.getMusicManager(c).player.stopTrack();
-                MusicUtility.getAudioManager(c).closeAudioConnection();
+            if(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null && Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() == Constants.getAudioManager(c).getConnectedChannel() && Constants.getAudioManager(c).isConnected()) {
+                Constants.getMusicManager(c).scheduler.trackLoop = false;
+                Constants.getMusicManager(c).scheduler.getQueue().clear();
+                Constants.getMusicManager(c).player.stopTrack();
+                Constants.getAudioManager(c).closeAudioConnection();
                 c.getChannel().sendTyping().queue();
                 c.getChannel().sendMessage("Successfully disconnected and cleared the queue!").queue();
             }
