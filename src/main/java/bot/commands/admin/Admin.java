@@ -17,7 +17,7 @@ public class Admin implements CommandInterface {
                 EmbedBuilder adminInfo = new EmbedBuilder();
                 adminInfo.setColor(0x05055e);
                 adminInfo.setTitle("Admin Tools");
-                adminInfo.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                adminInfo.setFooter("The Monitor ™ | © 2021", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                 adminInfo.setDescription("Commands available for your usage: \n```test -s \ntest -t \nadmin \nrestart \nlink \nguilds```");
                 privateChannel.sendTyping().queue();
                 privateChannel.sendMessage(adminInfo.build()).queue();

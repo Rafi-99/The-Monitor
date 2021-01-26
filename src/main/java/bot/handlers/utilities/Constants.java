@@ -42,7 +42,7 @@ public class Constants {
         embed.setColor(0x05055e);
         embed.setTitle(title);
         embed.setDescription(description);
-        embed.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+        embed.setFooter("The Monitor ™ | © 2021", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
         event.getChannel().sendTyping().queue();
         event.getChannel().sendMessage(embed.build()).queue();
         embed.clear();

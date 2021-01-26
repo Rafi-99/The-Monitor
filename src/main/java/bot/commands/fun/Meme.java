@@ -4,8 +4,6 @@ import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
 import bot.driver.Monitor;
 
-import java.time.Instant;
-
 import me.duncte123.botcommons.web.WebUtils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -24,8 +22,7 @@ public class Meme implements CommandInterface {
                 meme.setColor(0x05055e);
                 meme.setTitle(title, url);
                 meme.setImage(image);
-                meme.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-                meme.setTimestamp(Instant.now());
+                meme.setFooter("The Monitor ™ | © 2021", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                 c.getChannel().sendTyping().queue();
                 c.getChannel().sendMessage(meme.build()).queue();
                 meme.clear();

@@ -16,7 +16,7 @@ public class Avatar implements CommandInterface {
             avatar.setTitle("Avatar");
             avatar.setDescription(c.getMessage().getMentionedUsers().get(0).getName());
             avatar.setImage(c.getMessage().getMentionedUsers().get(0).getEffectiveAvatarUrl() + "?size=4096");
-            avatar.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+            avatar.setFooter("The Monitor ™ | © 2021", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
             c.getChannel().sendTyping().queue();
             c.getChannel().sendMessage(avatar.build()).queue();
             avatar.clear();

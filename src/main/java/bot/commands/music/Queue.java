@@ -40,7 +40,7 @@ public class Queue implements CommandInterface {
                         queue.appendDescription(String.format("%s - %s\n", trackInfo.title, trackInfo.author));
                     }
                     queue.setThumbnail(Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-                    queue.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                    queue.setFooter("The Monitor ™ | © 2021", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                     c.getChannel().sendTyping().queue();
                     c.getChannel().sendMessage(queue.build()).queue();
                     queue.clear();

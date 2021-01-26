@@ -33,7 +33,7 @@ public class ServerInfo implements CommandInterface {
                 server.addField("**Emote Count**", Integer.toString(c.getGuild().getEmoteCache().asList().size()), true);
                 server.addField("**Boost Tier**", c.getGuild().getBoostTier().toString().replace("TIER_", "Level "), true);
                 server.addField("**Boost Count**", Integer.toString(c.getGuild().getBoostCount()) , true);
-                server.setFooter("The Monitor ™ | Powered by Java", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                server.setFooter("The Monitor ™ | © 2021", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                 c.getChannel().sendTyping().queue();
                 c.getChannel().sendMessage(server.build()).queue();
                 server.clear();
