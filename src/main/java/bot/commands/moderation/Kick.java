@@ -14,6 +14,7 @@ public class Kick implements CommandInterface {
     @Override
     public void handle(CommandContext c) {
         if(c.getMember().hasPermission(Permission.KICK_MEMBERS)) {
+            
             if(c.getCommandParameters().size() < 1) {
                 Constants.setEmbed(c.getEvent(), "Kick Command Usage", "Usage: "+ Monitor.prefix +"kick [user mention or ID]");
             }
