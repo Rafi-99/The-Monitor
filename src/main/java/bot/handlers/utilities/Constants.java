@@ -5,6 +5,8 @@ import bot.driver.Monitor;
 import bot.handlers.music.GuildMusicManager;
 import bot.handlers.music.PlayerManager;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
@@ -15,7 +17,10 @@ import net.dv8tion.jda.api.managers.AudioManager;
 
 public class Constants {
 
-    //Fun Variables 
+    //Global Variables
+    public static final Map<Long, String> prefixes = new HashMap<>();
+
+    //Fun Variables
     public static final String [] roasts = {
         "Your birth certificate is an apology letter from the abortion clinic.",
         "I fucking hate you LOL!", "Don't play hard to get when you are hard to want.",
@@ -37,7 +42,11 @@ public class Constants {
     };
     
     //Global Methods
-    public static final void setEmbed(GuildMessageReceivedEvent event, String title, String description) {
+    public static String getCurrentPrefix(CommandContext c) {
+        return Constants.prefixes.get(c.getGuild().getIdLong());
+    }
+
+    public static void setEmbed(GuildMessageReceivedEvent event, String title, String description) {
         EmbedBuilder embed = new EmbedBuilder();
         embed.setColor(0x05055e);
         embed.setTitle(title);
@@ -49,25 +58,25 @@ public class Constants {
     }
 
     //Music Methods
-    public static final AudioManager getAudioManager(CommandContext c) {
+    public static AudioManager getAudioManager(CommandContext c) {
         return c.getGuild().getAudioManager();
     }
 
-    public static final GuildMusicManager getMusicManager(CommandContext c) {
+    public static GuildMusicManager getMusicManager(CommandContext c) {
         return PlayerManager.getInstance().getMusicManager(c.getGuild());
     }
 
-    public static final BlockingQueue<AudioTrack> getQueue(CommandContext c) {
+    public static BlockingQueue<AudioTrack> getQueue(CommandContext c) {
         return PlayerManager.getInstance().getMusicManager(c.getGuild()).scheduler.getQueue();
     }
 
     //Moderation Methods
-    public static final void accessDenied(GuildMessageReceivedEvent event) {
+    public static void accessDenied(GuildMessageReceivedEvent event) {
         Constants.setEmbed(event, "❌ Access Denied! ❌", "Sorry, you don't have the required permissions to use this command.");
     }
 
     //Fun Methods
-    public static final void rpsGame(GuildMessageReceivedEvent event, String [] fun, int rps) {
+    public static void rpsGame(GuildMessageReceivedEvent event, String [] fun, int rps) {
         if(rps == 1) {
 
             if(fun[0].equalsIgnoreCase("Rock")) {
