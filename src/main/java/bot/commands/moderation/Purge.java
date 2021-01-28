@@ -2,7 +2,6 @@ package bot.commands.moderation;
 
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
-import bot.driver.Monitor;
 import bot.handlers.utilities.Constants;
 
 import net.dv8tion.jda.api.Permission;
@@ -14,7 +13,7 @@ public class Purge implements CommandInterface {
         if(c.getMember().hasPermission(Permission.MESSAGE_MANAGE)) {
 
             if(c.getCommandParameters().isEmpty()) {
-                Constants.setEmbed(c.getEvent(), "Message Deletion Usage", "Usage: " + Monitor.prefix + "purge [# of messages]");
+                Constants.setEmbed(c.getEvent(), "Message Deletion Usage", "Usage: " + Constants.getCurrentPrefix(c) + "purge [# of messages]");
             }
             else {
 

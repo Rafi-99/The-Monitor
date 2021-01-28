@@ -2,7 +2,6 @@ package bot.commands.moderation;
 
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
-import bot.driver.Monitor;
 import bot.handlers.utilities.Constants;
 
 import java.util.ArrayList;
@@ -21,7 +20,7 @@ public class Unban implements CommandInterface {
         if(c.getMember().hasPermission(Permission.BAN_MEMBERS)) {
 
             if(c.getCommandParameters().size() < 1) {
-                Constants.setEmbed(c.getEvent(), "Remove Ban Command Usage", "Usage: "+ Monitor.prefix +"unban [user mention or ID]");
+                Constants.setEmbed(c.getEvent(), "Remove Ban Command Usage", "Usage: "+ Constants.getCurrentPrefix(c) +"unban [user mention or ID]");
             }
             else {
 

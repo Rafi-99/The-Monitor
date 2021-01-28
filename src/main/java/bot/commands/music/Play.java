@@ -2,7 +2,6 @@ package bot.commands.music;
 
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
-import bot.driver.Monitor;
 import bot.handlers.utilities.Constants;
 import bot.handlers.music.PlayerManager;
 
@@ -76,7 +75,7 @@ public class Play implements CommandInterface {
         if(c.getMember().hasPermission(Permission.VOICE_CONNECT)) {
 
             if(c.getCommandParameters().isEmpty()) {
-                Constants.setEmbed(c.getEvent(), "Play Command Usage", Monitor.prefix +"play [insert link or search query here]");
+                Constants.setEmbed(c.getEvent(), "Play Command Usage", Constants.getCurrentPrefix(c) +"play [insert link or search query here]");
             }
             else {
 

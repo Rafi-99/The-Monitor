@@ -2,7 +2,6 @@ package bot.commands.fun;
 
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
-import bot.driver.Monitor;
 import bot.handlers.utilities.Constants;
 
 public class Wholesome implements CommandInterface {
@@ -14,7 +13,7 @@ public class Wholesome implements CommandInterface {
         }
         else {
             c.getChannel().sendTyping().queue();
-            c.getChannel().sendMessage("Type in "+ Monitor.prefix +"wholesome and mention someone to use this command!").queue();
+            c.getChannel().sendMessage("Type in "+ Constants.getCurrentPrefix(c) +"wholesome and mention someone to use this command!").queue();
         }
     }
 

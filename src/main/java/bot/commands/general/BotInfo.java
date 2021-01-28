@@ -3,6 +3,7 @@ package bot.commands.general;
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
 import bot.driver.Monitor;
+import bot.handlers.utilities.Constants;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 
@@ -22,7 +23,7 @@ public class BotInfo implements CommandInterface {
                 info.setDescription("A multi-purpose Discord server bot in development.");
                 info.setThumbnail(Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                 info.addField("**Default prefix**", "m!", true);
-                info.addField("**Command Usage Example**", Monitor.prefix + "botInfo", false);
+                info.addField("**Command Usage Example**", Constants.getCurrentPrefix(c) + "botInfo", false);
                 info.addField("**Moderation**", "setPrefix, ticketSetup, invite, mute, unmute, purge, kick, ban, unban", true);
                 info.addField("**General**", "botInfo, serverInfo, ping", true);
                 info.addField("**Fun**", "roast, wholesome, simp, avatar, pp, rps, meme, emotes", true);

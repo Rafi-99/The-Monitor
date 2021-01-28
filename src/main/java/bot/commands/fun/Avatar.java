@@ -3,6 +3,7 @@ package bot.commands.fun;
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
 import bot.driver.Monitor;
+import bot.handlers.utilities.Constants;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 
@@ -23,7 +24,7 @@ public class Avatar implements CommandInterface {
         }
         else {
             c.getChannel().sendTyping().queue();
-            c.getChannel().sendMessage("Type in "+ Monitor.prefix +"avatar and mention a user to view their avatar!").queue();
+            c.getChannel().sendMessage("Type in "+ Constants.getCurrentPrefix(c) +"avatar and mention a user to view their avatar!").queue();
         }
     }
 

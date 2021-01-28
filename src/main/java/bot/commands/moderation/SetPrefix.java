@@ -2,11 +2,14 @@ package bot.commands.moderation;
 
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
-import bot.driver.Monitor;
+import bot.handlers.database.DataSource;
 import bot.handlers.utilities.Constants;
 
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.Activity;
+
+import java.net.URISyntaxException;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class SetPrefix implements CommandInterface {
 
@@ -15,12 +18,12 @@ public class SetPrefix implements CommandInterface {
         if(c.getMember().hasPermission(Permission.MANAGE_SERVER)) {
 
             if(c.getCommandParameters().size() == 1) {
-                Monitor.prefix = c.getCommandParameters().get(0);
-                Constants.setEmbed(c.getEvent(), "✅ Success! ✅", "The prefix has now been set to " + Monitor.prefix);
-                Monitor.myBot.getPresence().setActivity(Activity.playing(Monitor.prefix + "botInfo"));
+                final String newPrefix = c.getCommandParameters().get(0);
+                updatePrefix(c.getGuild().getIdLong(), newPrefix);
+                Constants.setEmbed(c.getEvent(), "✅ Success! ✅", "The prefix has now been set to " + newPrefix);
             }
             else {
-                Constants.setEmbed(c.getEvent(), "Prefix Command Usage", "Usage: " + Monitor.prefix + "setPrefix [prefix]");
+                Constants.setEmbed(c.getEvent(), "Prefix Command Usage", "Usage: " + Constants.getCurrentPrefix(c) + "setPrefix [prefix]");
             }
         }
         else {
@@ -31,5 +34,19 @@ public class SetPrefix implements CommandInterface {
     @Override
     public String getName() {
         return "setPrefix";
+    }
+
+    @SuppressWarnings("SqlResolve")
+    private void updatePrefix(long guildId, String newPrefix) {
+        Constants.prefixes.put(guildId, newPrefix);
+
+        try (final PreparedStatement preparedStatement = DataSource.getConnection().prepareStatement("UPDATE guild_settings SET prefix = ? WHERE guild_id = ?")) {
+            preparedStatement.setString(1, newPrefix);
+            preparedStatement.setString(2, String.valueOf(guildId));
+            preparedStatement.executeUpdate();
+        } 
+        catch (SQLException | URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 }

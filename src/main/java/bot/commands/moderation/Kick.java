@@ -2,7 +2,6 @@ package bot.commands.moderation;
 
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
-import bot.driver.Monitor;
 import bot.handlers.utilities.Constants;
 
 import net.dv8tion.jda.api.Permission;
@@ -16,7 +15,7 @@ public class Kick implements CommandInterface {
         if(c.getMember().hasPermission(Permission.KICK_MEMBERS)) {
             
             if(c.getCommandParameters().size() < 1) {
-                Constants.setEmbed(c.getEvent(), "Kick Command Usage", "Usage: "+ Monitor.prefix +"kick [user mention or ID]");
+                Constants.setEmbed(c.getEvent(), "Kick Command Usage", "Usage: "+ Constants.getCurrentPrefix(c) +"kick [user mention or ID]");
             }
             else {
                 try {
