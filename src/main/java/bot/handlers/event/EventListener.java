@@ -1,8 +1,13 @@
 package bot.handlers.event;
 
 import bot.handlers.command.CommandManager;
-import bot.driver.Monitor;
+import bot.handlers.database.DataSource;
+import bot.handlers.utilities.Constants;
 
+import java.net.URISyntaxException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.EnumSet;
 import java.util.Objects;
 import javax.annotation.Nonnull;
@@ -34,10 +39,12 @@ public class EventListener extends ListenerAdapter {
             return;
         }
 
+        final long guildId = event.getGuild().getIdLong();
+        String prefix = Constants.prefixes.computeIfAbsent(guildId, this::getPrefix);
         String message = event.getMessage().getContentRaw();
 
-        if(message.startsWith(Monitor.prefix)) {
-            botCommandManager.handle(event, Monitor.prefix);
+        if(message.startsWith(prefix)) {
+            botCommandManager.handle(event, prefix);
         }
 
         if(message.contains("https://") || message.contains("http://")) {
@@ -93,5 +100,29 @@ public class EventListener extends ListenerAdapter {
             event.getGuild().addRoleToMember(event.getMember().getId(), Objects.requireNonNull(event.getGuild().getRoleById("756889036026675290"))).queue();
             Objects.requireNonNull(event.getGuild().getTextChannelById("710434525611688009")).sendMessage("Welcome to Playground! " + event.getMember().getAsMention()).queue();
         }
+    }
+
+    @SuppressWarnings("SqlResolve")
+    private String getPrefix(long guildId) {
+
+        try (final PreparedStatement preparedStatement = DataSource.getConnection().prepareStatement("SELECT prefix FROM guild_settings WHERE guild_id = ?")) {
+            preparedStatement.setString(1, String.valueOf(guildId));
+
+            try (final ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getString("prefix");
+                }
+            }
+
+            try (final PreparedStatement insertStatement = DataSource.getConnection().prepareStatement("INSERT INTO guild_settings(guild_id) VALUES(?)")) {
+                insertStatement.setString(1, String.valueOf(guildId));
+                insertStatement.execute();
+            }
+        } 
+        catch (SQLException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        return System.getenv("PREFIX");
     }
 }
