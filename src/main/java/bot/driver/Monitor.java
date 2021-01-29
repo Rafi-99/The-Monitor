@@ -30,6 +30,6 @@ public class Monitor {
         .build()
         .awaitReady();
 
-        myBot.getPresence().setActivity(Activity.playing("@The Monitor ™#7579"));
+        myBot.getPresence().setActivity(Activity.listening("@The Monitor ™#7579"));
     }
 }
