@@ -62,7 +62,6 @@ public class EventListener extends ListenerAdapter {
         }
 
         if(message.equals(Monitor.myBot.getSelfUser().getAsMention())) {
-            System.out.println("Test");
             Monitor.myBot.retrieveApplicationInfo().queue(botOwner -> {
                 EmbedBuilder info = new EmbedBuilder();
                 info.setColor(0x05055e);
