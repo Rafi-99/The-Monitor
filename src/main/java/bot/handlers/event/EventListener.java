@@ -53,11 +53,11 @@ public class EventListener extends ListenerAdapter {
             Role staff = event.getGuild().getRoleById("710398399085805599");
 
             if(event.getChannel().getId().equals("709259200651591747") && !Objects.requireNonNull(event.getMember()).getRoles().contains(staff)) {
-                event.getMessage().delete().complete();
+                event.getMessage().delete().queue();
             }
 
             if(message.contains("https://discord.gg/") && event.getGuild().getId().equals("709259200651591742") && !event.getChannel().getId().equals("717870479272312934")) {
-                event.getMessage().delete().complete();
+                event.getMessage().delete().queue();
             }
         }
 
