@@ -146,6 +146,6 @@ public class EventListener extends ListenerAdapter {
             e.printStackTrace();
         }
 
-        return System.getenv("PREFIX");
+        return System.getenv("DEFAULT_PREFIX");
     }
 }
