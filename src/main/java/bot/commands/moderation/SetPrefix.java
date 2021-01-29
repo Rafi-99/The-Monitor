@@ -36,7 +36,6 @@ public class SetPrefix implements CommandInterface {
         return "setPrefix";
     }
 
-    @SuppressWarnings("SqlResolve")
     private void updatePrefix(long guildId, String newPrefix) {
         Constants.prefixes.put(guildId, newPrefix);
 

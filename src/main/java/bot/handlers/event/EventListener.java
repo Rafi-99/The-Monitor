@@ -124,7 +124,6 @@ public class EventListener extends ListenerAdapter {
         }
     }
 
-    @SuppressWarnings("SqlResolve")
     private String getPrefix(long guildId) {
 
         try (final PreparedStatement preparedStatement = DataSource.getConnection().prepareStatement("SELECT prefix FROM guild_settings WHERE guild_id = ?")) {
