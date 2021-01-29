@@ -1,5 +1,6 @@
 package bot.handlers.event;
 
+import bot.driver.Monitor;
 import bot.handlers.command.CommandManager;
 import bot.handlers.database.DataSource;
 import bot.handlers.utilities.Constants;
@@ -12,6 +13,7 @@ import java.util.EnumSet;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.ReadyEvent;
@@ -57,6 +59,27 @@ public class EventListener extends ListenerAdapter {
             if(message.contains("https://discord.gg/") && event.getGuild().getId().equals("709259200651591742") && !event.getChannel().getId().equals("717870479272312934")) {
                 event.getMessage().delete().complete();
             }
+        }
+
+        if(message.equals(Monitor.myBot.getSelfUser().getAsMention())) {
+            System.out.println("Test");
+            Monitor.myBot.retrieveApplicationInfo().queue(botOwner -> {
+                EmbedBuilder info = new EmbedBuilder();
+                info.setColor(0x05055e);
+                info.setTitle("**The Monitor ™ Bot Information**");
+                info.setDescription("A multi-purpose Discord server bot in development.");
+                info.setThumbnail(Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                info.addField("**Current Prefix**", Constants.prefixes.get(event.getGuild().getIdLong()), true);
+                info.addField("**Command Usage Example**", Constants.prefixes.get(event.getGuild().getIdLong()) + "botInfo", false);
+                info.addField("**Moderation**", "setPrefix, ticketSetup, invite, mute, unmute, purge, kick, ban, unban", true);
+                info.addField("**General**", "botInfo, serverInfo, ping", true);
+                info.addField("**Fun**", "roast, wholesome, simp, avatar, pp, rps, meme, emotes", true);
+                info.addField("**Music**", "join, leave, np, play, loopTrack, pause, skip, queue, clear", true);
+                info.setFooter(botOwner.getOwner().getName() + " | Bot Developer", botOwner.getOwner().getEffectiveAvatarUrl());
+                event.getChannel().sendTyping().queue();
+                event.getChannel().sendMessage(info.build()).queue();
+                info.clear();
+            });
         }
     }
 
