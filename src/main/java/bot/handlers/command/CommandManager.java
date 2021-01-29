@@ -85,17 +85,18 @@ public class CommandManager {
 
     public void handle(GuildMessageReceivedEvent event, String prefix) {
         //Gets rid of prefix and splits the event.getMessage.getContentRaw() from EventListener so the command name is stored at index 0
-        String [] split = event.getMessage().getContentRaw().replaceFirst("(?i)" + Pattern.quote(prefix), "").split("\\s+");
+        String [] split = event.getMessage().getContentRaw().replaceFirst("(?i)" + Pattern.quote(prefix) + '|' + Pattern.quote(System.getenv("PREFIX")), "").split("\\s+", 2);
         //Takes the command name and makes it lowercase
-        String commandInvoke = split[0].toLowerCase();
-        //Gets the command
-        CommandInterface command = this.getCommand(commandInvoke);
-
-        //If the command by name is found, run the command
-        if(command != null) {
-            List<String> args = Arrays.asList(split).subList(1, split.length);
-            CommandContext c = new CommandContext(event, args);
-            command.handle(c);
+        if(split.length >= 1) {
+            String commandInvoke = split[0].toLowerCase();
+            //Gets the command
+            CommandInterface command = this.getCommand(commandInvoke);
+            //If the command by name is found, run the command
+            if(command != null) {
+                List<String> args = Arrays.asList(split).subList(1, split.length);
+                CommandContext c = new CommandContext(event, args);
+                command.handle(c);
+            }
         }
     }
 }
