@@ -20,7 +20,7 @@ public class DataSource {
             "prefix VARCHAR(255) NOT NULL DEFAULT '" + System.getenv("PREFIX") + "'" +");"
             );
 
-            LOGGER.info("Database table successfully created");
+            LOGGER.info("Database table successfully created!");
         } 
         catch (SQLException | URISyntaxException e) {
             e.printStackTrace();
