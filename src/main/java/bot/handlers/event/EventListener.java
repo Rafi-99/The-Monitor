@@ -17,6 +17,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.ReadyEvent;
+import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
@@ -37,13 +38,15 @@ public class EventListener extends ListenerAdapter {
 
     @Override
     public void onGuildMessageReceived(@Nonnull GuildMessageReceivedEvent event) {
+        final long guildId = event.getGuild().getIdLong();
+        String prefix = Constants.prefixes.computeIfAbsent(guildId, this::getPrefix);
+
+        String message = event.getMessage().getContentRaw();
+        String [] botMention = event.getMessage().getContentRaw().split("\\s+");
+        
         if(event.getAuthor().isBot() || event.isWebhookMessage()) {
             return;
         }
-
-        final long guildId = event.getGuild().getIdLong();
-        String prefix = Constants.prefixes.computeIfAbsent(guildId, this::getPrefix);
-        String message = event.getMessage().getContentRaw();
 
         if(message.startsWith(prefix)) {
             botCommandManager.handle(event, prefix);
@@ -61,7 +64,7 @@ public class EventListener extends ListenerAdapter {
             }
         }
 
-        if(message.equals(Monitor.myBot.getSelfUser().getAsMention())) {
+        if(botMention.length == 1 && (botMention[0].equals("<@775862258609684531>") || botMention[0].equals("<@!775862258609684531>"))) {
             Monitor.myBot.retrieveApplicationInfo().queue(botOwner -> {
                 EmbedBuilder info = new EmbedBuilder();
                 info.setColor(0x05055e);
@@ -125,7 +128,6 @@ public class EventListener extends ListenerAdapter {
     }
 
     private String getPrefix(long guildId) {
-
         try (final PreparedStatement preparedStatement = DataSource.getConnection().prepareStatement("SELECT prefix FROM guild_settings WHERE guild_id = ?")) {
             preparedStatement.setString(1, String.valueOf(guildId));
 
@@ -143,7 +145,6 @@ public class EventListener extends ListenerAdapter {
         catch (SQLException | URISyntaxException e) {
             e.printStackTrace();
         }
-
         return System.getenv("DEFAULT_PREFIX");
     }
 }
