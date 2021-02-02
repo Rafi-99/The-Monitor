@@ -19,7 +19,6 @@ public class Monitor {
     public static JDA myBot;
 
     public static void main(String[] args) throws LoginException, InterruptedException, SQLException, URISyntaxException {
-
         DataSource.getConnection();
 
         myBot = JDABuilder.createDefault(System.getenv("BOT_TOKEN"))
@@ -30,6 +29,6 @@ public class Monitor {
         .build()
         .awaitReady();
 
-        myBot.getPresence().setActivity(Activity.listening("@The Monitor ™#7579"));
+        myBot.getPresence().setActivity(Activity.listening("@[bot’s name]"));
     }
 }
