@@ -64,7 +64,7 @@ public class EventListener extends ListenerAdapter {
             }
         }
 
-        if(botMention.length == 1 && (botMention[0].equals("<@775862258609684531>") || botMention[0].equals("<@!775862258609684531>"))) {
+        if(botMention.length == 1 && (botMention[0].equals("<@711703852977487903>") || botMention[0].equals("<@!711703852977487903>"))) {
             Monitor.myBot.retrieveApplicationInfo().queue(botOwner -> {
                 EmbedBuilder info = new EmbedBuilder();
                 info.setColor(0x05055e);
