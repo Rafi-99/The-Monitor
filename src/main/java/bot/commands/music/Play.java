@@ -18,6 +18,8 @@ import net.dv8tion.jda.api.Permission;
 
 public class Play implements CommandInterface {
 
+    public static String videoTitle;
+    public static String videoThumbnail;
     private final YouTube youTube;
 
     public Play() {
@@ -47,6 +49,8 @@ public class Play implements CommandInterface {
             if(!result.isEmpty()) {
                 String videoID = result.get(0).getId().getVideoId();
                 String playlistID = result.get(0).getId().getPlaylistId();
+                videoTitle = result.get(0).getSnippet().getTitle();
+                videoThumbnail = result.get(0).getSnippet().getThumbnails().getDefault().getUrl(); 
 
                 if(result.get(0).getId().getKind().equals("youtube#video")) {
                     return "https://www.youtube.com/watch?v=" + videoID;
