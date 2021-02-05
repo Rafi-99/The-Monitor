@@ -39,7 +39,7 @@ public class Play implements CommandInterface {
             .list("id,snippet")
             .setQ(searchInput)
             .setMaxResults(1L)
-            .setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)")
+            .setFields("items(id/kind,id/videoId,id/playlistId,snippet/title,snippet/thumbnails/default/url)")
             .setKey(System.getenv("YouTube_KEY"))
             .execute()
             .getItems();
