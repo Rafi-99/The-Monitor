@@ -6,6 +6,7 @@ import bot.handlers.utilities.Constants;
 
 import java.util.Objects;
 
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 
 public class NowPlaying implements CommandInterface {
@@ -33,7 +34,14 @@ public class NowPlaying implements CommandInterface {
                     c.getChannel().sendMessage("Nothing is being played currently.").queue();
                     return;
                 }
-                Constants.setEmbed(c.getEvent(), "Currently Playing: "+ Constants.getMusicManager(c).player.getPlayingTrack().getInfo().title, message);
+                //Constants.setEmbed(c.getEvent(), "Currently Playing: "+ Constants.getMusicManager(c).player.getPlayingTrack().getInfo().title, message);
+                EmbedBuilder test = new EmbedBuilder();
+                test.setTitle(Play.videoTitle);
+                test.setThumbnail(Play.videoThumbnail);
+                test.setDescription(message);
+                c.getChannel().sendTyping().queue();
+                c.getChannel().sendMessage(test.build()).queue();
+                test.clear();
             }
             else {
                 c.getChannel().sendTyping().queue();
