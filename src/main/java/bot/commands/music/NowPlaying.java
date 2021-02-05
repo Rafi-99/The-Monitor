@@ -2,6 +2,7 @@ package bot.commands.music;
 
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
+import bot.driver.Monitor;
 import bot.handlers.utilities.Constants;
 
 import java.util.Objects;
@@ -14,17 +15,6 @@ public class NowPlaying implements CommandInterface {
     @Override
     public void handle(CommandContext c) {
         
-        long currentPositionMillis = Constants.getMusicManager(c).player.getPlayingTrack().getPosition();
-        long totalDurationMillis = Constants.getMusicManager(c).player.getPlayingTrack().getDuration();
-
-        long currentPositionMinutes = (currentPositionMillis/1000)/60;
-        long currentPositionSeconds = (currentPositionMillis/1000)%60;
-
-        long totalDurationMinutes = (totalDurationMillis/1000)/60;
-        long totalDurationSeconds = (totalDurationMillis/1000)%60;
-
-        String message = "Track Progress: "+ currentPositionMinutes +"m "+ currentPositionSeconds +"s/"+ totalDurationMinutes +"m "+ totalDurationSeconds +"s";
-
         if(c.getCommandParameters().isEmpty() && c.getMember().hasPermission(Permission.VOICE_CONNECT)) {
 
             if(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null && Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() == Constants.getAudioManager(c).getConnectedChannel() && Constants.getAudioManager(c).isConnected()) {
@@ -34,14 +24,24 @@ public class NowPlaying implements CommandInterface {
                     c.getChannel().sendMessage("Nothing is being played currently.").queue();
                     return;
                 }
-                //Constants.setEmbed(c.getEvent(), "Currently Playing: "+ Constants.getMusicManager(c).player.getPlayingTrack().getInfo().title, message);
-                EmbedBuilder test = new EmbedBuilder();
-                test.setTitle(Play.videoTitle);
-                test.setThumbnail(Play.videoThumbnail);
-                test.setDescription(message);
+
+                long currentPositionMillis = Constants.getMusicManager(c).player.getPlayingTrack().getPosition();
+                long totalDurationMillis = Constants.getMusicManager(c).player.getPlayingTrack().getDuration();
+                long currentPositionMinutes = (currentPositionMillis/1000)/60;
+                long currentPositionSeconds = (currentPositionMillis/1000)%60;
+                long totalDurationMinutes = (totalDurationMillis/1000)/60;
+                long totalDurationSeconds = (totalDurationMillis/1000)%60;
+                String message = "Track Progress: "+ currentPositionMinutes +"m "+ currentPositionSeconds +"s/"+ totalDurationMinutes +"m "+ totalDurationSeconds +"s";
+
+                EmbedBuilder np = new EmbedBuilder();
+                np.setColor(0x05055e);
+                np.setTitle("Now Playing: "+Play.videoTitle);
+                np.setThumbnail(Play.videoThumbnail);
+                np.setDescription(message);
+                np.setFooter("The Monitor ™ | © 2021", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                 c.getChannel().sendTyping().queue();
-                c.getChannel().sendMessage(test.build()).queue();
-                test.clear();
+                c.getChannel().sendMessage(np.build()).queue();
+                np.clear();
             }
             else {
                 c.getChannel().sendTyping().queue();
