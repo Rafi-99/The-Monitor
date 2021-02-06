@@ -49,7 +49,7 @@ public class PlayerManager {
                     EmbedBuilder player = new EmbedBuilder();
                     player.setColor(0x05055e);
                     player.setTitle(track.getInfo().title);
-                    player.setThumbnail(Play.videoThumbnail);
+                    player.setThumbnail("https://img.youtube.com/vi/"+ track.getInfo().identifier +"/default.jpg");
                     player.setDescription("Adding "+ track.getInfo().title +" to the queue.");
                     player.setFooter("The Monitor ™ | © 2021", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                     channel.sendTyping().queue();
