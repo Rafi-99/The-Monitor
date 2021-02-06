@@ -80,7 +80,7 @@ public class PlayerManager {
                public void loadFailed(FriendlyException exception) {
                     exception.printStackTrace();
                     channel.sendTyping().queue();
-                    channel.sendMessage("Sorry, failed to load your request. Invalid Format.").queue();
+                    channel.sendMessage("Sorry, we have failed to load your request. Please try again. If this problem persists, please contact the developer: Rafi ™#6927").queue();
                }
           });
      }
