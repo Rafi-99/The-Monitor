@@ -23,12 +23,13 @@ public class Skip implements CommandInterface {
                     
                     String title = Constants.getMusicManager(c).player.getPlayingTrack().getInfo().title;
                     String videoID = Constants.getMusicManager(c).player.getPlayingTrack().getInfo().identifier;
+                    String url = Constants.getMusicManager(c).player.getPlayingTrack().getInfo().uri;
 
                     EmbedBuilder skip = new EmbedBuilder();
                     skip.setColor(0x05055e);
                     skip.setTitle("Track Skipped!");
                     skip.setThumbnail("https://img.youtube.com/vi/"+ videoID +"/default.jpg");
-                    skip.setDescription("Now Playing: "+ title);
+                    skip.setDescription("Now Playing: "+ title +"\n"+"["+ url +"]");
                     skip.setFooter("The Monitor ™ | © 2021", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                     c.getChannel().sendTyping().queue();
                     c.getChannel().sendMessage(skip.build()).queue();

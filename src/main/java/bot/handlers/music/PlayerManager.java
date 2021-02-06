@@ -48,7 +48,7 @@ public class PlayerManager {
 
                     EmbedBuilder player = new EmbedBuilder();
                     player.setColor(0x05055e);
-                    player.setTitle(track.getInfo().title);
+                    player.setTitle(track.getInfo().title, track.getInfo().uri);
                     player.setThumbnail("https://img.youtube.com/vi/"+ track.getInfo().identifier +"/default.jpg");
                     player.setDescription("Adding "+ track.getInfo().title +" to the queue.");
                     player.setFooter("The Monitor ™ | © 2021", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
@@ -63,7 +63,7 @@ public class PlayerManager {
                     }
                     EmbedBuilder player = new EmbedBuilder();
                     player.setColor(0x05055e);
-                    player.setTitle(playlist.getName());
+                    player.setTitle(playlist.getName(), trackUrl);
                     player.setThumbnail(Play.videoThumbnail);
                     player.setDescription("Adding " + playlist.getTracks().size() + " tracks from "+ playlist.getName() + " to the queue.");
                     player.setFooter("The Monitor ™ | © 2021", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
