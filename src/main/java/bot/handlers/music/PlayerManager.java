@@ -1,6 +1,5 @@
 package bot.handlers.music;
 
-import bot.commands.music.Play;
 import bot.driver.Monitor;
 
 import java.util.HashMap;
@@ -64,7 +63,7 @@ public class PlayerManager {
                     EmbedBuilder player = new EmbedBuilder();
                     player.setColor(0x05055e);
                     player.setTitle(playlist.getName(), trackUrl);
-                    player.setThumbnail(Play.videoThumbnail);
+                    player.setThumbnail("https://img.youtube.com/vi/"+ playlist.getTracks().get(0).getInfo().identifier +"/default.jpg");
                     player.setDescription("Adding " + playlist.getTracks().size() + " tracks from "+ playlist.getName() + " to the queue.");
                     player.setFooter("The Monitor ™ | © 2021", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                     channel.sendTyping().queue();
