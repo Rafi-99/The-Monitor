@@ -32,6 +32,8 @@ public class NowPlaying implements CommandInterface {
                 long totalDurationMinutes = (totalDurationMillis/1000)/60;
                 long totalDurationSeconds = (totalDurationMillis/1000)%60;
                 String title = Constants.getMusicManager(c).player.getPlayingTrack().getInfo().title;
+                String currentThumbnail = Constants.getMusicManager(c).player.getPlayingTrack().getInfo().uri;
+                System.out.println(currentThumbnail);
                 String message = "Track Progress: "+ currentPositionMinutes +"m "+ currentPositionSeconds +"s/"+ totalDurationMinutes +"m "+ totalDurationSeconds +"s";
 
                 EmbedBuilder np = new EmbedBuilder();
