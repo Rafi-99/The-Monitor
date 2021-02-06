@@ -19,6 +19,7 @@ import net.dv8tion.jda.api.Permission;
 public class Play implements CommandInterface {
 
     public static String videoThumbnail;
+    public static String videoID;
     private final YouTube youTube;
 
     public Play() {
@@ -46,7 +47,7 @@ public class Play implements CommandInterface {
             .getItems();
 
             if(!result.isEmpty()) {
-                String videoID = result.get(0).getId().getVideoId();
+                videoID = result.get(0).getId().getVideoId();
                 String playlistID = result.get(0).getId().getPlaylistId();
                 videoThumbnail = result.get(0).getSnippet().getThumbnails().getDefault().getUrl(); 
 

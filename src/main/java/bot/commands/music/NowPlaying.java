@@ -32,14 +32,13 @@ public class NowPlaying implements CommandInterface {
                 long totalDurationMinutes = (totalDurationMillis/1000)/60;
                 long totalDurationSeconds = (totalDurationMillis/1000)%60;
                 String title = Constants.getMusicManager(c).player.getPlayingTrack().getInfo().title;
-                String currentThumbnail = Constants.getMusicManager(c).player.getPlayingTrack().getInfo().uri;
-                System.out.println(currentThumbnail);
+                String thumbnail = "https://img.youtube.com/vi/"+ Play.videoID +"/default.jpg";
                 String message = "Track Progress: "+ currentPositionMinutes +"m "+ currentPositionSeconds +"s/"+ totalDurationMinutes +"m "+ totalDurationSeconds +"s";
 
                 EmbedBuilder np = new EmbedBuilder();
                 np.setColor(0x05055e);
                 np.setTitle("Now Playing: "+title);
-                np.setThumbnail(Play.videoThumbnail);
+                np.setThumbnail(thumbnail);
                 np.setDescription(message);
                 np.setFooter("The Monitor ™ | © 2021", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                 c.getChannel().sendTyping().queue();
