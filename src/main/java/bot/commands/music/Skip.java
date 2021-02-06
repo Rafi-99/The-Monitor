@@ -2,10 +2,12 @@ package bot.commands.music;
 
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
+import bot.driver.Monitor;
 import bot.handlers.utilities.Constants;
 
 import java.util.Objects;
 
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 
 public class Skip implements CommandInterface {
@@ -18,9 +20,19 @@ public class Skip implements CommandInterface {
 
                 if(Constants.getQueue(c).size() > 0) {
                     Constants.getMusicManager(c).scheduler.nextTrack();
+                    
+                    String title = Constants.getMusicManager(c).player.getPlayingTrack().getInfo().title;
+                    String videoID = Constants.getMusicManager(c).player.getPlayingTrack().getInfo().identifier;
+
+                    EmbedBuilder skip = new EmbedBuilder();
+                    skip.setColor(0x05055e);
+                    skip.setTitle("Track Skipped!");
+                    skip.setThumbnail("https://img.youtube.com/vi/"+ videoID +"/default.jpg");
+                    skip.setDescription("Now Playing: "+ title);
+                    skip.setFooter("The Monitor ™ | © 2021", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                     c.getChannel().sendTyping().queue();
-                    c.getChannel().sendMessage("Track skipped.").queue();
-                    c.getChannel().sendMessage("Now playing: " + Constants.getMusicManager(c).player.getPlayingTrack().getInfo().title).queue();
+                    c.getChannel().sendMessage(skip.build()).queue();
+                    skip.clear();
                 }
                 else {
                     c.getChannel().sendTyping().queue();
