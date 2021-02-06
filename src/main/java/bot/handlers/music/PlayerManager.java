@@ -1,5 +1,8 @@
 package bot.handlers.music;
 
+import bot.commands.music.Play;
+import bot.driver.Monitor;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +14,7 @@ import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
 
@@ -41,16 +45,31 @@ public class PlayerManager {
                @Override
                public void trackLoaded(AudioTrack track) {
                     musicManager.scheduler.queue(track);
+
+                    EmbedBuilder player = new EmbedBuilder();
+                    player.setColor(0x05055e);
+                    player.setTitle(Play.videoTitle);
+                    player.setThumbnail(Play.videoThumbnail);
+                    player.setDescription("Adding "+ Play.videoTitle +" to the queue.");
+                    player.setFooter("The Monitor ™ | © 2021", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                     channel.sendTyping().queue();
-                    channel.sendMessage("Adding "+ track.getInfo().title + " to the queue.").queue();
+                    channel.sendMessage(player.build()).queue();
+                    player.clear();
                }
                @Override
                public void playlistLoaded(AudioPlaylist playlist) {
                     for (int i = 0; i < playlist.getTracks().size(); i++) {
                          musicManager.scheduler.queue(playlist.getTracks().get(i));
                     }
+                    EmbedBuilder player = new EmbedBuilder();
+                    player.setColor(0x05055e);
+                    player.setTitle(Play.videoTitle);
+                    player.setThumbnail(Play.videoThumbnail);
+                    player.setDescription("Adding " + playlist.getTracks().size() + " tracks from "+ Play.videoTitle + " to the queue.");
+                    player.setFooter("The Monitor ™ | © 2021", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                     channel.sendTyping().queue();
-                    channel.sendMessage("Adding " + playlist.getTracks().size() + " tracks from "+ playlist.getName() + " to the queue.").queue();
+                    channel.sendMessage(player.build()).queue();
+                    player.clear();
                }
                @Override
                public void noMatches() {
