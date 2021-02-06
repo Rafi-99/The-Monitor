@@ -48,9 +48,9 @@ public class PlayerManager {
 
                     EmbedBuilder player = new EmbedBuilder();
                     player.setColor(0x05055e);
-                    player.setTitle(Play.videoTitle);
+                    player.setTitle(track.getInfo().title);
                     player.setThumbnail(Play.videoThumbnail);
-                    player.setDescription("Adding "+ Play.videoTitle +" to the queue.");
+                    player.setDescription("Adding "+ track.getInfo().title +" to the queue.");
                     player.setFooter("The Monitor ™ | © 2021", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                     channel.sendTyping().queue();
                     channel.sendMessage(player.build()).queue();
@@ -63,9 +63,9 @@ public class PlayerManager {
                     }
                     EmbedBuilder player = new EmbedBuilder();
                     player.setColor(0x05055e);
-                    player.setTitle(Play.videoTitle);
+                    player.setTitle(playlist.getName());
                     player.setThumbnail(Play.videoThumbnail);
-                    player.setDescription("Adding " + playlist.getTracks().size() + " tracks from "+ Play.videoTitle + " to the queue.");
+                    player.setDescription("Adding " + playlist.getTracks().size() + " tracks from "+ playlist.getName() + " to the queue.");
                     player.setFooter("The Monitor ™ | © 2021", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                     channel.sendTyping().queue();
                     channel.sendMessage(player.build()).queue();
