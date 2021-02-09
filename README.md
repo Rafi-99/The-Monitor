@@ -41,6 +41,7 @@ A multipurpose Discord server bot created using the official Java Discord API wr
 * np: displays what's currently playing
 * play: plays a song or video 
 * loopTrack: loops the current track 
+* volume: sets the player volume
 * pause: pauses the player 
 * skip: skips the current song or video 
 * queue: displays the queue 

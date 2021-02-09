@@ -58,6 +58,7 @@ public class CommandManager {
         addCommand(new Play());
         addCommand(new Queue());
         addCommand(new Skip());
+        addCommand(new Volume());
     }
 
     private void addCommand(CommandInterface command) {
