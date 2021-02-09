@@ -75,7 +75,7 @@ public class Play implements CommandInterface {
         if(c.getMember().hasPermission(Permission.VOICE_CONNECT)) {
 
             if(c.getCommandParameters().isEmpty()) {
-                Constants.setEmbed(c.getEvent(), "Play Command Usage", Constants.getCurrentPrefix(c) +"play [insert link or search query here]");
+                Constants.setEmbed(c.getEvent(), "Play Command Usage :musical_note:", Constants.getCurrentPrefix(c) +"play [insert link or search query here]");
             }
             else {
 
