@@ -21,14 +21,12 @@ public class Pause implements CommandInterface {
                 if(pause) {
                     Constants.getMusicManager(c).player.setPaused(true);
                     pause = false;
-                    c.getChannel().sendTyping().queue();
-                    c.getChannel().sendMessage("Player has been paused.").queue();
+                    Constants.setEmbed(c.getEvent(), "Current State: Not Playing :play_pause:", "Player has been paused.");
                 }
                 else {
                     Constants.getMusicManager(c).player.setPaused(false);
                     pause = true;
-                    c.getChannel().sendTyping().queue();
-                    c.getChannel().sendMessage("Player has been resumed.").queue();
+                    Constants.setEmbed(c.getEvent(), "Current State: Playing :play_pause:", "Player has been resumed.");
                 }
             }
             else {
