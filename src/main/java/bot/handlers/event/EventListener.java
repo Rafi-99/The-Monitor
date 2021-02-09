@@ -76,7 +76,7 @@ public class EventListener extends ListenerAdapter {
                 info.addField("**Moderation**", "setPrefix, ticketSetup, invite, mute, unmute, purge, kick, ban, unban", true);
                 info.addField("**General**", "botInfo, serverInfo, ping", true);
                 info.addField("**Fun**", "roast, wholesome, simp, avatar, pp, rps, meme, emotes", true);
-                info.addField("**Music**", "join, leave, np, play, loopTrack, pause, skip, queue, clear", true);
+                info.addField("**Music**", "join, leave, np, play, loopTrack, volume, pause, skip, queue, clear", true);
                 info.setFooter(botOwner.getOwner().getName() + " | Bot Developer", botOwner.getOwner().getEffectiveAvatarUrl());
                 event.getChannel().sendTyping().queue();
                 event.getChannel().sendMessage(info.build()).queue();
