@@ -15,7 +15,7 @@ public class Volume implements CommandInterface {
         if(c.getMember().hasPermission(Permission.VOICE_CONNECT)) {
 
             if(c.getCommandParameters().isEmpty()) {
-                Constants.setEmbed(c.getEvent(), "Volume Command Usage 🔊", Constants.getCurrentPrefix(c) +"volume [0-200]"+"\n"+"Current Volume: "+ Constants.getMusicManager(c).player.getVolume());
+                Constants.setEmbed(c.getEvent(), "Volume Command Usage 🔊", Constants.getCurrentPrefix(c) +"volume [0-200]"+"\n"+"Current Volume: "+ Constants.getMusicManager(c).player.getVolume() +"%");
             }
             else {
                 if(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null && Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() == Constants.getAudioManager(c).getConnectedChannel() && Constants.getAudioManager(c).isConnected()) {
@@ -24,6 +24,8 @@ public class Volume implements CommandInterface {
 
                         if(playerVolume >= 0 && playerVolume <=200) {
                             Constants.getMusicManager(c).player.setVolume(playerVolume);
+                            c.getChannel().sendTyping().queue();
+                            c.getChannel().sendMessage("The player volume has been set to "+ Constants.getMusicManager(c).player.getVolume() +"%").queue();
                             return;
                         }
                         c.getChannel().sendTyping().queue();
