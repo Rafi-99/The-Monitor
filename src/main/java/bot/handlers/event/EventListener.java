@@ -136,10 +136,6 @@ public class EventListener extends ListenerAdapter {
                 preparedStatement.setString(1, String.valueOf(guildID));
                 preparedStatement.execute();
                 System.out.println("Row has been deleted successfully.");
-
-                try(final PreparedStatement updateCounter = DataSource.getConnection().prepareStatement("ALTER TABLE guild_settings AUTO_INCREMENT=1")) {
-                    updateCounter.execute();
-                }
             } 
             catch (Exception e) {
                 e.printStackTrace();
