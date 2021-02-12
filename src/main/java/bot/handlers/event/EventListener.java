@@ -127,6 +127,22 @@ public class EventListener extends ListenerAdapter {
         }
     }
 
+    @Override
+    public void onGuildLeave(GuildLeaveEvent event) {
+        final long guildID = event.getGuild().getIdLong();
+        
+        if(event.getJDA().getGuildById(guildID) == null) {
+            try (final PreparedStatement preparedStatement = DataSource.getConnection().prepareStatement("DELETE FROM guild_settings WHERE guild_id = ?")) {
+                preparedStatement.setString(1, String.valueOf(guildID));
+                preparedStatement.execute();
+                System.out.println("Row has been deleted successfully.");
+            } 
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     private String getPrefix(long guildId) {
         try (final PreparedStatement preparedStatement = DataSource.getConnection().prepareStatement("SELECT prefix FROM guild_settings WHERE guild_id = ?")) {
             preparedStatement.setString(1, String.valueOf(guildId));
