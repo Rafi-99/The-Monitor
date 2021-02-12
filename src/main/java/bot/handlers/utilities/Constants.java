@@ -18,7 +18,7 @@ import net.dv8tion.jda.api.managers.AudioManager;
 public class Constants {
 
     //Global Variables
-    public static final Map<Long, String> prefixes = new HashMap<>();
+    public static final Map<Long, String> PREFIXES = new HashMap<>();
 
     //Fun Variables
     public static final String [] roasts = {
@@ -43,7 +43,7 @@ public class Constants {
     
     //Global Methods
     public static String getCurrentPrefix(CommandContext c) {
-        return Constants.prefixes.get(c.getGuild().getIdLong());
+        return Constants.PREFIXES.get(c.getGuild().getIdLong());
     }
 
     public static void setEmbed(GuildMessageReceivedEvent event, String title, String description) {

@@ -39,7 +39,7 @@ public class EventListener extends ListenerAdapter {
     @Override
     public void onGuildMessageReceived(@Nonnull GuildMessageReceivedEvent event) {
         final long guildId = event.getGuild().getIdLong();
-        String prefix = Constants.prefixes.computeIfAbsent(guildId, this::getPrefix);
+        String prefix = Constants.PREFIXES.computeIfAbsent(guildId, this::getPrefix);
 
         String message = event.getMessage().getContentRaw();
         String [] botMention = event.getMessage().getContentRaw().split("\\s+");
@@ -71,8 +71,8 @@ public class EventListener extends ListenerAdapter {
                 info.setTitle("**The Monitor ™ Bot Information**");
                 info.setDescription("A multi-purpose Discord server bot in development.");
                 info.setThumbnail(Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-                info.addField("**Current Prefix**", Constants.prefixes.get(event.getGuild().getIdLong()), true);
-                info.addField("**Command Usage Example**", Constants.prefixes.get(event.getGuild().getIdLong()) + "botInfo", false);
+                info.addField("**Current Prefix**", Constants.PREFIXES.get(event.getGuild().getIdLong()), true);
+                info.addField("**Command Usage Example**", Constants.PREFIXES.get(event.getGuild().getIdLong()) + "botInfo", true);
                 info.addField("**Moderation**", "setPrefix, ticketSetup, invite, mute, unmute, purge, kick, ban, unban", true);
                 info.addField("**General**", "botInfo, serverInfo, ping", true);
                 info.addField("**Fun**", "roast, wholesome, simp, avatar, pp, rps, meme, emotes", true);

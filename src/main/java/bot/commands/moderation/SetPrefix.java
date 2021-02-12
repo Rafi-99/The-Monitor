@@ -37,7 +37,7 @@ public class SetPrefix implements CommandInterface {
     }
 
     private void updatePrefix(long guildId, String newPrefix) {
-        Constants.prefixes.put(guildId, newPrefix);
+        Constants.PREFIXES.put(guildId, newPrefix);
 
         try (final PreparedStatement preparedStatement = DataSource.getConnection().prepareStatement("UPDATE guild_settings SET prefix = ? WHERE guild_id = ?")) {
             preparedStatement.setString(1, newPrefix);
