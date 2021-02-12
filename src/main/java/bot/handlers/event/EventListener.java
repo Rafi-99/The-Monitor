@@ -129,13 +129,13 @@ public class EventListener extends ListenerAdapter {
 
     @Override
     public void onGuildLeave(GuildLeaveEvent event) {
-        final long guildID = event.getGuild().getIdLong();
+        final long guildId = event.getGuild().getIdLong();
         
-        if(event.getJDA().getGuildById(guildID) == null) {
+        if(event.getJDA().getGuildById(guildId) == null) {
             try (final PreparedStatement preparedStatement = DataSource.getConnection().prepareStatement("DELETE FROM guild_settings WHERE guild_id = ?")) {
-                preparedStatement.setString(1, String.valueOf(guildID));
+                preparedStatement.setString(1, String.valueOf(guildId));
                 preparedStatement.execute();
-                System.out.println("Row has been deleted successfully.");
+                botLogger.info("Guild with guild_id: {} has been deleted successfully from the database.", guildId);
             } 
             catch (Exception e) {
                 e.printStackTrace();
