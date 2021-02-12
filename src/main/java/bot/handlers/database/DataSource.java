@@ -15,9 +15,9 @@ public class DataSource {
         try (final Statement statement = getConnection().createStatement()) {
             statement.execute
             ("CREATE TABLE IF NOT EXISTS guild_settings (" +
-            "id SERIAL PRIMARY KEY," +
             "guild_id VARCHAR(20) NOT NULL," +
-            "prefix VARCHAR(255) NOT NULL DEFAULT ' "+ System.getenv("DEFAULT_PREFIX") +" ' "+");"
+            "prefix VARCHAR(255) NOT NULL DEFAULT '"+ System.getenv("DEFAULT_PREFIX") +"',"+
+            "PRIMARY KEY (guild_id)" +");"
             );
 
             LOGGER.info("PostgreSQL database table successfully created!");
