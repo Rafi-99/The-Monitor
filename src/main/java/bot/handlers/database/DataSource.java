@@ -17,17 +17,15 @@ public class DataSource {
             ("CREATE TABLE IF NOT EXISTS guild_settings (" +
             "id SERIAL PRIMARY KEY," +
             "guild_id VARCHAR(20) NOT NULL," +
-            "prefix VARCHAR(255) NOT NULL DEFAULT '" + System.getenv("DEFAULT_PREFIX") + "'" +");"
+            "prefix VARCHAR(255) NOT NULL DEFAULT ' "+ System.getenv("DEFAULT_PREFIX") +" ' "+");"
             );
 
-            LOGGER.info("Database table successfully created!");
+            LOGGER.info("PostgreSQL database table successfully created!");
         } 
         catch (SQLException | URISyntaxException e) {
             e.printStackTrace();
         }
     }
-
-    private DataSource() {}
 
     public static Connection getConnection() throws URISyntaxException, SQLException {
         URI dbUri = new URI(System.getenv("DATABASE_URL"));
