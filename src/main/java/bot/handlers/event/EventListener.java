@@ -17,7 +17,6 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.ReadyEvent;
-import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -125,19 +124,6 @@ public class EventListener extends ListenerAdapter {
         else if(event.getGuild().getName().equals("Playground")) {
             event.getGuild().addRoleToMember(event.getMember().getId(), Objects.requireNonNull(event.getGuild().getRoleById("756889036026675290"))).queue();
             Objects.requireNonNull(event.getGuild().getTextChannelById("710434525611688009")).sendMessage("Welcome to Playground! " + event.getMember().getAsMention()).queue();
-        }
-    }
-
-    @Override
-    public void onGuildJoin(GuildJoinEvent event) {
-        final String name = event.getGuild().getName();
-
-        try(final PreparedStatement insertStatement = DataSource.getConnection().prepareStatement("INSERT INTO guild_settings(name) VALUES(?)")) {
-            insertStatement.setString(1, String.valueOf(name));
-            insertStatement.execute();
-        }
-        catch(Exception e) {
-            e.printStackTrace();
         }
     }
 

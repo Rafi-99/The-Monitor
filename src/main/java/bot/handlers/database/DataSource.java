@@ -17,7 +17,6 @@ public class DataSource {
             ("CREATE TABLE IF NOT EXISTS guild_settings (" +
             "guild_id VARCHAR(20) NOT NULL," +
             "prefix VARCHAR(255) NOT NULL DEFAULT '"+ System.getenv("DEFAULT_PREFIX") +"',"+
-            "name VARCHAR(255) NOT NULL," +
             "PRIMARY KEY (guild_id)" +");"
             );
 
