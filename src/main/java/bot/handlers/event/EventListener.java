@@ -72,7 +72,7 @@ public class EventListener extends ListenerAdapter {
                 info.setDescription("A multi-purpose Discord server bot in development.");
                 info.setThumbnail(Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                 info.addField("**Current Prefix**", Constants.PREFIXES.get(event.getGuild().getIdLong()), true);
-                info.addField("**Command Usage Example**", Constants.PREFIXES.get(event.getGuild().getIdLong()) + "botInfo", true);
+                info.addField("**Command Usage Example**", Constants.PREFIXES.get(event.getGuild().getIdLong()) + "botInfo", false);
                 info.addField("**Moderation**", "setPrefix, ticketSetup, invite, mute, unmute, purge, kick, ban, unban", true);
                 info.addField("**General**", "botInfo, serverInfo, ping", true);
                 info.addField("**Fun**", "roast, wholesome, simp, avatar, pp, rps, meme, emotes", true);
