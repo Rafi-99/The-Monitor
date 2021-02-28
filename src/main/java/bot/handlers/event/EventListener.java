@@ -39,7 +39,7 @@ public class EventListener extends ListenerAdapter {
     @Override
     public void onGuildMessageReceived(@Nonnull GuildMessageReceivedEvent event) {
         final long guildId = event.getGuild().getIdLong();
-        String prefix = Constants.PREFIXES.computeIfAbsent(guildId, this::getPrefix);
+        String prefix = Constants.PREFIXES.computeIfAbsent(guildId, this::loadPrefix);
 
         String message = event.getMessage().getContentRaw();
         String [] botMention = event.getMessage().getContentRaw().split("\\s+");
@@ -139,7 +139,7 @@ public class EventListener extends ListenerAdapter {
         }
     }
 
-    private String getPrefix(long guildId) {
+    private String loadPrefix(long guildId) {
         try (final PreparedStatement preparedStatement = DataSource.getConnection().prepareStatement("SELECT prefix FROM guild_settings WHERE guild_id = ?")) {
             preparedStatement.setString(1, String.valueOf(guildId));
 
