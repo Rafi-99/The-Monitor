@@ -27,7 +27,7 @@ public class CommandManager {
         addCommand(new Link());
         addCommand(new Restart());
         addCommand(new Test());
-        //Fun Commands (7)
+        //Fun Commands (8)
         addCommand(new Avatar());
         addCommand(new Emotes());
         addCommand(new Meme());
@@ -48,7 +48,7 @@ public class CommandManager {
         addCommand(new SetPrefix());
         addCommand(new TicketSetup());
         addCommand(new Unban());
-        //Music Commands (9)
+        //Music Commands (10)
         addCommand(new Clear());
         addCommand(new Join());
         addCommand(new Leave());
