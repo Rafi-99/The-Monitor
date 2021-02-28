@@ -28,11 +28,11 @@ public class DataSource {
     }
 
     public static Connection getConnection() throws URISyntaxException, SQLException {
-        URI dbUri = new URI(System.getenv("DATABASE_URL"));
-
-        String username = dbUri.getUserInfo().split(":")[0];
-        String password = dbUri.getUserInfo().split(":")[1];
-        String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
-        return DriverManager.getConnection(dbUrl, username, password);
+        URI databaseUrl = new URI(System.getenv("DATABASE_URL"));
+        String username = databaseUrl.getUserInfo().split(":")[0];
+        String password = databaseUrl.getUserInfo().split(":")[1];
+        String connection = "jdbc:postgresql://" + databaseUrl.getHost() + ':' + databaseUrl.getPort() + databaseUrl.getPath() + "?sslmode=require";
+        
+        return DriverManager.getConnection(connection, username, password);
     }
 }
