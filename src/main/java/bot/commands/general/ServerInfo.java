@@ -35,7 +35,7 @@ public class ServerInfo implements CommandInterface {
                 server.addField("**Boost Count**", Integer.toString(c.getGuild().getBoostCount()) , true);
                 server.setFooter("The Monitor ™ | © 2021", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                 c.getChannel().sendTyping().queue();
-                c.getChannel().sendMessage(server.build()).queue();
+                c.getChannel().sendMessage(server.build()).reference(c.getMessage()).mentionRepliedUser(false).queue();
                 server.clear();
             };
             /*

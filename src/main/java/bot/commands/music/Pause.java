@@ -31,7 +31,7 @@ public class Pause implements CommandInterface {
             }
             else {
                 c.getChannel().sendTyping().queue();
-                c.getChannel().sendMessage("You have to be in the same voice channel as me to pause the player.").queue();
+                c.getChannel().sendMessage("You have to be in the same voice channel as me to pause the player.").reference(c.getMessage()).mentionRepliedUser(false).queue();
             }
         }
     }

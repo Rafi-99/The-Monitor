@@ -12,7 +12,7 @@ public class Admin implements CommandInterface {
     public void handle(CommandContext c) {
         if(c.getCommandParameters().isEmpty() && c.getMember().getId().equals("398215411998654466")) {
             c.getChannel().sendTyping().queue();
-            c.getChannel().sendMessage("The information has been sent to your DM!").queue();
+            c.getChannel().sendMessage("The information has been sent to your DM!").reference(c.getMessage()).mentionRepliedUser(false).queue();
             c.getAuthor().openPrivateChannel().queue(privateChannel -> {
                 EmbedBuilder adminInfo = new EmbedBuilder();
                 adminInfo.setColor(0x05055e);

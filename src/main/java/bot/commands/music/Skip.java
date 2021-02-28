@@ -31,17 +31,17 @@ public class Skip implements CommandInterface {
                     skip.setDescription("Now Playing: "+ title);
                     skip.setFooter("The Monitor ™ | © 2021", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                     c.getChannel().sendTyping().queue();
-                    c.getChannel().sendMessage(skip.build()).queue();
+                    c.getChannel().sendMessage(skip.build()).reference(c.getMessage()).mentionRepliedUser(false).queue();
                     skip.clear();
                 }
                 else {
                     c.getChannel().sendTyping().queue();
-                    c.getChannel().sendMessage("There are no songs left in the queue to skip.").queue();
+                    c.getChannel().sendMessage("There are no songs left in the queue to skip.").reference(c.getMessage()).mentionRepliedUser(false).queue();
                 }
             }
             else {
                 c.getChannel().sendTyping().queue();
-                c.getChannel().sendMessage("You have to be in the same voice channel as me to skip songs.").queue();
+                c.getChannel().sendMessage("You have to be in the same voice channel as me to skip songs.").reference(c.getMessage()).mentionRepliedUser(false).queue();
             }
         }
     }

@@ -20,11 +20,11 @@ public class Leave implements CommandInterface {
                 Constants.getMusicManager(c).player.stopTrack();
                 Constants.getAudioManager(c).closeAudioConnection();
                 c.getChannel().sendTyping().queue();
-                c.getChannel().sendMessage("Successfully disconnected and cleared the queue!").queue();
+                c.getChannel().sendMessage("Successfully disconnected and cleared the queue!").reference(c.getMessage()).mentionRepliedUser(false).queue();
             }
             else {
                 c.getChannel().sendTyping().queue();
-                c.getChannel().sendMessage("You have to be in the same voice channel as me in order to disconnect.").queue();
+                c.getChannel().sendMessage("You have to be in the same voice channel as me in order to disconnect.").reference(c.getMessage()).mentionRepliedUser(false).queue();
             }
         }
     }

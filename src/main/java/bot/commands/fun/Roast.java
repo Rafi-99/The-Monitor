@@ -10,11 +10,11 @@ public class Roast implements CommandInterface {
     public void handle(CommandContext c) {
         if(c.getCommandParameters().size() == 1) {
             c.getChannel().sendTyping().queue();
-            c.getChannel().sendMessage(c.getCommandParameters().get(0) +" "+ Constants.roasts[(int) (Math.random() * 20)]).queue();
+            c.getChannel().sendMessage(c.getCommandParameters().get(0) +" "+ Constants.roasts[(int) (Math.random() * 20)]).reference(c.getMessage()).mentionRepliedUser(false).queue();
         }
         else {
             c.getChannel().sendTyping().queue();
-            c.getChannel().sendMessage("Type in "+ Constants.getCurrentPrefix(c) +"roast and mention the person you want to roast!").queue();
+            c.getChannel().sendMessage("Type in "+ Constants.getCurrentPrefix(c) +"roast and mention the person you want to roast!").reference(c.getMessage()).mentionRepliedUser(false).queue();
         }
     }
 

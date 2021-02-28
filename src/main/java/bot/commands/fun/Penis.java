@@ -21,7 +21,7 @@ public class Penis implements CommandInterface {
         }
         else {
             c.getChannel().sendTyping().queue();
-            c.getChannel().sendMessage("Type in "+ Constants.getCurrentPrefix(c) +"pp [user mention] to use this command!").queue();
+            c.getChannel().sendMessage("Type in "+ Constants.getCurrentPrefix(c) +"pp [user mention] to use this command!").reference(c.getMessage()).mentionRepliedUser(false).queue();
         }
     }
 

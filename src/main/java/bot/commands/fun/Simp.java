@@ -13,7 +13,7 @@ public class Simp implements CommandInterface {
         }
         else {
             c.getChannel().sendTyping().queue();
-            c.getChannel().sendMessage("Type in "+ Constants.getCurrentPrefix(c) +"simp and mention someone to use this command!").queue();
+            c.getChannel().sendMessage("Type in "+ Constants.getCurrentPrefix(c) +"simp and mention someone to use this command!").reference(c.getMessage()).mentionRepliedUser(false).queue();
         }
     }
 

@@ -21,7 +21,7 @@ public class NowPlaying implements CommandInterface {
 
                 if(Constants.getMusicManager(c).player.getPlayingTrack() == null) {
                     c.getChannel().sendTyping().queue();
-                    c.getChannel().sendMessage("Nothing is being played currently.").queue();
+                    c.getChannel().sendMessage("Nothing is being played currently.").reference(c.getMessage()).mentionRepliedUser(false).queue();
                     return;
                 }
 
@@ -43,12 +43,12 @@ public class NowPlaying implements CommandInterface {
                 np.setDescription(message);
                 np.setFooter("The Monitor ™ | © 2021", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                 c.getChannel().sendTyping().queue();
-                c.getChannel().sendMessage(np.build()).queue();
+                c.getChannel().sendMessage(np.build()).reference(c.getMessage()).mentionRepliedUser(false).queue();
                 np.clear();
             }
             else {
                 c.getChannel().sendTyping().queue();
-                c.getChannel().sendMessage("You have to be in the same voice channel as me to see what's playing currently.").queue();
+                c.getChannel().sendMessage("You have to be in the same voice channel as me to see what's playing currently.").reference(c.getMessage()).mentionRepliedUser(false).queue();
             }
         }
     }

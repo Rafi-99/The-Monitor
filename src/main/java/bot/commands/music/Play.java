@@ -87,7 +87,7 @@ public class Play implements CommandInterface {
 
                         if(ytSearch == null) {
                             c.getChannel().sendTyping().queue();
-                            c.getChannel().sendMessage("Sorry, YouTube returned no results for your query.").queue();
+                            c.getChannel().sendMessage("Sorry, YouTube returned no results for your query.").reference(c.getMessage()).mentionRepliedUser(false).queue();
                             return;
                         }
                         link = ytSearch;
@@ -100,7 +100,7 @@ public class Play implements CommandInterface {
                 }
                 else {
                     c.getChannel().sendTyping().queue();
-                    c.getChannel().sendMessage("You have to be in the same voice channel as me to play anything. Please use the join command to summon me.").queue();
+                    c.getChannel().sendMessage("You have to be in the same voice channel as me to play anything. Please use the join command to summon me.").reference(c.getMessage()).mentionRepliedUser(false).queue();
                 }
             }
         }

@@ -25,20 +25,20 @@ public class Volume implements CommandInterface {
                         if(playerVolume >= 0 && playerVolume <=200) {
                             Constants.getMusicManager(c).player.setVolume(playerVolume);
                             c.getChannel().sendTyping().queue();
-                            c.getChannel().sendMessage("The player volume has been set to "+ Constants.getMusicManager(c).player.getVolume() +"%").queue();
+                            c.getChannel().sendMessage("The player volume has been set to "+ Constants.getMusicManager(c).player.getVolume() +"%").reference(c.getMessage()).mentionRepliedUser(false).queue();
                             return;
                         }
                         c.getChannel().sendTyping().queue();
-                        c.getChannel().sendMessage("Please enter a number between 0 and 200 inclusive.").queue();
+                        c.getChannel().sendMessage("Please enter a number between 0 and 200 inclusive.").reference(c.getMessage()).mentionRepliedUser(false).queue();
                     } 
                     catch (Exception e) {
                         c.getChannel().sendTyping().queue();
-                        c.getChannel().sendMessage("Please enter a number between 0 and 200 inclusive.").queue();
+                        c.getChannel().sendMessage("Please enter a number between 0 and 200 inclusive.").reference(c.getMessage()).mentionRepliedUser(false).queue();
                     }
                 }
                 else {
                     c.getChannel().sendTyping().queue();
-                    c.getChannel().sendMessage("You have to be in the same voice channel as me to change the player volume.").queue();
+                    c.getChannel().sendMessage("You have to be in the same voice channel as me to change the player volume.").reference(c.getMessage()).mentionRepliedUser(false).queue();
                 }
             } 
         }

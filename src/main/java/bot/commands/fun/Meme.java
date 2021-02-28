@@ -24,7 +24,7 @@ public class Meme implements CommandInterface {
                 meme.setImage(image);
                 meme.setFooter("The Monitor ™ | © 2021", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                 c.getChannel().sendTyping().queue();
-                c.getChannel().sendMessage(meme.build()).queue();
+                c.getChannel().sendMessage(meme.build()).reference(c.getMessage()).mentionRepliedUser(false).queue();
                 meme.clear();
             });
         }

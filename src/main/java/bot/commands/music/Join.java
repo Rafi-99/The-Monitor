@@ -20,16 +20,16 @@ public class Join implements CommandInterface {
                     Constants.getAudioManager(c).openAudioConnection(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel());
                     String name = Objects.requireNonNull(c.getMember().getVoiceState().getChannel()).toString().replace("VC:", "");
                     c.getChannel().sendTyping().queue();
-                    c.getChannel().sendMessage("Successfully connected to: " + name.substring(name.indexOf(""), name.indexOf("("))).queue();
+                    c.getChannel().sendMessage("Successfully connected to: " + name.substring(name.indexOf(""), name.indexOf("("))).reference(c.getMessage()).mentionRepliedUser(false).queue();
                 }
                 else {
                     c.getChannel().sendTyping().queue();
-                    c.getChannel().sendMessage("You have to be in a voice channel first!").queue();
+                    c.getChannel().sendMessage("You have to be in a voice channel first!").reference(c.getMessage()).mentionRepliedUser(false).queue();
                 }
             }
             else {
                 c.getChannel().sendTyping().queue();
-                c.getChannel().sendMessage("I am already connected to a voice channel!").queue();
+                c.getChannel().sendMessage("I am already connected to a voice channel!").reference(c.getMessage()).mentionRepliedUser(false).queue();
             }
         }
     }

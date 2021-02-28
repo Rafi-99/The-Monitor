@@ -14,8 +14,7 @@ public class Invite implements CommandInterface {
 
             if(c.getCommandParameters().isEmpty()) {
                 c.getChannel().sendTyping().queue();
-                c.getChannel().sendMessage("Invite created! Copy the link below and send it to someone!").queue();
-                c.getChannel().sendMessage(c.getChannel().createInvite().setMaxAge(0).complete().getUrl()).queue();
+                c.getChannel().sendMessage("Invite created! Copy the link below and send it to someone!"+"\n"+c.getChannel().createInvite().setMaxAge(0).complete().getUrl()).reference(c.getMessage()).mentionRepliedUser(false).queue();
             }
         }
         else {

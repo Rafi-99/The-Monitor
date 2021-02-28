@@ -20,8 +20,7 @@ public class Test implements CommandInterface {
                     c.getChannel().sendMessage("Poggers!").queue();
                     if(stop) {
                         c.getChannel().sendTyping().queue();
-                        c.getChannel().sendMessage("Ending spam now...").queue();
-                        c.getChannel().sendMessage("Ended.").queue();
+                        c.getChannel().sendMessage("Ending spam now..."+"\n"+"Ended.").reference(c.getMessage()).mentionRepliedUser(false).queue();
                         test.shutdownNow();
                         stop = false;
                     }

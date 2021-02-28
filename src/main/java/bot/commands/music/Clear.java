@@ -20,11 +20,11 @@ public class Clear implements CommandInterface {
                 Constants.getMusicManager(c).player.stopTrack();
                 Constants.getMusicManager(c).player.setPaused(false);
                 c.getChannel().sendTyping().queue();
-                c.getChannel().sendMessage("The queue has been cleared successfully!").queue();
+                c.getChannel().sendMessage("The queue has been cleared successfully!").reference(c.getMessage()).mentionRepliedUser(false).queue();
             }
             else {
                 c.getChannel().sendTyping().queue();
-                c.getChannel().sendMessage("You have to be in the same voice channel as me to clear the queue.").queue();
+                c.getChannel().sendMessage("You have to be in the same voice channel as me to clear the queue.").reference(c.getMessage()).mentionRepliedUser(false).queue();
             }
         }
     }

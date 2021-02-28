@@ -20,15 +20,15 @@ public class LoopTrack implements CommandInterface {
                 c.getChannel().sendTyping().queue();
 
                 if(trackRepeat) {
-                    c.getChannel().sendMessage("Looping the current song.").queue();
+                    c.getChannel().sendMessage("Looping the current song.").reference(c.getMessage()).mentionRepliedUser(false).queue();
                 }
                 else {
-                    c.getChannel().sendMessage("Track looping has been disabled").queue();
+                    c.getChannel().sendMessage("Track looping has been disabled").reference(c.getMessage()).mentionRepliedUser(false).queue();
                 }
             }
             else {
                 c.getChannel().sendTyping().queue();
-                c.getChannel().sendMessage("You have to be in the same voice channel as me to loop a song.").queue();
+                c.getChannel().sendMessage("You have to be in the same voice channel as me to loop a song.").reference(c.getMessage()).mentionRepliedUser(false).queue();
             }
         }
     }

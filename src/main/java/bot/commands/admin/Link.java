@@ -12,7 +12,7 @@ public class Link implements CommandInterface {
     public void handle(CommandContext c) {
         if(c.getCommandParameters().isEmpty() && c.getMember().getId().equals("398215411998654466")) {
             c.getChannel().sendTyping().queue();
-            c.getChannel().sendMessage(Monitor.myBot.getInviteUrl(Permission.ADMINISTRATOR)).queue();
+            c.getChannel().sendMessage(Monitor.myBot.getInviteUrl(Permission.ADMINISTRATOR)).reference(c.getMessage()).mentionRepliedUser(false).queue();
         }
     }
 

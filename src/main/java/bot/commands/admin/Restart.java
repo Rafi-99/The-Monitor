@@ -11,8 +11,7 @@ public class Restart implements CommandInterface {
 
             if(c.getMember().getId().equals("398215411998654466") || c.getMember().getId().equals("658118412098076682")) {
                 c.getChannel().sendTyping().complete();
-                c.getChannel().sendMessage("Terminating...").complete();
-                c.getChannel().sendMessage("Bot is now going offline and restarting.").complete();
+                c.getChannel().sendMessage("Terminating..."+"\n"+"Bot is now going offline and restarting.").reference(c.getMessage()).mentionRepliedUser(false).complete();
                 System.exit(0);
             }
             else {

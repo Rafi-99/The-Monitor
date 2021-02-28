@@ -19,12 +19,12 @@ public class Avatar implements CommandInterface {
             avatar.setImage(c.getMessage().getMentionedUsers().get(0).getEffectiveAvatarUrl() + "?size=4096");
             avatar.setFooter("The Monitor ™ | © 2021", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
             c.getChannel().sendTyping().queue();
-            c.getChannel().sendMessage(avatar.build()).queue();
+            c.getChannel().sendMessage(avatar.build()).reference(c.getMessage()).mentionRepliedUser(false).queue();
             avatar.clear();
         }
         else {
             c.getChannel().sendTyping().queue();
-            c.getChannel().sendMessage("Type in "+ Constants.getCurrentPrefix(c) +"avatar and mention a user to view their avatar!").queue();
+            c.getChannel().sendMessage("Type in "+ Constants.getCurrentPrefix(c) +"avatar and mention a user to view their avatar!").reference(c.getMessage()).mentionRepliedUser(false).queue();
         }
     }
 
