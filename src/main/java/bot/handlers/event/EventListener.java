@@ -110,10 +110,6 @@ public class EventListener extends ListenerAdapter {
             event.getGuild().addRoleToMember(event.getMember().getId(), Objects.requireNonNull(event.getGuild().getRoleById("709505763583852565"))).queue();
             Objects.requireNonNull(event.getGuild().getTextChannelById("709259200651591747")).sendMessage("Hello "+ event.getMember().getAsMention() +"! Welcome to our server, **The Goddess's Parthenon**! Get yourself some roles in "+ Objects.requireNonNull(event.getGuild().getTextChannelById("709327942035177482")).getAsMention() +". Everyone please make our new friend feel welcome!!! :) "+ Objects.requireNonNull(event.getGuild().getRoleById("727010870403530760")).getAsMention()).queue();
         }
-        else if(event.getGuild().getName().equals("Friends :)")) {
-            event.getGuild().addRoleToMember(event.getMember().getId(), Objects.requireNonNull(event.getGuild().getRoleById("754614035529597038"))).queue();
-            Objects.requireNonNull(event.getGuild().getTextChannelById("753717833937977388")).sendMessage("Hello " + event.getMember().getAsMention() + "! Welcome to our server, **Friends :)**! Enjoy your stay :)").queue();
-        }
         else if(event.getGuild().getName().equals("Wholesome Study Boys")) {
             /*
              * No Catfishing role is added and welcome message is sent in general chat.
