@@ -53,7 +53,7 @@ public class Constants {
         embed.setDescription(description);
         embed.setFooter("The Monitor ™ | © 2021", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
         event.getChannel().sendTyping().queue();
-        event.getChannel().sendMessage(embed.build()).queue();
+        event.getChannel().sendMessage(embed.build()).reference(event.getMessage()).mentionRepliedUser(false).queue();
         embed.clear();
     }
 

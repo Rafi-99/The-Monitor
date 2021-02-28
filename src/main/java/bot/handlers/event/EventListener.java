@@ -79,7 +79,7 @@ public class EventListener extends ListenerAdapter {
                 info.addField("**Music**", "join, leave, np, play, loopTrack, volume, pause, skip, queue, clear", true);
                 info.setFooter(botOwner.getOwner().getName() + " | Bot Developer", botOwner.getOwner().getEffectiveAvatarUrl());
                 event.getChannel().sendTyping().queue();
-                event.getChannel().sendMessage(info.build()).queue();
+                event.getChannel().sendMessage(info.build()).reference(event.getMessage()).mentionRepliedUser(false).queue();
                 info.clear();
             });
         }
