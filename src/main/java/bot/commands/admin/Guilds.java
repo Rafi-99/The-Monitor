@@ -9,9 +9,9 @@ public class Guilds implements CommandInterface {
     @Override
     public void handle(CommandContext c) {
         if(c.getCommandParameters().isEmpty() && c.getMember().getId().equals("398215411998654466")) {
-            Monitor.myBot.getGuilds().get(0).getName();
+            System.out.println("Total # of Guilds: "+ c.getJDA().getGuilds().size());
             for (int i = 0; i < Monitor.myBot.getGuilds().size(); i++) {
-                c.getChannel().sendMessage(Monitor.myBot.getGuilds().get(i).getName()).queue();
+                System.out.println(i + 1 +". "+ Monitor.myBot.getGuilds().get(i).getName());
             }
         }
     }
