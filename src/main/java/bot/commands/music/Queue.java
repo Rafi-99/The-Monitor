@@ -25,7 +25,7 @@ public class Queue implements CommandInterface {
 
                 if (Constants.getQueue(c).isEmpty()) {
                     c.getChannel().sendTyping().queue();
-                    c.getChannel().sendMessage("The queue is empty.").queue();
+                    c.getChannel().sendMessage("The queue is empty.").reference(c.getMessage()).mentionRepliedUser(false).queue();
                 }
                 else {
                     int minQueueView = Math.min(Constants.getQueue(c).size(), 30);
@@ -42,13 +42,13 @@ public class Queue implements CommandInterface {
                     queue.setThumbnail(Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                     queue.setFooter("The Monitor ™ | © 2021", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
                     c.getChannel().sendTyping().queue();
-                    c.getChannel().sendMessage(queue.build()).queue();
+                    c.getChannel().sendMessage(queue.build()).reference(c.getMessage()).mentionRepliedUser(false).queue();
                     queue.clear();
                 }
             }
             else {
                 c.getChannel().sendTyping().queue();
-                c.getChannel().sendMessage("You have to be in the same voice channel as me to view the queue.").queue();
+                c.getChannel().sendMessage("You have to be in the same voice channel as me to view the queue.").reference(c.getMessage()).mentionRepliedUser(false).queue();
             }
         }
     }
