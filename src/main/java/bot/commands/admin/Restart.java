@@ -16,7 +16,7 @@ public class Restart implements CommandInterface {
             }
             else {
                 c.getChannel().sendTyping().queue();
-                c.getChannel().sendMessage("Access denied.").queue();
+                c.getChannel().sendMessage("Access denied.").reference(c.getMessage()).mentionRepliedUser(false).queue();
             }
         }
     }
