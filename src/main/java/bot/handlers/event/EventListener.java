@@ -34,7 +34,10 @@ public class EventListener extends ListenerAdapter {
     @Override
     public void onReady(@Nonnull ReadyEvent event) {
         botLogger.info("Bot is now online!");
-        botLogger.info("Here is a list of all the commands that have been loaded: {}", botCommandManager.getAllCommands());
+        botLogger.info("Loaded {} commands!", botCommandManager.getAllCommands().size());
+        for(int i =0; i< botCommandManager.getAllCommands().size(); i++) {
+            botLogger.info(i + 1 +". "+ botCommandManager.getAllCommands().get(i).getName());
+        }
     }
 
     @Override
