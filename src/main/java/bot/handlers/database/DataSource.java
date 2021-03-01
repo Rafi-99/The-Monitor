@@ -20,7 +20,7 @@ public class DataSource {
             "PRIMARY KEY (guild_id)" +");"
             );
 
-            LOGGER.info("PostgreSQL database table successfully created!");
+            LOGGER.info("Database loaded successfully!");
         } 
         catch (SQLException | URISyntaxException e) {
             e.printStackTrace();
