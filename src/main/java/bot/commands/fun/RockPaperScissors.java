@@ -14,8 +14,7 @@ public class RockPaperScissors implements CommandInterface {
             Constants.rpsGame(c.getEvent(), c.getCommandParameters().toArray(new String[0]), rps);
         }
         else {
-            c.getChannel().sendTyping().queue();
-            c.getChannel().sendMessage("Type in "+ Constants.getCurrentPrefix(c) +"rps [rock/paper/scissors] to use this command!").reference(c.getMessage()).mentionRepliedUser(false).queue();
+            Constants.setEmbed(c.getEvent(), "Rock Paper Scissors", "Type in "+ Constants.getCurrentPrefix(c) +"rps [rock/paper/scissors] to use this command!");
         }
     }
 
