@@ -14,13 +14,14 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 public class PlayerManager {
 
      private static PlayerManager INSTANCE;
      private final AudioPlayerManager playerManager;
      private final Map<Long, GuildMusicManager> musicManagers;
-     protected Guild event;
+     protected GuildMessageReceivedEvent event;
 
      private PlayerManager() {
           this.musicManagers = new HashMap<>();
