@@ -2,7 +2,6 @@ package bot.commands.music;
 
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
-import bot.driver.Monitor;
 import bot.handlers.utilities.Constants;
 
 import java.util.Objects;
@@ -41,7 +40,7 @@ public class NowPlaying implements CommandInterface {
                 np.setTitle("Now Playing: "+ title, url);
                 np.setThumbnail("https://img.youtube.com/vi/"+ videoID +"/default.jpg");
                 np.setDescription(message);
-                np.setFooter("The Monitor ™ | © 2021", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                np.setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
                 c.getChannel().sendTyping().queue();
                 c.getChannel().sendMessage(np.build()).reference(c.getMessage()).mentionRepliedUser(false).queue();
                 np.clear();

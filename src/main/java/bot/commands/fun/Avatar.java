@@ -2,7 +2,6 @@ package bot.commands.fun;
 
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
-import bot.driver.Monitor;
 import bot.handlers.utilities.Constants;
 
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -17,7 +16,7 @@ public class Avatar implements CommandInterface {
             avatar.setTitle("Avatar");
             avatar.setDescription(c.getMessage().getMentionedUsers().get(0).getName());
             avatar.setImage(c.getMessage().getMentionedUsers().get(0).getEffectiveAvatarUrl() + "?size=4096");
-            avatar.setFooter("The Monitor ™ | © 2021", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+            avatar.setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
             c.getChannel().sendTyping().queue();
             c.getChannel().sendMessage(avatar.build()).reference(c.getMessage()).mentionRepliedUser(false).queue();
             avatar.clear();

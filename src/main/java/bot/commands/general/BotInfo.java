@@ -2,7 +2,6 @@ package bot.commands.general;
 
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
-import bot.driver.Monitor;
 import bot.handlers.utilities.Constants;
 
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -16,12 +15,12 @@ public class BotInfo implements CommandInterface {
          * get the retrieved owner name and avatar inside the footer of the embed.
          */
         if(c.getCommandParameters().isEmpty()) {
-            Monitor.myBot.retrieveApplicationInfo().queue(botOwner -> {
+            c.getEvent().getJDA().retrieveApplicationInfo().queue(botOwner -> {
                 EmbedBuilder info = new EmbedBuilder();
                 info.setColor(0x05055e);
                 info.setTitle("**The Monitor ™ Bot Information**");
                 info.setDescription("A multi-purpose Discord server bot in development.");
-                info.setThumbnail(Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                info.setThumbnail(c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
                 info.addField("**Current Prefix**", Constants.getCurrentPrefix(c), true);
                 info.addField("**Command Usage Example**", Constants.getCurrentPrefix(c) + "botInfo", false);
                 info.addField("**Moderation**", "setPrefix, ticketSetup, invite, mute, unmute, purge, kick, ban, unban", true);

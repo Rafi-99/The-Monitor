@@ -2,7 +2,6 @@ package bot.commands.music;
 
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
-import bot.driver.Monitor;
 import bot.handlers.utilities.Constants;
 
 import java.util.ArrayList;
@@ -39,8 +38,8 @@ public class Queue implements CommandInterface {
                         AudioTrackInfo trackInfo = tracks.get(i).getInfo();
                         queue.appendDescription(String.format("%s - %s\n", trackInfo.title, trackInfo.author));
                     }
-                    queue.setThumbnail(Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
-                    queue.setFooter("The Monitor ™ | © 2021", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                    queue.setThumbnail(c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
+                    queue.setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
                     c.getChannel().sendTyping().queue();
                     c.getChannel().sendMessage(queue.build()).reference(c.getMessage()).mentionRepliedUser(false).queue();
                     queue.clear();

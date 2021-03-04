@@ -1,7 +1,5 @@
 package bot.handlers.music;
 
-import bot.driver.Monitor;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,6 +20,7 @@ public class PlayerManager {
      private static PlayerManager INSTANCE;
      private final AudioPlayerManager playerManager;
      private final Map<Long, GuildMusicManager> musicManagers;
+     protected Guild event;
 
      private PlayerManager() {
           this.musicManagers = new HashMap<>();
@@ -50,7 +49,7 @@ public class PlayerManager {
                     player.setTitle(track.getInfo().title, track.getInfo().uri);
                     player.setThumbnail("https://img.youtube.com/vi/"+ track.getInfo().identifier +"/default.jpg");
                     player.setDescription("Adding "+ track.getInfo().title +" to the queue.");
-                    player.setFooter("The Monitor ™ | © 2021", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                    player.setFooter("The Monitor ™ | © 2021", event.getJDA().getSelfUser().getEffectiveAvatarUrl());
                     channel.sendTyping().queue();
                     channel.sendMessage(player.build()).queue();
                     player.clear();
@@ -65,7 +64,7 @@ public class PlayerManager {
                     player.setTitle(playlist.getName(), trackUrl);
                     player.setThumbnail("https://img.youtube.com/vi/"+ playlist.getTracks().get(0).getInfo().identifier +"/default.jpg");
                     player.setDescription("Adding " + playlist.getTracks().size() + " tracks from "+ playlist.getName() + " to the queue.");
-                    player.setFooter("The Monitor ™ | © 2021", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                    player.setFooter("The Monitor ™ | © 2021", event.getJDA().getSelfUser().getEffectiveAvatarUrl());
                     channel.sendTyping().queue();
                     channel.sendMessage(player.build()).queue();
                     player.clear();

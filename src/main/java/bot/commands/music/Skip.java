@@ -2,7 +2,6 @@ package bot.commands.music;
 
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
-import bot.driver.Monitor;
 import bot.handlers.utilities.Constants;
 
 import java.util.Objects;
@@ -29,7 +28,7 @@ public class Skip implements CommandInterface {
                     skip.setTitle("Track Skipped!");
                     skip.setThumbnail("https://img.youtube.com/vi/"+ videoID +"/default.jpg");
                     skip.setDescription("Now Playing: "+ title);
-                    skip.setFooter("The Monitor ™ | © 2021", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                    skip.setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
                     c.getChannel().sendTyping().queue();
                     c.getChannel().sendMessage(skip.build()).reference(c.getMessage()).mentionRepliedUser(false).queue();
                     skip.clear();

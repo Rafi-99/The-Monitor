@@ -1,7 +1,6 @@
 package bot.handlers.utilities;
 
 import bot.commands.CommandContext;
-import bot.driver.Monitor;
 import bot.handlers.music.GuildMusicManager;
 import bot.handlers.music.PlayerManager;
 
@@ -51,7 +50,7 @@ public class Constants {
         embed.setColor(0x05055e);
         embed.setTitle(title);
         embed.setDescription(description);
-        embed.setFooter("The Monitor ™ | © 2021", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+        embed.setFooter("The Monitor ™ | © 2021", event.getJDA().getSelfUser().getEffectiveAvatarUrl());
         event.getChannel().sendTyping().queue();
         event.getChannel().sendMessage(embed.build()).reference(event.getMessage()).mentionRepliedUser(false).queue();
         embed.clear();

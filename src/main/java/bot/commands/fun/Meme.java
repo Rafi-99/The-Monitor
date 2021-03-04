@@ -2,7 +2,6 @@ package bot.commands.fun;
 
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
-import bot.driver.Monitor;
 
 import me.duncte123.botcommons.web.WebUtils;
 
@@ -22,7 +21,7 @@ public class Meme implements CommandInterface {
                 meme.setColor(0x05055e);
                 meme.setTitle(title, url);
                 meme.setImage(image);
-                meme.setFooter("The Monitor ™ | © 2021", Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                meme.setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
                 c.getChannel().sendTyping().queue();
                 c.getChannel().sendMessage(meme.build()).reference(c.getMessage()).mentionRepliedUser(false).queue();
                 meme.clear();

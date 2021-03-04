@@ -1,6 +1,5 @@
 package bot.handlers.event;
 
-import bot.driver.Monitor;
 import bot.handlers.command.CommandManager;
 import bot.handlers.database.DataSource;
 import bot.handlers.utilities.Constants;
@@ -69,12 +68,12 @@ public class EventListener extends ListenerAdapter {
         }
 
         if(botMention.length == 1 && (botMention[0].equals("<@711703852977487903>") || botMention[0].equals("<@!711703852977487903>"))) {
-            Monitor.myBot.retrieveApplicationInfo().queue(botOwner -> {
+            event.getJDA().retrieveApplicationInfo().queue(botOwner -> {
                 EmbedBuilder info = new EmbedBuilder();
                 info.setColor(0x05055e);
                 info.setTitle("**The Monitor ™ Bot Information**");
                 info.setDescription("A multi-purpose Discord server bot in development.");
-                info.setThumbnail(Monitor.myBot.getSelfUser().getEffectiveAvatarUrl());
+                info.setThumbnail(event.getJDA().getSelfUser().getEffectiveAvatarUrl());
                 info.addField("**Current Prefix**", Constants.PREFIXES.get(event.getGuild().getIdLong()), true);
                 info.addField("**Command Usage Example**", Constants.PREFIXES.get(event.getGuild().getIdLong()) + "botInfo", false);
                 info.addField("**Moderation**", "setPrefix, ticketSetup, invite, mute, unmute, purge, kick, ban, unban", true);
