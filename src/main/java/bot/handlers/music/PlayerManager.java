@@ -14,14 +14,12 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 public class PlayerManager {
 
      private static PlayerManager INSTANCE;
      private final AudioPlayerManager playerManager;
      private final Map<Long, GuildMusicManager> musicManagers;
-     protected GuildMessageReceivedEvent event;
 
      private PlayerManager() {
           this.musicManagers = new HashMap<>();
@@ -44,13 +42,12 @@ public class PlayerManager {
                @Override
                public void trackLoaded(AudioTrack track) {
                     musicManager.scheduler.queue(track);
-
                     EmbedBuilder player = new EmbedBuilder();
                     player.setColor(0x05055e);
                     player.setTitle(track.getInfo().title, track.getInfo().uri);
                     player.setThumbnail("https://img.youtube.com/vi/"+ track.getInfo().identifier +"/default.jpg");
                     player.setDescription("Adding "+ track.getInfo().title +" to the queue.");
-                    player.setFooter("The Monitor ™ | © 2021", event.getJDA().getSelfUser().getEffectiveAvatarUrl());
+                    player.setFooter("The Monitor ™ | © 2021", "https://cdn.discordapp.com/avatars/711703852977487903/a7886964b1b5edab5c5d2eb5544a7da9.webp?size=512");
                     channel.sendTyping().queue();
                     channel.sendMessage(player.build()).queue();
                     player.clear();
@@ -65,7 +62,7 @@ public class PlayerManager {
                     player.setTitle(playlist.getName(), trackUrl);
                     player.setThumbnail("https://img.youtube.com/vi/"+ playlist.getTracks().get(0).getInfo().identifier +"/default.jpg");
                     player.setDescription("Adding " + playlist.getTracks().size() + " tracks from "+ playlist.getName() + " to the queue.");
-                    player.setFooter("The Monitor ™ | © 2021", event.getJDA().getSelfUser().getEffectiveAvatarUrl());
+                    player.setFooter("The Monitor ™ | © 2021", "https://cdn.discordapp.com/avatars/711703852977487903/a7886964b1b5edab5c5d2eb5544a7da9.webp?size=512");
                     channel.sendTyping().queue();
                     channel.sendMessage(player.build()).queue();
                     player.clear();
