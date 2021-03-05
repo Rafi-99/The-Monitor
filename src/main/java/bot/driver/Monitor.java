@@ -23,7 +23,7 @@ public class Monitor {
         .setMemberCachePolicy(MemberCachePolicy.ALL.and(MemberCachePolicy.VOICE))
         .enableCache(CacheFlag.VOICE_STATE, CacheFlag.EMOTE)
         .addEventListeners(new EventListener())
-        .setActivityProvider((shardID) -> Activity.playing("@[bot’s name] | Shard "+ (shardID + 1)))
+        .setActivityProvider((shardID) -> Activity.listening("@The Monitor ™ [Shard "+ (shardID + 1) +"]"))
         .build();
     }
 }
