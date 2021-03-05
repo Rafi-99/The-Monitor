@@ -15,7 +15,7 @@ import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
 public class Monitor {
 
-    public static void main(String[] args) throws LoginException, InterruptedException, SQLException, URISyntaxException {
+    public static void main(String[] args) throws LoginException, SQLException, URISyntaxException {
         DataSource.getConnection();
 
         DefaultShardManagerBuilder.createDefault(System.getenv("BOT_TOKEN"))
@@ -23,7 +23,7 @@ public class Monitor {
         .setMemberCachePolicy(MemberCachePolicy.ALL.and(MemberCachePolicy.VOICE))
         .enableCache(CacheFlag.VOICE_STATE, CacheFlag.EMOTE)
         .addEventListeners(new EventListener())
-        .setActivity(Activity.listening("@[bot’s name]"))
+        .setActivityProvider((shardID) -> Activity.playing("Shard: "+ shardID + 1 + "| @[bot’s name]"))
         .build();
     }
 }
