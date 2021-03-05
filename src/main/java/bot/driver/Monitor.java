@@ -22,6 +22,7 @@ public class Monitor {
         .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_VOICE_STATES)
         .setMemberCachePolicy(MemberCachePolicy.ALL.and(MemberCachePolicy.VOICE))
         .enableCache(CacheFlag.VOICE_STATE, CacheFlag.EMOTE)
+        .setBulkDeleteSplittingEnabled(false)
         .addEventListeners(new EventListener())
         .setActivityProvider((shardID) -> Activity.listening("@The Monitor ™ [Shard "+ (shardID + 1) +"]"))
         .build();
