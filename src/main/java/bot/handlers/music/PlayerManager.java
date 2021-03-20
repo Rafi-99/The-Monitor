@@ -45,7 +45,7 @@ public class PlayerManager {
                     musicManager.scheduler.queue(track);
 
                     if(trackUrl.contains("soundcloud")) {
-                         File logo = new File("src\\main\\resources\\images\\SoundCloud.jpeg");
+                         File logo = new File(getClass().getClassLoader().getResource("src\\main\\resources\\images\\SoundCloud.jpeg").getFile());
                          EmbedBuilder player = new EmbedBuilder()
                          .setColor(0x05055e)
                          .setTitle(track.getInfo().title, track.getInfo().uri)
@@ -76,7 +76,7 @@ public class PlayerManager {
                     }
 
                     if (trackUrl.contains("soundcloud")) {
-                         File logo = new File("src\\main\\resources\\images\\SoundCloud.jpeg");
+                         File logo = new File(getClass().getClassLoader().getResource("src\\main\\resources\\images\\SoundCloud.jpeg").getFile());
                          EmbedBuilder player = new EmbedBuilder()
                          .setColor(0x05055e)
                          .setTitle(playlist.getName(), trackUrl)
