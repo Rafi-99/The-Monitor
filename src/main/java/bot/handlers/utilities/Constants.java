@@ -20,7 +20,7 @@ public class Constants {
     public static final Map<Long, String> PREFIXES = new HashMap<>();
 
     //Fun Variables
-    public static final String [] roasts = {
+    public static final String [] ROASTS = {
         "Your birth certificate is an apology letter from the abortion clinic.",
         "I fucking hate you LOL!", "Don't play hard to get when you are hard to want.",
         "At least my dad didn't leave me.",
