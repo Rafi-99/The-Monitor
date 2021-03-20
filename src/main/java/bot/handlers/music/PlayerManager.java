@@ -45,7 +45,7 @@ public class PlayerManager {
                     musicManager.scheduler.queue(track);
 
                     if(trackUrl.contains("soundcloud")) {
-                         File logo = new File(getClass().getClassLoader().getResource("src\\main\\resources\\images\\SoundCloud.jpeg").getFile());
+                         File logo = new File("src\\main\\java\\images\\SoundCloud.jpeg");
                          EmbedBuilder player = new EmbedBuilder()
                          .setColor(0x05055e)
                          .setTitle(track.getInfo().title, track.getInfo().uri)
@@ -53,7 +53,7 @@ public class PlayerManager {
                          .setDescription("Adding "+ track.getInfo().title +" to the queue.")
                          .setFooter("The Monitor ™ | © 2021", "https://cdn.discordapp.com/avatars/711703852977487903/a7886964b1b5edab5c5d2eb5544a7da9.webp?size=512");
                          channel.sendTyping().queue();
-                         channel.sendFile(logo, "SoundCloud.jpeg").embed(player.build()).queue();
+                         channel.sendFile(logo, logo.getName()).embed(player.build()).queue();
                          player.clear();
                     }
 
@@ -76,7 +76,7 @@ public class PlayerManager {
                     }
 
                     if (trackUrl.contains("soundcloud")) {
-                         File logo = new File(getClass().getClassLoader().getResource("src\\main\\resources\\images\\SoundCloud.jpeg").getFile());
+                         File logo = new File("src\\main\\java\\images\\SoundCloud.jpeg");
                          EmbedBuilder player = new EmbedBuilder()
                          .setColor(0x05055e)
                          .setTitle(playlist.getName(), trackUrl)
@@ -84,7 +84,7 @@ public class PlayerManager {
                          .setDescription("Adding " + playlist.getTracks().size() + " tracks from "+ playlist.getName() +" to the queue.")
                          .setFooter("The Monitor ™ | © 2021", "https://cdn.discordapp.com/avatars/711703852977487903/a7886964b1b5edab5c5d2eb5544a7da9.webp?size=512");
                          channel.sendTyping().queue();
-                         channel.sendFile(logo, "SoundCloud.jpeg").embed(player.build()).queue();
+                         channel.sendFile(logo, logo.getName()).embed(player.build()).queue();
                          player.clear();
                     }
 
