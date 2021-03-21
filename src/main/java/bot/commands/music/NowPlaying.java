@@ -35,12 +35,12 @@ public class NowPlaying implements CommandInterface {
                 String videoID = Constants.getMusicManager(c).player.getPlayingTrack().getInfo().identifier;
                 String message = "Track Progress: "+ currentPositionMinutes +"m "+ currentPositionSeconds +"s/"+ totalDurationMinutes +"m "+ totalDurationSeconds +"s";
 
-                EmbedBuilder np = new EmbedBuilder();
-                np.setColor(0x05055e);
-                np.setTitle("Now Playing: "+ title, url);
-                np.setThumbnail("https://img.youtube.com/vi/"+ videoID +"/default.jpg");
-                np.setDescription(message);
-                np.setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
+                EmbedBuilder np = new EmbedBuilder()
+                .setColor(0x05055e)
+                .setTitle("Now Playing: "+ title, url)
+                .setThumbnail("https://img.youtube.com/vi/"+ videoID +"/default.jpg")
+                .setDescription(message)
+                .setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
                 c.getChannel().sendTyping().queue();
                 c.getChannel().sendMessage(np.build()).reference(c.getMessage()).mentionRepliedUser(false).queue();
                 np.clear();

@@ -16,18 +16,18 @@ public class BotInfo implements CommandInterface {
          */
         if(c.getCommandParameters().isEmpty()) {
             c.getEvent().getJDA().retrieveApplicationInfo().queue(botOwner -> {
-                EmbedBuilder info = new EmbedBuilder();
-                info.setColor(0x05055e);
-                info.setTitle("**The Monitor ™ Bot Information**");
-                info.setDescription("A multi-purpose Discord server bot in development.");
-                info.setThumbnail(c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
-                info.addField("**Current Prefix**", Constants.getCurrentPrefix(c), true);
-                info.addField("**Command Usage Example**", Constants.getCurrentPrefix(c) + "botInfo", false);
-                info.addField("**Moderation**", "setPrefix, ticketSetup, invite, mute, unmute, purge, kick, ban, unban", true);
-                info.addField("**General**", "botInfo, serverInfo, ping", true);
-                info.addField("**Fun**", "roast, wholesome, simp, avatar, pp, rps, meme, emotes", true);
-                info.addField("**Music**", "join, leave, np, play, loopTrack, volume, pause, skip, queue, clear", true);
-                info.setFooter(botOwner.getOwner().getName() + " | Bot Developer", botOwner.getOwner().getEffectiveAvatarUrl());
+                EmbedBuilder info = new EmbedBuilder()
+                .setColor(0x05055e)
+                .setTitle("**The Monitor ™ Bot Information**")
+                .setDescription("A multi-purpose Discord server bot in development.")
+                .setThumbnail(c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl())
+                .addField("**Current Prefix**", Constants.getCurrentPrefix(c), true)
+                .addField("**Command Usage Example**", Constants.getCurrentPrefix(c) + "botInfo", false)
+                .addField("**Moderation**", "setPrefix, ticketSetup, invite, mute, unmute, purge, kick, ban, unban", true)
+                .addField("**General**", "botInfo, serverInfo, ping", true)
+                .addField("**Fun**", "roast, wholesome, simp, avatar, pp, rps, meme, emotes", true)
+                .addField("**Music**", "join, leave, np, play, loopTrack, volume, pause, skip, queue, clear", true)
+                .setFooter(botOwner.getOwner().getName() + " | Bot Developer", botOwner.getOwner().getEffectiveAvatarUrl());
                 c.getChannel().sendTyping().queue();
                 c.getChannel().sendMessage(info.build()).reference(c.getMessage()).mentionRepliedUser(false).queue();
                 info.clear();

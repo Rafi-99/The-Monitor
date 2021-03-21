@@ -12,11 +12,11 @@ public class TicketSetup implements CommandInterface {
     @Override
     public void handle(CommandContext c) {
         if(c.getMember().hasPermission(Permission.MANAGE_SERVER)) {
-            EmbedBuilder ticket = new EmbedBuilder();
-            ticket.setColor(0x05055e);
-            ticket.setTitle("**Create a Support Ticket**");
-            ticket.setDescription("React with 📩 to create a new ticket.");
-            ticket.setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
+            EmbedBuilder ticket = new EmbedBuilder()
+            .setColor(0x05055e)
+            .setTitle("**Create a Support Ticket**")
+            .setDescription("React with 📩 to create a new ticket.")
+            .setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
             c.getChannel().sendMessage(ticket.build()).queue(t -> t.addReaction("📩").queue());
         }
         else {

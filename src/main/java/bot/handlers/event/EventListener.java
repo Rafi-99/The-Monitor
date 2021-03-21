@@ -27,15 +27,15 @@ import org.slf4j.LoggerFactory;
 
 public class EventListener extends ListenerAdapter {
 
-    private static final Logger botLogger = LoggerFactory.getLogger(EventListener.class);
+    private static final Logger BOT_LOGGER = LoggerFactory.getLogger(EventListener.class);
     private final CommandManager botCommandManager = new CommandManager();
 
     @Override
     public void onReady(@Nonnull ReadyEvent event) {
-        botLogger.info("Bot is now online!");
-        botLogger.info("Loaded {} commands!", botCommandManager.getAllCommands().size());
+        BOT_LOGGER.info("Bot is now online!");
+        BOT_LOGGER.info("Loaded {} commands!", botCommandManager.getAllCommands().size());
         for(int i =0; i< botCommandManager.getAllCommands().size(); i++) {
-            botLogger.info(i + 1 +". "+ botCommandManager.getAllCommands().get(i).getName());
+            BOT_LOGGER.info(i + 1 +". "+ botCommandManager.getAllCommands().get(i).getName());
         }
     }
 
@@ -69,18 +69,18 @@ public class EventListener extends ListenerAdapter {
 
         if(botMention.length == 1 && (botMention[0].equals("<@711703852977487903>") || botMention[0].equals("<@!711703852977487903>"))) {
             event.getJDA().retrieveApplicationInfo().queue(botOwner -> {
-                EmbedBuilder info = new EmbedBuilder();
-                info.setColor(0x05055e);
-                info.setTitle("**The Monitor ™ Bot Information**");
-                info.setDescription("A multi-purpose Discord server bot in development.");
-                info.setThumbnail(event.getJDA().getSelfUser().getEffectiveAvatarUrl());
-                info.addField("**Current Prefix**", Constants.PREFIXES.get(event.getGuild().getIdLong()), true);
-                info.addField("**Command Usage Example**", Constants.PREFIXES.get(event.getGuild().getIdLong()) + "botInfo", false);
-                info.addField("**Moderation**", "setPrefix, ticketSetup, invite, mute, unmute, purge, kick, ban, unban", true);
-                info.addField("**General**", "botInfo, serverInfo, ping", true);
-                info.addField("**Fun**", "roast, wholesome, simp, avatar, pp, rps, meme, emotes", true);
-                info.addField("**Music**", "join, leave, np, play, loopTrack, volume, pause, skip, queue, clear", true);
-                info.setFooter(botOwner.getOwner().getName() + " | Bot Developer", botOwner.getOwner().getEffectiveAvatarUrl());
+                EmbedBuilder info = new EmbedBuilder()
+                .setColor(0x05055e)
+                .setTitle("**The Monitor ™ Bot Information**")
+                .setDescription("A multi-purpose Discord server bot in development.")
+                .setThumbnail(event.getJDA().getSelfUser().getEffectiveAvatarUrl())
+                .addField("**Current Prefix**", Constants.PREFIXES.get(event.getGuild().getIdLong()), true)
+                .addField("**Command Usage Example**", Constants.PREFIXES.get(event.getGuild().getIdLong()) + "botInfo", false)
+                .addField("**Moderation**", "setPrefix, ticketSetup, invite, mute, unmute, purge, kick, ban, unban", true)
+                .addField("**General**", "botInfo, serverInfo, ping", true)
+                .addField("**Fun**", "roast, wholesome, simp, avatar, pp, rps, meme, emotes", true)
+                .addField("**Music**", "join, leave, np, play, loopTrack, volume, pause, skip, queue, clear", true)
+                .setFooter(botOwner.getOwner().getName() + " | Bot Developer", botOwner.getOwner().getEffectiveAvatarUrl());
                 event.getChannel().sendTyping().queue();
                 event.getChannel().sendMessage(info.build()).reference(event.getMessage()).mentionRepliedUser(false).queue();
                 info.clear();
@@ -124,6 +124,9 @@ public class EventListener extends ListenerAdapter {
             event.getGuild().addRoleToMember(event.getMember().getId(), Objects.requireNonNull(event.getGuild().getRoleById("756889036026675290"))).queue();
             Objects.requireNonNull(event.getGuild().getTextChannelById("710434525611688009")).sendMessage("Welcome to Playground! " + event.getMember().getAsMention()).queue();
         }
+        else {
+            event.getGuild().getDefaultChannel().sendMessage("Hello " + event.getMember().getAsMention() + "! Welcome to " + event.getGuild().getName() + "!").queue();
+        }
     }
 
     @Override
@@ -134,7 +137,7 @@ public class EventListener extends ListenerAdapter {
             try (final PreparedStatement preparedStatement = DataSource.getConnection().prepareStatement("DELETE FROM guild_settings WHERE guild_id = ?")) {
                 preparedStatement.setString(1, String.valueOf(guildId));
                 preparedStatement.execute();
-                botLogger.info("Guild with guild_id: {} has been deleted successfully from the database.", guildId);
+                BOT_LOGGER.info("Guild with guild_id: {} has been deleted successfully from the database!", guildId);
             } 
             catch (Exception e) {
                 e.printStackTrace();

@@ -18,9 +18,9 @@ public class SetPrefix implements CommandInterface {
         if(c.getMember().hasPermission(Permission.MANAGE_SERVER)) {
 
             if(c.getCommandParameters().size() == 1) {
-                final String newPrefix = c.getCommandParameters().get(0);
-                updatePrefix(c.getGuild().getIdLong(), newPrefix);
-                Constants.setEmbed(c.getEvent(), "✅ Success! ✅", "The prefix has now been set to " + newPrefix);
+                final String NEW_PREFIX = c.getCommandParameters().get(0);
+                updatePrefix(c.getGuild().getIdLong(), NEW_PREFIX);
+                Constants.setEmbed(c.getEvent(), "✅ Success! ✅", "The prefix has now been set to " + NEW_PREFIX);
             }
             else {
                 Constants.setEmbed(c.getEvent(), "Prefix Command Usage", "Usage: " + Constants.getCurrentPrefix(c) + "setPrefix [prefix]");
@@ -36,11 +36,11 @@ public class SetPrefix implements CommandInterface {
         return "setPrefix";
     }
 
-    private void updatePrefix(long guildId, String newPrefix) {
-        Constants.PREFIXES.put(guildId, newPrefix);
+    private void updatePrefix(long guildId, String prefix) {
+        Constants.PREFIXES.put(guildId, prefix);
 
         try (final PreparedStatement preparedStatement = DataSource.getConnection().prepareStatement("UPDATE guild_settings SET prefix = ? WHERE guild_id = ?")) {
-            preparedStatement.setString(1, newPrefix);
+            preparedStatement.setString(1, prefix);
             preparedStatement.setString(2, String.valueOf(guildId));
             preparedStatement.executeUpdate();
         } 

@@ -18,7 +18,7 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 public class CommandManager {
 
-    private final List<CommandInterface> commandList = new ArrayList<>();
+    private final List<CommandInterface> COMMANDS = new ArrayList<>();
 
     public CommandManager() {
         //Admin Commands
@@ -62,21 +62,21 @@ public class CommandManager {
     }
 
     private void addCommand(CommandInterface command) {
-        boolean commandFound = this.commandList.stream().anyMatch((c) -> c.getName().equalsIgnoreCase(command.getName()));
+        boolean commandFound = this.COMMANDS.stream().anyMatch((c) -> c.getName().equalsIgnoreCase(command.getName()));
 
         if(commandFound) {
             throw new IllegalArgumentException("A command with this name already exists.");
         }
-        commandList.add(command);
+        COMMANDS.add(command);
     }
 
     public List<CommandInterface> getAllCommands() {
-        return commandList;
+        return COMMANDS;
     }
 
     @Nullable
     public CommandInterface getCommand(String search) {
-        for (CommandInterface command:this.commandList) {
+        for (CommandInterface command:this.COMMANDS) {
             if(command.getName().equalsIgnoreCase(search)) {
                 return command;
             }

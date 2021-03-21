@@ -55,7 +55,8 @@ public class Play implements CommandInterface {
                     return "https://www.youtube.com/playlist?list=" + playlistID;
                 }
             }
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -65,7 +66,8 @@ public class Play implements CommandInterface {
         try {
             new URL(url).toURI();
             return true;
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
             return false;
         }
     }

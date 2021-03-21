@@ -1,7 +1,7 @@
 # The Monitor ™
 
 ## About
-A multipurpose Discord server bot created using the official Java Discord API wrapper. Music and video playback is provided through LavaPlayer and the official YouTube API. Hosted on Heroku.
+A multipurpose Discord server bot created using the official Java Discord API wrapper. Music and video playback is provided through LavaPlayer and the official YouTube API. Hosted on Heroku with a PostgreSQL database.
 
 ## Features
 
@@ -12,10 +12,10 @@ A multipurpose Discord server bot created using the official Java Discord API wr
 * invite: creates an invite link to the current Discord server
 * mute: mutes the mentioned member and prevents them from typing in channels
 * unmute: unmutes the mentioned member and enables them to type again
-* purge: deletes messages 
-* kick: kicks a member through mention or user id
-* ban: bans a member through mention or user id
-* unban: unbans a member through mention or user id
+* purge: deletes messages
+* kick: kicks a member through mentioning or user id
+* ban: bans a member through mentioning or user id
+* unban: unbans a member through mentioning or user id
   
 ### General Commands
 
@@ -37,7 +37,7 @@ A multipurpose Discord server bot created using the official Java Discord API wr
 ### Music Commands
 
 * join: makes the bot join a voice channel
-* leave: makes the bot leave the voice channel and clear the queue
+* leave: makes the bot leave the voice channel and clears the queue
 * np: displays what's currently playing
 * play: plays a song or video 
 * loopTrack: loops the current track 
@@ -50,5 +50,7 @@ A multipurpose Discord server bot created using the official Java Discord API wr
 ## Links to Dependencies
 
 * [Java Discord API Wrapper](https://github.com/DV8FromTheWorld/JDA) 
+* [JDA Utilities](https://github.com/JDA-Applications/JDA-Utilities)
 * [LavaPlayer](https://github.com/sedmelluq/lavaplayer)
 * [BotCommons](https://github.com/duncte123/botCommons)
+* [PostgreSQL JDBC Driver](https://github.com/pgjdbc/pgjdbc)

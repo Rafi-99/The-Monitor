@@ -23,12 +23,12 @@ public class Skip implements CommandInterface {
                     String title = Constants.getMusicManager(c).player.getPlayingTrack().getInfo().title;
                     String videoID = Constants.getMusicManager(c).player.getPlayingTrack().getInfo().identifier;
 
-                    EmbedBuilder skip = new EmbedBuilder();
-                    skip.setColor(0x05055e);
-                    skip.setTitle("Track Skipped!");
-                    skip.setThumbnail("https://img.youtube.com/vi/"+ videoID +"/default.jpg");
-                    skip.setDescription("Now Playing: "+ title);
-                    skip.setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
+                    EmbedBuilder skip = new EmbedBuilder()
+                    .setColor(0x05055e)
+                    .setTitle("Track Skipped!")
+                    .setThumbnail("https://img.youtube.com/vi/"+ videoID +"/default.jpg")
+                    .setDescription("Now Playing: "+ title)
+                    .setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
                     c.getChannel().sendTyping().queue();
                     c.getChannel().sendMessage(skip.build()).reference(c.getMessage()).mentionRepliedUser(false).queue();
                     skip.clear();

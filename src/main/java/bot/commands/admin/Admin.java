@@ -13,11 +13,11 @@ public class Admin implements CommandInterface {
             c.getChannel().sendTyping().queue();
             c.getChannel().sendMessage("The information has been sent to your DM!").reference(c.getMessage()).mentionRepliedUser(false).queue();
             c.getAuthor().openPrivateChannel().queue(privateChannel -> {
-                EmbedBuilder adminInfo = new EmbedBuilder();
-                adminInfo.setColor(0x05055e);
-                adminInfo.setTitle("Admin Tools");
-                adminInfo.setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
-                adminInfo.setDescription("Commands available for your usage: \n```test -s \ntest -t \nadmin \nrestart \nlink \nguilds```");
+                EmbedBuilder adminInfo = new EmbedBuilder()
+                .setColor(0x05055e)
+                .setTitle("Admin Tools")
+                .setDescription("Commands available for your usage: \n```test -s \ntest -t \nadmin \nrestart \nlink \nguilds```")
+                .setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
                 privateChannel.sendTyping().queue();
                 privateChannel.sendMessage(adminInfo.build()).queue();
                 adminInfo.clear();

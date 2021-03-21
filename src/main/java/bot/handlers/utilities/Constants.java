@@ -46,11 +46,11 @@ public class Constants {
     }
 
     public static void setEmbed(GuildMessageReceivedEvent event, String title, String description) {
-        EmbedBuilder embed = new EmbedBuilder();
-        embed.setColor(0x05055e);
-        embed.setTitle(title);
-        embed.setDescription(description);
-        embed.setFooter("The Monitor ™ | © 2021", event.getJDA().getSelfUser().getEffectiveAvatarUrl());
+        EmbedBuilder embed = new EmbedBuilder()
+        .setColor(0x05055e)
+        .setTitle(title)
+        .setDescription(description)
+        .setFooter("The Monitor ™ | © 2021", event.getJDA().getSelfUser().getEffectiveAvatarUrl());
         event.getChannel().sendTyping().queue();
         event.getChannel().sendMessage(embed.build()).reference(event.getMessage()).mentionRepliedUser(false).queue();
         embed.clear();

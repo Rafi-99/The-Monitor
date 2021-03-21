@@ -11,12 +11,12 @@ public class Avatar implements CommandInterface {
     @Override
     public void handle(CommandContext c) {
         if(c.getCommandParameters().size() == 1 && !c.getMessage().getMentionedUsers().isEmpty()) {
-            EmbedBuilder avatar = new EmbedBuilder();
-            avatar.setColor(0x05055e);
-            avatar.setTitle("Avatar");
-            avatar.setDescription(c.getMessage().getMentionedUsers().get(0).getName());
-            avatar.setImage(c.getMessage().getMentionedUsers().get(0).getEffectiveAvatarUrl() + "?size=4096");
-            avatar.setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
+            EmbedBuilder avatar = new EmbedBuilder()
+            .setColor(0x05055e)
+            .setTitle("Avatar")
+            .setDescription(c.getMessage().getMentionedUsers().get(0).getName())
+            .setImage(c.getMessage().getMentionedUsers().get(0).getEffectiveAvatarUrl() + "?size=4096")
+            .setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
             c.getChannel().sendTyping().queue();
             c.getChannel().sendMessage(avatar.build()).reference(c.getMessage()).mentionRepliedUser(false).queue();
             avatar.clear();

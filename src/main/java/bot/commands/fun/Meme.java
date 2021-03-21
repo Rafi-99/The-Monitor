@@ -17,11 +17,11 @@ public class Meme implements CommandInterface {
                 String url = json.get("data").get("url").asText();
                 String image = json.get("data").get("image").asText();
 
-                EmbedBuilder meme = new EmbedBuilder();
-                meme.setColor(0x05055e);
-                meme.setTitle(title, url);
-                meme.setImage(image);
-                meme.setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
+                EmbedBuilder meme = new EmbedBuilder()
+                .setColor(0x05055e)
+                .setTitle(title, url)
+                .setImage(image)
+                .setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
                 c.getChannel().sendTyping().queue();
                 c.getChannel().sendMessage(meme.build()).reference(c.getMessage()).mentionRepliedUser(false).queue();
                 meme.clear();

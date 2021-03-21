@@ -18,21 +18,21 @@ public class ServerInfo implements CommandInterface {
              * Code for the server info command. Consumer is used to create the embed with the retrieved owner inside.
              */
             Consumer<Member> owner = (o) -> {
-                EmbedBuilder server = new EmbedBuilder();
-                server.setColor(0x05055e);
-                server.setTitle("**Server Information**");
-                server.setDescription("Some basic information about the current server: " + c.getGuild().getName());
-                server.setThumbnail(c.getGuild().getIconUrl());
-                server.addField("**Server Name**", c.getGuild().getName(), true);
-                server.addField("**Server Owner**", o.getAsMention(), true);
-                server.addField("**Server Creation**", c.getGuild().getTimeCreated().format(DateTimeFormatter.ofPattern("'Date:' MMMM dd yyyy \n'Time:' h:mm a O")), true);
-                server.addField("**Server Location**", c.getGuild().getRegionRaw().toUpperCase().replace("-", " ") , true);
-                server.addField("**Member Count**", Integer.toString(c.getGuild().getMemberCount()), true);
-                server.addField("**Role Count**", Integer.toString(c.getGuild().getRoles().size()), true);
-                server.addField("**Emote Count**", Integer.toString(c.getGuild().getEmoteCache().asList().size()), true);
-                server.addField("**Boost Tier**", c.getGuild().getBoostTier().toString().replace("TIER_", "Level "), true);
-                server.addField("**Boost Count**", Integer.toString(c.getGuild().getBoostCount()) , true);
-                server.setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
+                EmbedBuilder server = new EmbedBuilder()
+                .setColor(0x05055e)
+                .setTitle("**Server Information**")
+                .setDescription("Some basic information about the current server: " + c.getGuild().getName())
+                .setThumbnail(c.getGuild().getIconUrl())
+                .addField("**Server Name**", c.getGuild().getName(), true)
+                .addField("**Server Owner**", o.getAsMention(), true)
+                .addField("**Server Creation**", c.getGuild().getTimeCreated().format(DateTimeFormatter.ofPattern("'Date:' MMMM dd yyyy \n'Time:' h:mm a O")), true)
+                .addField("**Server Location**", c.getGuild().getRegionRaw().toUpperCase().replace("-", " ") , true)
+                .addField("**Member Count**", Integer.toString(c.getGuild().getMemberCount()), true)
+                .addField("**Role Count**", Integer.toString(c.getGuild().getRoles().size()), true)
+                .addField("**Emote Count**", Integer.toString(c.getGuild().getEmoteCache().asList().size()), true)
+                .addField("**Boost Tier**", c.getGuild().getBoostTier().toString().replace("TIER_", "Level "), true)
+                .addField("**Boost Count**", Integer.toString(c.getGuild().getBoostCount()) , true)
+                .setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
                 c.getChannel().sendTyping().queue();
                 c.getChannel().sendMessage(server.build()).reference(c.getMessage()).mentionRepliedUser(false).queue();
                 server.clear();

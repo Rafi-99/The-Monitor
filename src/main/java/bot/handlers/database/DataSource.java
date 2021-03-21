@@ -11,7 +11,6 @@ public class DataSource {
     private static final Logger LOGGER = LoggerFactory.getLogger(DataSource.class);
 
     static {
-
         try (final Statement statement = getConnection().createStatement()) {
             statement.execute
             ("CREATE TABLE IF NOT EXISTS guild_settings (" +

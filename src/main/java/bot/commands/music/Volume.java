@@ -18,7 +18,9 @@ public class Volume implements CommandInterface {
                 Constants.setEmbed(c.getEvent(), "Volume Command Usage 🔊", Constants.getCurrentPrefix(c) +"volume [0-200]"+"\n"+"Current Volume: "+ Constants.getMusicManager(c).player.getVolume() +"%");
             }
             else {
+
                 if(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null && Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() == Constants.getAudioManager(c).getConnectedChannel() && Constants.getAudioManager(c).isConnected()) {
+                    
                     try {
                         int playerVolume = Integer.parseInt(c.getCommandParameters().get(0));
 
@@ -48,5 +50,4 @@ public class Volume implements CommandInterface {
     public String getName() {
         return "volume";
     }
-    
 }
