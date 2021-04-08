@@ -9,24 +9,20 @@ mainClassName = 'bot.driver.Monitor'
 version = '1.0'
 
 repositories {
-     jcenter()
-     
-     maven {
-          name 'm2-dv8tion'
-          url 'https://m2.dv8tion.net/releases'
-     }
+     maven { url 'https://m2.dv8tion.net/releases' }
+     maven { url 'https://duncte123.jfrog.io/artifactory/maven' }
+     mavenCentral()
 }
 
 task stage(dependsOn: ['build', 'clean'])
 build.mustRunAfter clean
 
 dependencies {
-     implementation 'ch.qos.logback:logback-classic:1.2.3'   
-     implementation 'net.dv8tion:JDA:4.2.1_253'
-     implementation 'com.jagrosh:jda-utilities:3.0.5'
-     implementation 'com.sedmelluq:lavaplayer:1.3.73'
+     implementation 'ch.qos.logback:logback-classic:1.2.3'
+     implementation 'net.dv8tion:JDA:4.2.1_255'
+     implementation 'com.sedmelluq:lavaplayer:1.3.76'
+     implementation 'me.duncte123:botCommons:2.1.3'
      implementation 'com.google.apis:google-api-services-youtube:v3-rev222-1.25.0'
-     implementation 'me.duncte123:botCommons:2.0.122'
      implementation 'org.postgresql:postgresql:42.2.19'
 }
 
