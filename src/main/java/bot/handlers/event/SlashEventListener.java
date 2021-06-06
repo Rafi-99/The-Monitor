@@ -26,6 +26,10 @@ public class SlashEventListener extends ListenerAdapter {
         for(int i =0; i< slashCommandList.size(); i++) {
             botLogger.info(i + 1 +". "+ slashCommandList.get(i).name());
         }
+
+        for (int i = 0; i < slashCommandList.size(); i++) {
+            event.getJDA().upsertCommand(slashCommandList.get(i).name(), slashCommandList.get(i).description()).queue();
+        }
     }
 
     @Override
