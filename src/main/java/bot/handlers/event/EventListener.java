@@ -18,6 +18,7 @@ import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -37,6 +38,12 @@ public class EventListener extends ListenerAdapter {
         for(int i =0; i< botCommandManager.getAllCommands().size(); i++) {
             BOT_LOGGER.info(i + 1 +". "+ botCommandManager.getAllCommands().get(i).getName());
         }
+    }
+
+    @Override
+    public void onSlashCommand(SlashCommandEvent event) {
+        final long guildId = event.getGuild().getIdLong();
+        String prefix = Constants.PREFIXES.computeIfAbsent(guildId, this::loadPrefix);
     }
 
     @Override
@@ -145,7 +152,7 @@ public class EventListener extends ListenerAdapter {
         }
     }
 
-    private String loadPrefix(long guildId) {
+    public String loadPrefix(long guildId) {
         try (final PreparedStatement preparedStatement = DataSource.getConnection().prepareStatement("SELECT prefix FROM guild_settings WHERE guild_id = ?")) {
             preparedStatement.setString(1, String.valueOf(guildId));
 
