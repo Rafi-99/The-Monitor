@@ -46,7 +46,12 @@ A multipurpose Discord server bot created using the official Java Discord API wr
 * skip: skips the current song or video 
 * queue: displays the queue 
 * clear: clears the queue
-  
+
+### Slash Commands
+* Run commands without the bot prefix!
+* Type in '/', and you will get a list of available commands 
+* Less typing, more playing with commands!
+
 ## Links to Dependencies
 
 * [Java Discord API Wrapper](https://github.com/DV8FromTheWorld/JDA) 
