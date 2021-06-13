@@ -12,7 +12,7 @@ public class Meme implements CommandInterface {
     @Override
     public void handle(CommandContext c) {
         if(c.getCommandParameters().isEmpty()) {
-            WebUtils.ins.getJSONObject("https://meme-api-node-js.herokuapp.com/memes").async((json) -> {
+            WebUtils.ins.getJSONObject("https://meme-api-node-js.herokuapp.com/api/memes").async((json) -> {
                 String title = json.get("data").get("title").asText();
                 String url = json.get("data").get("url").asText();
                 String image = json.get("data").get("image").asText();
