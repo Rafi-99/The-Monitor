@@ -18,7 +18,6 @@ import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
-import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -30,7 +29,6 @@ public class EventListener extends ListenerAdapter {
 
     private static final Logger BOT_LOGGER = LoggerFactory.getLogger(EventListener.class);
     private final CommandManager botCommandManager = new CommandManager();
-    public static String slashPrefix;
 
     @Override
     public void onReady(@Nonnull ReadyEvent event) {
@@ -39,12 +37,6 @@ public class EventListener extends ListenerAdapter {
         for(int i =0; i< botCommandManager.getAllCommands().size(); i++) {
             BOT_LOGGER.info(i + 1 +". "+ botCommandManager.getAllCommands().get(i).getName());
         }
-    }
-
-    @Override
-    public void onSlashCommand(SlashCommandEvent event) {
-        final long guildId = event.getGuild().getIdLong();
-        slashPrefix = Constants.PREFIXES.computeIfAbsent(guildId, this::loadPrefix);
     }
 
     @Override
@@ -90,7 +82,7 @@ public class EventListener extends ListenerAdapter {
                 .addField("**Music**", "join, leave, np, play, loopTrack, volume, pause, skip, queue, clear", true)
                 .setFooter(botOwner.getOwner().getName() + " | Bot Developer", botOwner.getOwner().getEffectiveAvatarUrl());
                 event.getChannel().sendTyping().queue();
-                event.getChannel().sendMessage(info.build()).reference(event.getMessage()).mentionRepliedUser(false).queue();
+                event.getChannel().sendMessageEmbeds(info.build()).reference(event.getMessage()).mentionRepliedUser(false).queue();
                 info.clear();
             });
         }

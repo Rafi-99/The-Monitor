@@ -7,6 +7,8 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
+import java.util.Objects;
+
 public class help implements SlashCommandInterface {
 
     @Override
@@ -19,7 +21,7 @@ public class help implements SlashCommandInterface {
                 .setTitle("**The Monitor ™ Bot Information**")
                 .setDescription("A multi-purpose Discord server bot in development.")
                 .setThumbnail(event.getJDA().getSelfUser().getEffectiveAvatarUrl())
-                .addField("**Current Prefix**", Constants.PREFIXES.get(event.getGuild().getIdLong()), true)
+                .addField("**Current Prefix**", Constants.PREFIXES.get(Objects.requireNonNull(event.getGuild()).getIdLong()), true)
                 .addField("**Command Usage Example**", Constants.PREFIXES.get(event.getGuild().getIdLong()) + "botInfo", false)
                 .addField("**Moderation**", "setPrefix, ticketSetup, invite, mute, unmute, purge, kick, ban, unban", true)
                 .addField("**General**", "botInfo, serverInfo, ping", true)

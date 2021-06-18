@@ -17,7 +17,7 @@ public class TicketSetup implements CommandInterface {
             .setTitle("**Create a Support Ticket**")
             .setDescription("React with 📩 to create a new ticket.")
             .setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
-            c.getChannel().sendMessage(ticket.build()).queue(t -> t.addReaction("📩").queue());
+            c.getChannel().sendMessageEmbeds(ticket.build()).queue(t -> t.addReaction("📩").queue());
         }
         else {
             Constants.accessDenied(c.getEvent());

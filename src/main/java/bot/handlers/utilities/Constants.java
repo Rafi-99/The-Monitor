@@ -52,7 +52,7 @@ public class Constants {
         .setDescription(description)
         .setFooter("The Monitor ™ | © 2021", event.getJDA().getSelfUser().getEffectiveAvatarUrl());
         event.getChannel().sendTyping().queue();
-        event.getChannel().sendMessage(embed.build()).reference(event.getMessage()).mentionRepliedUser(false).queue();
+        event.getChannel().sendMessageEmbeds(embed.build()).reference(event.getMessage()).mentionRepliedUser(false).queue();
         embed.clear();
     }
 

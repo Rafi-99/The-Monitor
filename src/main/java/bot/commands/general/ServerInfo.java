@@ -26,7 +26,7 @@ public class ServerInfo implements CommandInterface {
                 .addField("**Server Name**", c.getGuild().getName(), true)
                 .addField("**Server Owner**", o.getAsMention(), true)
                 .addField("**Server Creation**", c.getGuild().getTimeCreated().format(DateTimeFormatter.ofPattern("'Date:' MMMM dd yyyy \n'Time:' h:mm a O")), true)
-                .addField("**Server Location**", c.getGuild().getRegionRaw().toUpperCase().replace("-", " ") , true)
+                .addField("**Server Location**", c.getGuild().getLocale().getDisplayCountry() , true)
                 .addField("**Member Count**", Integer.toString(c.getGuild().getMemberCount()), true)
                 .addField("**Role Count**", Integer.toString(c.getGuild().getRoles().size()), true)
                 .addField("**Emote Count**", Integer.toString(c.getGuild().getEmoteCache().asList().size()), true)
@@ -34,7 +34,7 @@ public class ServerInfo implements CommandInterface {
                 .addField("**Boost Count**", Integer.toString(c.getGuild().getBoostCount()) , true)
                 .setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
                 c.getChannel().sendTyping().queue();
-                c.getChannel().sendMessage(server.build()).reference(c.getMessage()).mentionRepliedUser(false).queue();
+                c.getChannel().sendMessageEmbeds(server.build()).reference(c.getMessage()).mentionRepliedUser(false).queue();
                 server.clear();
             };
             /*

@@ -42,7 +42,7 @@ public class NowPlaying implements CommandInterface {
                 .setDescription(message)
                 .setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
                 c.getChannel().sendTyping().queue();
-                c.getChannel().sendMessage(np.build()).reference(c.getMessage()).mentionRepliedUser(false).queue();
+                c.getChannel().sendMessageEmbeds(np.build()).reference(c.getMessage()).mentionRepliedUser(false).queue();
                 np.clear();
             }
             else {

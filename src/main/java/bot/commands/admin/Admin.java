@@ -19,7 +19,7 @@ public class Admin implements CommandInterface {
                 .setDescription("Commands available for your usage: \n```test -s \ntest -t \nadmin \nrestart \nlink \nguilds```")
                 .setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
                 privateChannel.sendTyping().queue();
-                privateChannel.sendMessage(adminInfo.build()).queue();
+                privateChannel.sendMessageEmbeds(adminInfo.build()).queue();
                 adminInfo.clear();
                 privateChannel.close().queue();
             });

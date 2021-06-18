@@ -41,7 +41,7 @@ public class Queue implements CommandInterface {
                     queue.setThumbnail(c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
                     queue.setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
                     c.getChannel().sendTyping().queue();
-                    c.getChannel().sendMessage(queue.build()).reference(c.getMessage()).mentionRepliedUser(false).queue();
+                    c.getChannel().sendMessageEmbeds(queue.build()).reference(c.getMessage()).mentionRepliedUser(false).queue();
                     queue.clear();
                 }
             }

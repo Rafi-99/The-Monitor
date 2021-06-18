@@ -18,7 +18,7 @@ public class Avatar implements CommandInterface {
             .setImage(c.getMessage().getMentionedUsers().get(0).getEffectiveAvatarUrl() + "?size=4096")
             .setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
             c.getChannel().sendTyping().queue();
-            c.getChannel().sendMessage(avatar.build()).reference(c.getMessage()).mentionRepliedUser(false).queue();
+            c.getChannel().sendMessageEmbeds(avatar.build()).reference(c.getMessage()).mentionRepliedUser(false).queue();
             avatar.clear();
         }
         else {

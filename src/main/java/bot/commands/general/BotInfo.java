@@ -29,7 +29,7 @@ public class BotInfo implements CommandInterface {
                 .addField("**Music**", "join, leave, np, play, loopTrack, volume, pause, skip, queue, clear", true)
                 .setFooter(botOwner.getOwner().getName() + " | Bot Developer", botOwner.getOwner().getEffectiveAvatarUrl());
                 c.getChannel().sendTyping().queue();
-                c.getChannel().sendMessage(info.build()).reference(c.getMessage()).mentionRepliedUser(false).queue();
+                c.getChannel().sendMessageEmbeds(info.build()).reference(c.getMessage()).mentionRepliedUser(false).queue();
                 info.clear();
             });
         }

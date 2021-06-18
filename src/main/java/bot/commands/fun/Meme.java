@@ -23,7 +23,7 @@ public class Meme implements CommandInterface {
                 .setImage(image)
                 .setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
                 c.getChannel().sendTyping().queue();
-                c.getChannel().sendMessage(meme.build()).reference(c.getMessage()).mentionRepliedUser(false).queue();
+                c.getChannel().sendMessageEmbeds(meme.build()).reference(c.getMessage()).mentionRepliedUser(false).queue();
                 meme.clear();
             });
         }

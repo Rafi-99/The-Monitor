@@ -30,7 +30,7 @@ public class Skip implements CommandInterface {
                     .setDescription("Now Playing: "+ title)
                     .setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
                     c.getChannel().sendTyping().queue();
-                    c.getChannel().sendMessage(skip.build()).reference(c.getMessage()).mentionRepliedUser(false).queue();
+                    c.getChannel().sendMessageEmbeds(skip.build()).reference(c.getMessage()).mentionRepliedUser(false).queue();
                     skip.clear();
                 }
                 else {
