@@ -30,6 +30,7 @@ public class EventListener extends ListenerAdapter {
 
     private static final Logger BOT_LOGGER = LoggerFactory.getLogger(EventListener.class);
     private final CommandManager botCommandManager = new CommandManager();
+    public static String slashPrefix;
 
     @Override
     public void onReady(@Nonnull ReadyEvent event) {
@@ -43,7 +44,7 @@ public class EventListener extends ListenerAdapter {
     @Override
     public void onSlashCommand(SlashCommandEvent event) {
         final long guildId = event.getGuild().getIdLong();
-        String prefix = Constants.PREFIXES.computeIfAbsent(guildId, this::loadPrefix);
+        slashPrefix = Constants.PREFIXES.computeIfAbsent(guildId, this::loadPrefix);
     }
 
     @Override

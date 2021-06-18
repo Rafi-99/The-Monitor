@@ -12,7 +12,7 @@ public class help implements SlashCommandInterface {
     @Override
     public void execute(SlashCommandEvent event) {
 
-        if(event.getChannelType() == ChannelType.TEXT) {
+        if(event.getChannelType().equals(ChannelType.TEXT)) {
             event.getJDA().retrieveApplicationInfo().queue(botOwner -> {
                 EmbedBuilder info = new EmbedBuilder()
                 .setColor(0x05055e)
