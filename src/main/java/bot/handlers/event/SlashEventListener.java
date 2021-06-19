@@ -28,7 +28,6 @@ public class SlashEventListener extends ListenerAdapter {
         }
 
         for (SlashCommandInterface slashCommandInterface : slashCommandList) {
-            event.getJDA().updateCommands().queue();
             event.getJDA().upsertCommand(slashCommandInterface.name(), slashCommandInterface.description()).queue();
         }
     }
