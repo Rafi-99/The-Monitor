@@ -125,7 +125,7 @@ public class EventListener extends ListenerAdapter {
             Objects.requireNonNull(event.getGuild().getTextChannelById("710434525611688009")).sendMessage("Welcome to Playground! " + event.getMember().getAsMention()).queue();
         }
         else {
-            event.getGuild().getDefaultChannel().sendMessage("Hello " + event.getMember().getAsMention() + "! Welcome to " + event.getGuild().getName() + "!").queue();
+            Objects.requireNonNull(event.getGuild().getDefaultChannel()).sendMessage("Hello " + event.getMember().getAsMention() + "! Welcome to " + event.getGuild().getName() + "!").queue();
         }
     }
 
