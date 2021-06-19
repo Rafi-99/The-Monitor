@@ -1,7 +1,6 @@
 package bot.commands.slash.general;
 
 import bot.commands.SlashCommandInterface;
-import bot.handlers.event.SlashEventListener;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.ChannelType;
@@ -16,12 +15,10 @@ public class help implements SlashCommandInterface {
                 EmbedBuilder info = new EmbedBuilder()
                 .setColor(0x05055e)
                 .setTitle("**The Monitor ™ Bot Information**")
-                .setDescription("A multi-purpose Discord server bot in development.")
+                .setDescription("A multi-purpose Discord server bot in development. See below for available commands. Mention the bot ["+ event.getJDA().getSelfUser().getAsMention() +"] if you wish to manually run commands with the bot prefix.")
                 .setThumbnail(event.getJDA().getSelfUser().getEffectiveAvatarUrl())
-                .addField("**Current Prefix**", SlashEventListener.prefix, true)
-                .addField("**Command Usage Example**", SlashEventListener.prefix + "botInfo", false)
                 .addField("**Moderation**", "setPrefix, ticketSetup, invite, mute, unmute, purge, kick, ban, unban", true)
-                .addField("**General**", "botInfo, serverInfo, ping", true)
+                .addField("**General**", "botInfo, serverInfo, ping, help", true)
                 .addField("**Fun**", "roast, wholesome, simp, avatar, pp, rps, meme, emotes", true)
                 .addField("**Music**", "join, leave, np, play, loopTrack, volume, pause, skip, queue, clear", true)
                 .setFooter(botOwner.getOwner().getName() + " | Bot Developer", botOwner.getOwner().getEffectiveAvatarUrl());

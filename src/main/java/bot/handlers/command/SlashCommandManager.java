@@ -14,7 +14,6 @@ public class SlashCommandManager {
 
         // General Commands
         addSlashCommand(new ping());
-        addSlashCommand(new prefix());
         addSlashCommand(new help());
     }
 
