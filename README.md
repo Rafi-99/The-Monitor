@@ -51,6 +51,20 @@ A multipurpose Discord server bot created using the official Java Discord API wr
 * Run commands without the bot prefix!
 * Type in '/', and you will get a list of available commands 
 * Less typing, more playing with commands!
+* Currently converting existing non-slash commands into slash commands
+
+## Want to Add the Bot to Your Server? 
+[Click here for the link!](https://discord.com/oauth2/authorize?client_id=711703852977487903&scope=bot&permissions=8)
+
+## Self-Hosting 
+Self-hosting your own copy of this bot will not be supported. The purpose of making the source code in this repository public is to help users and developers alike understand how the bot works. No assistance will be given for editing, compiling, and building any code from this repository. Any changes must be documented as per the license.
+
+## Legal
+It's okay to get inspiration from this repository as the bot's code is open-source for a reason. **Please** do not blatantly copy 
+or refrain from crediting the author of this work. Give credit where credit is due.
+
+## Contributing
+Suggestions and feature requests are more than welcome!
 
 ## Links to Dependencies
 
