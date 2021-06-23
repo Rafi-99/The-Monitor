@@ -64,7 +64,7 @@ It's okay to get inspiration from this repository as the bot's code is open-sour
 or refrain from crediting the author of this work. Give credit where credit is due.
 
 ## Contributing
-Suggestions and feature requests are more than welcome!
+Suggestions and feature requests are more than welcome! Feel free to reach out to me on Discord (Rafi ™#6927). Bot server is in the making.
 
 ## Links to Dependencies
 
