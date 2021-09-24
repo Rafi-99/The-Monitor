@@ -54,7 +54,7 @@ A multipurpose Discord server bot created using the official Java Discord API wr
 * Currently converting existing non-slash commands into slash commands
 
 ## Want to Add the Bot to Your Server? 
-[Click here for the link!](https://discord.com/oauth2/authorize?client_id=711703852977487903&scope=bot&permissions=8)
+[Click here for the link!](https://discord.com/api/oauth2/authorize?client_id=711703852977487903&permissions=8&scope=bot%20applications.commands)
 
 ## Self-Hosting 
 Self-hosting your own copy of this bot will not be supported. The purpose of making the source code in this repository public is to help users and developers alike understand how the bot works. No assistance will be given for editing, compiling, and building any code from this repository. Any changes must be documented as per the license.
