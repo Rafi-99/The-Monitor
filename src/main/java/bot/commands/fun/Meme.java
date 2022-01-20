@@ -30,7 +30,7 @@ public class Meme implements CommandInterface {
         if(c.getCommandParameters().isEmpty()) {
             WebUtils.ins.getJSONObject("https://memes.rafi-codes.dev/api/reddit/memes").async((json) -> {
                 String title = json.get("title").asText();
-                String url = json.("url").asText();
+                String url = json.get("url").asText();
                 String image = json.get("image").asText();
 
                 EmbedBuilder meme = new EmbedBuilder()
