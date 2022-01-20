@@ -28,10 +28,10 @@ public class Meme implements CommandInterface {
     @Override
     public void handle(CommandContext c) {
         if(c.getCommandParameters().isEmpty()) {
-            WebUtils.ins.getJSONObject("https://meme-api-node-js.herokuapp.com/api/memes").async((json) -> {
-                String title = json.get("data").get("title").asText();
-                String url = json.get("data").get("url").asText();
-                String image = json.get("data").get("image").asText();
+            WebUtils.ins.getJSONObject("https://memes.rafi-codes.dev/api/reddit/memes").async((json) -> {
+                String title = json.get("title").asText();
+                String url = json.("url").asText();
+                String image = json.get("image").asText();
 
                 EmbedBuilder meme = new EmbedBuilder()
                 .setColor(0x05055e)
