@@ -62,7 +62,7 @@ public class EventListener extends ListenerAdapter {
 
         String message = event.getMessage().getContentRaw();
         String [] botMention = event.getMessage().getContentRaw().split("\\s+");
-        
+
         if(event.getAuthor().isBot() || event.isWebhookMessage()) {
             return;
         }
@@ -121,13 +121,8 @@ public class EventListener extends ListenerAdapter {
 
     @Override
     public void onGuildMemberJoin(@Nonnull GuildMemberJoinEvent event) {
-        if(event.getGuild().getName().equals("The Goddess's Parthenon")) {
-            /*
-             * Adds Wanderer and Agreed to Rules roles. Welcome message is sent in general and @Welcomer is pinged.
-             */
-            event.getGuild().addRoleToMember(event.getMember().getId(), Objects.requireNonNull(event.getGuild().getRoleById("709505726640291877"))).queue();
-            event.getGuild().addRoleToMember(event.getMember().getId(), Objects.requireNonNull(event.getGuild().getRoleById("709505763583852565"))).queue();
-            Objects.requireNonNull(event.getGuild().getTextChannelById("709259200651591747")).sendMessage("Hello "+ event.getMember().getAsMention() +"! Welcome to our server, **The Goddess's Parthenon**! Get yourself some roles in "+ Objects.requireNonNull(event.getGuild().getTextChannelById("709327942035177482")).getAsMention() +". Everyone please make our new friend feel welcome!!! :) "+ Objects.requireNonNull(event.getGuild().getRoleById("727010870403530760")).getAsMention()).queue();
+        if(event.getGuild().getId().equals("932903537992695869")) {
+            event.getGuild().addRoleToMember(event.getMember().getId(), Objects.requireNonNull(event.getGuild().getRoleById("932903538017828873"))).queue();
         }
         else if(event.getGuild().getName().equals("> Terminal_")) {
             /*
@@ -148,13 +143,13 @@ public class EventListener extends ListenerAdapter {
     @Override
     public void onGuildLeave(GuildLeaveEvent event) {
         final long guildId = event.getGuild().getIdLong();
-        
+
         if(event.getJDA().getGuildById(guildId) == null) {
             try (final PreparedStatement preparedStatement = DataSource.getConnection().prepareStatement("DELETE FROM guild_settings WHERE guild_id = ?")) {
                 preparedStatement.setString(1, String.valueOf(guildId));
                 preparedStatement.execute();
                 BOT_LOGGER.info("Guild with guild_id: {} has been deleted successfully from the database!", guildId);
-            } 
+            }
             catch (Exception e) {
                 e.printStackTrace();
             }
@@ -175,7 +170,7 @@ public class EventListener extends ListenerAdapter {
                 insertStatement.setString(1, String.valueOf(guildId));
                 insertStatement.execute();
             }
-        } 
+        }
         catch (SQLException | URISyntaxException e) {
             e.printStackTrace();
         }
