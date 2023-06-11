@@ -22,18 +22,19 @@ import bot.handlers.utilities.Constants;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.emoji.Emoji;
 
 public class TicketSetup implements CommandInterface {
 
     @Override
     public void handle(CommandContext c) {
-        if(c.getMember().hasPermission(Permission.MANAGE_SERVER)) {
+        if (c.getEvent().getMember().hasPermission(Permission.MANAGE_SERVER)) {
             EmbedBuilder ticket = new EmbedBuilder()
             .setColor(0x05055e)
             .setTitle("**Create a Support Ticket**")
             .setDescription("React with 📩 to create a new ticket.")
             .setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
-            c.getChannel().sendMessageEmbeds(ticket.build()).queue(t -> t.addReaction("📩").queue());
+            c.getEvent().getChannel().sendMessageEmbeds(ticket.build()).queue(t -> t.addReaction(Emoji.fromUnicode("📩")).queue());
         }
         else {
             Constants.accessDenied(c.getEvent());

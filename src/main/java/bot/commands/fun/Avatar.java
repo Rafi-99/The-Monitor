@@ -26,20 +26,20 @@ public class Avatar implements CommandInterface {
 
     @Override
     public void handle(CommandContext c) {
-        if(c.getCommandParameters().size() == 1 && !c.getMessage().getMentionedUsers().isEmpty()) {
+        if (c.getCommandParameters().size() == 1 && !c.getEvent().getMessage().getMentions().getUsers().isEmpty()) {
             EmbedBuilder avatar = new EmbedBuilder()
             .setColor(0x05055e)
             .setTitle("Avatar")
-            .setDescription(c.getMessage().getMentionedUsers().get(0).getName())
-            .setImage(c.getMessage().getMentionedUsers().get(0).getEffectiveAvatarUrl() + "?size=4096")
+            .setDescription(c.getEvent().getMessage().getMentions().getUsers().get(0).getName())
+            .setImage(c.getEvent().getMessage().getMentions().getUsers().get(0).getEffectiveAvatarUrl() + "?size=4096")
             .setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
-            c.getChannel().sendTyping().queue();
-            c.getChannel().sendMessageEmbeds(avatar.build()).reference(c.getMessage()).mentionRepliedUser(false).queue();
+            c.getEvent().getChannel().sendTyping().queue();
+            c.getEvent().getChannel().sendMessageEmbeds(avatar.build()).setMessageReference(c.getEvent().getMessage()).mentionRepliedUser(false).queue();
             avatar.clear();
         }
         else {
-            c.getChannel().sendTyping().queue();
-            c.getChannel().sendMessage("Type in "+ Constants.getCurrentPrefix(c) +"avatar and mention a user to view their avatar!").reference(c.getMessage()).mentionRepliedUser(false).queue();
+            c.getEvent().getChannel().sendTyping().queue();
+            c.getEvent().getChannel().sendMessage("Type in " + Constants.getCurrentPrefix(c) + "avatar and mention a user to view their avatar!").setMessageReference(c.getEvent().getMessage()).mentionRepliedUser(false).queue();
         }
     }
 

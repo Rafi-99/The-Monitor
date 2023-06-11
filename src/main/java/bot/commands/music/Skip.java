@@ -29,13 +29,13 @@ public class Skip implements CommandInterface {
 
     @Override
     public void handle(CommandContext c) {
-        if(c.getCommandParameters().isEmpty() && c.getMember().hasPermission(Permission.VOICE_CONNECT)) {
+        if (c.getCommandParameters().isEmpty() && c.getEvent().getMember().hasPermission(Permission.VOICE_CONNECT)) {
 
-            if(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null && Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() == Constants.getAudioManager(c).getConnectedChannel() && Constants.getAudioManager(c).isConnected()) {
+            if (Objects.requireNonNull(c.getEvent().getMember().getVoiceState()).getChannel() != null && Objects.requireNonNull(c.getEvent().getMember().getVoiceState()).getChannel() == Constants.getAudioManager(c).getConnectedChannel() && Constants.getAudioManager(c).isConnected()) {
 
-                if(Constants.getQueue(c).size() > 0) {
+                if (Constants.getQueue(c).size() > 0) {
                     Constants.getMusicManager(c).scheduler.nextTrack();
-                    
+
                     String title = Constants.getMusicManager(c).player.getPlayingTrack().getInfo().title;
                     String videoID = Constants.getMusicManager(c).player.getPlayingTrack().getInfo().identifier;
 
@@ -45,18 +45,18 @@ public class Skip implements CommandInterface {
                     .setThumbnail("https://img.youtube.com/vi/"+ videoID +"/default.jpg")
                     .setDescription("Now Playing: "+ title)
                     .setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
-                    c.getChannel().sendTyping().queue();
-                    c.getChannel().sendMessageEmbeds(skip.build()).reference(c.getMessage()).mentionRepliedUser(false).queue();
+                    c.getEvent().getChannel().sendTyping().queue();
+                    c.getEvent().getChannel().sendMessageEmbeds(skip.build()).setMessageReference(c.getEvent().getMessage()).mentionRepliedUser(false).queue();
                     skip.clear();
                 }
                 else {
-                    c.getChannel().sendTyping().queue();
-                    c.getChannel().sendMessage("There are no songs left in the queue to skip.").reference(c.getMessage()).mentionRepliedUser(false).queue();
+                    c.getEvent().getChannel().sendTyping().queue();
+                    c.getEvent().getChannel().sendMessage("There are no songs left in the queue to skip.").setMessageReference(c.getEvent().getMessage()).mentionRepliedUser(false).queue();
                 }
             }
             else {
-                c.getChannel().sendTyping().queue();
-                c.getChannel().sendMessage("You have to be in the same voice channel as me to skip songs.").reference(c.getMessage()).mentionRepliedUser(false).queue();
+                c.getEvent().getChannel().sendTyping().queue();
+                c.getEvent().getChannel().sendMessage("You have to be in the same voice channel as me to skip songs.").setMessageReference(c.getEvent().getMessage()).mentionRepliedUser(false).queue();
             }
         }
     }

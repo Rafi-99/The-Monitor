@@ -35,12 +35,12 @@ public class Monitor {
         DataSource.getConnection();
 
         DefaultShardManagerBuilder.createDefault(System.getenv("BOT_TOKEN"))
-        .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_VOICE_STATES)
+        .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_VOICE_STATES, GatewayIntent.MESSAGE_CONTENT)
         .setMemberCachePolicy(MemberCachePolicy.ALL.and(MemberCachePolicy.VOICE))
-        .enableCache(CacheFlag.VOICE_STATE, CacheFlag.EMOTE)
+        .enableCache(CacheFlag.VOICE_STATE, CacheFlag.EMOJI)
         .setBulkDeleteSplittingEnabled(false)
         .addEventListeners(new EventListener(), new SlashEventListener())
         .setActivityProvider((shardID) -> Activity.listening("/help | Shard "+ (shardID + 1)))
-        .build(); 
+        .build();
     }
 }

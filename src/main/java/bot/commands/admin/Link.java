@@ -25,9 +25,9 @@ public class Link implements CommandInterface {
 
     @Override
     public void handle(CommandContext c) {
-        if(c.getCommandParameters().isEmpty() && c.getMember().getId().equals(System.getenv("BOT_OWNER"))) {
-            c.getChannel().sendTyping().queue();
-            c.getChannel().sendMessage(c.getEvent().getJDA().getInviteUrl(Permission.ADMINISTRATOR)).reference(c.getMessage()).mentionRepliedUser(false).queue();
+        if (c.getCommandParameters().isEmpty() && c.getEvent().getMember().getId().equals(System.getenv("BOT_OWNER"))) {
+            c.getEvent().getChannel().sendTyping().queue();
+            c.getEvent().getChannel().sendMessage(c.getEvent().getJDA().getInviteUrl(Permission.ADMINISTRATOR)).setMessageReference(c.getEvent().getMessage()).mentionRepliedUser(false).queue();
         }
     }
 

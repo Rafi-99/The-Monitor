@@ -24,13 +24,13 @@ public class Roast implements CommandInterface {
 
     @Override
     public void handle(CommandContext c) {
-        if(c.getCommandParameters().size() == 1) {
-            c.getChannel().sendTyping().queue();
-            c.getChannel().sendMessage(c.getCommandParameters().get(0) +" "+ Constants.ROASTS[(int) (Math.random() * 20)]).reference(c.getMessage()).mentionRepliedUser(false).queue();
+        if (c.getCommandParameters().size() == 1) {
+            c.getEvent().getChannel().sendTyping().queue();
+            c.getEvent().getChannel().sendMessage(c.getCommandParameters().get(0) + " " + Constants.ROASTS[(int) (Math.random() * 20)]).setMessageReference(c.getEvent().getMessage()).mentionRepliedUser(false).queue();
         }
         else {
-            c.getChannel().sendTyping().queue();
-            c.getChannel().sendMessage("Type in "+ Constants.getCurrentPrefix(c) +"roast and mention the person you want to roast!").reference(c.getMessage()).mentionRepliedUser(false).queue();
+            c.getEvent().getChannel().sendTyping().queue();
+            c.getEvent().getChannel().sendMessage("Type in " + Constants.getCurrentPrefix(c) + "roast and mention the person you want to roast!").setMessageReference(c.getEvent().getMessage()).mentionRepliedUser(false).queue();
         }
     }
 

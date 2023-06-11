@@ -22,6 +22,7 @@ import bot.handlers.utilities.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
 import net.dv8tion.jda.api.Permission;
@@ -33,7 +34,7 @@ public class BanCommand implements CommandInterface {
 
     @Override
     public void handle(CommandContext c) {
-        if(c.getMember().hasPermission(Permission.BAN_MEMBERS)) {
+        if(c.getEvent().getMember().hasPermission(Permission.BAN_MEMBERS)) {
 
             if(c.getCommandParameters().size() < 1) {
                 Constants.setEmbed(c.getEvent(), "Ban Command Usage", "Usage: "+ Constants.getCurrentPrefix(c) +"ban [user mention or ID]");
@@ -41,7 +42,7 @@ public class BanCommand implements CommandInterface {
             else {
 
                 try {
-                    RestAction<User> banEvent = c.getJDA().retrieveUserById(c.getCommandParameters().get(0).replace("<@!", "").replace("<@", "").replace(">", ""));
+                    RestAction<User> banEvent = c.getEvent().getJDA().retrieveUserById(c.getCommandParameters().get(0).replace("<@!", "").replace("<@", "").replace(">", ""));
                     banEvent.queue((user) -> {
 
                         if (user != null) {
@@ -56,7 +57,7 @@ public class BanCommand implements CommandInterface {
                                     Constants.setEmbed(c.getEvent(), "❌ User Already Banned ❌", "Cannot ban users that already have a ban.");
                                 }
                                 else {
-                                    c.getGuild().ban(user, 7).queue();
+                                    c.getGuild().ban(user, 7, TimeUnit.DAYS).queue();
                                     Constants.setEmbed(c.getEvent(), "✅ Success! ✅", user.getAsMention() + " has been banned successfully!");
                                 }
                             };

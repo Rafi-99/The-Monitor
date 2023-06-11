@@ -23,8 +23,8 @@ public class Guilds implements CommandInterface {
 
     @Override
     public void handle(CommandContext c) {
-        if(c.getCommandParameters().isEmpty() && c.getMember().getId().equals(System.getenv("BOT_OWNER"))) {
-            System.out.println("Total # of Guilds: "+ c.getJDA().getGuilds().size());
+        if(c.getCommandParameters().isEmpty() && c.getEvent().getMember().getId().equals(System.getenv("BOT_OWNER"))) {
+            System.out.println("Total # of Guilds: "+ c.getEvent().getJDA().getGuilds().size());
             for (int i = 0; i < c.getEvent().getJDA().getGuilds().size(); i++) {
                 System.out.println(i + 1 +". "+ c.getEvent().getJDA().getGuilds().get(i).getName());
             }

@@ -16,11 +16,11 @@
 
 package bot.commands;
 
-import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
 public interface SlashCommandInterface {
 
-    void execute(SlashCommandEvent event);
+    void execute(SlashCommandInteractionEvent event);
 
     String name();
 

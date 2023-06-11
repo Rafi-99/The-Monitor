@@ -28,8 +28,8 @@ public class Kick implements CommandInterface {
 
     @Override
     public void handle(CommandContext c) {
-        if(c.getMember().hasPermission(Permission.KICK_MEMBERS)) {
-            
+        if(c.getEvent().getMember().hasPermission(Permission.KICK_MEMBERS)) {
+
             if(c.getCommandParameters().size() < 1) {
                 Constants.setEmbed(c.getEvent(), "Kick Command Usage", "Usage: "+ Constants.getCurrentPrefix(c) +"kick [user mention or ID]");
             }
@@ -42,7 +42,7 @@ public class Kick implements CommandInterface {
                             Constants.setEmbed(c.getEvent(), "✅ Success! ✅", user.getAsMention() +" has been kicked successfully!");
                         }
                     }, (error) -> Constants.setEmbed(c.getEvent(), "❌ Failed to Kick ❌", "Invalid user. Users not in the guild can't be kicked. Please try executing the command again with a valid user mention or user ID."));
-                } 
+                }
                 catch (Exception e) {
                     Constants.setEmbed(c.getEvent(), "❌ Failed to Kick ❌", "Bad format. Please try executing the command again with a valid user mention or user ID.");
                 }

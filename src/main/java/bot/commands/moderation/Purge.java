@@ -26,9 +26,9 @@ public class Purge implements CommandInterface {
 
     @Override
     public void handle(CommandContext c) {
-        if(c.getMember().hasPermission(Permission.MESSAGE_MANAGE)) {
+        if (c.getEvent().getMember().hasPermission(Permission.MESSAGE_MANAGE)) {
 
-            if(c.getCommandParameters().isEmpty()) {
+            if (c.getCommandParameters().isEmpty()) {
                 Constants.setEmbed(c.getEvent(), "Message Deletion Usage", "Usage: " + Constants.getCurrentPrefix(c) + "purge [# of messages]");
             }
             else {
@@ -37,9 +37,9 @@ public class Purge implements CommandInterface {
 
                     int num = Integer.parseInt(c.getCommandParameters().get(0));
 
-                    if(num > 0 && num <= 1000) {
-                        c.getChannel().getIterableHistory().takeAsync(num).thenAccept(messages -> {
-                            c.getChannel().purgeMessages(messages);
+                    if (num > 0 && num <= 1000) {
+                        c.getEvent().getChannel().getIterableHistory().takeAsync(num).thenAccept(messages -> {
+                            c.getEvent().getChannel().purgeMessages(messages);
                             Constants.setEmbed(c.getEvent(), "✅ Success! ✅", "You have successfully deleted " + messages.size() + " messages.");
                         });
                     }
@@ -47,12 +47,11 @@ public class Purge implements CommandInterface {
                         Constants.setEmbed(c.getEvent(), "❌ Invalid Argument ❌", "Please enter a number between 1 and 1000.");
                     }
                 }
-                catch(Exception e) {
+                catch (Exception e) {
                     Constants.setEmbed(c.getEvent(), "❌ Invalid Argument ❌", "Please enter a number between 1 and 1000.");
                 }
             }
-        }
-        else {
+        } else {
             Constants.accessDenied(c.getEvent());
         }
     }

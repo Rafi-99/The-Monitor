@@ -29,7 +29,7 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 public class PlayerManager {
 
@@ -50,7 +50,7 @@ public class PlayerManager {
                guild.getAudioManager().setSendingHandler(guildMusicManager.getSendHandler());
                return guildMusicManager;
           });
-     } 
+     }
 
      public void loadAndPlay(TextChannel channel, String trackUrl) {
           final GuildMusicManager musicManager = this.getMusicManager(channel.getGuild());
@@ -66,7 +66,7 @@ public class PlayerManager {
                     .setFooter("The Monitor ™ | © 2021", "https://cdn.discordapp.com/avatars/711703852977487903/a7886964b1b5edab5c5d2eb5544a7da9.webp?size=512");
                     channel.sendTyping().queue();
                     channel.sendMessageEmbeds(player.build()).queue();
-                    player.clear();    
+                    player.clear();
                }
                @Override
                public void playlistLoaded(AudioPlaylist playlist) {

@@ -25,7 +25,7 @@ public class Ping implements CommandInterface {
     @Override
     public void handle(CommandContext c) {
         if(c.getCommandParameters().isEmpty()) {
-            c.getJDA().getRestPing().queue((ping) -> Constants.setEmbed(c.getEvent(), "Ping 📶", "Bot Latency: "+ ping +" ms \nDiscord API Latency: "+ c.getJDA().getGatewayPing() +" ms \nAverage Shard Ping: "+ c.getShardManager().getAverageGatewayPing() + " ms"));
+            c.getEvent().getJDA().getRestPing().queue((ping) -> Constants.setEmbed(c.getEvent(), "Ping 📶", "Bot Latency: "+ ping +" ms \nDiscord API Latency: "+ c.getEvent().getJDA().getGatewayPing() +" ms \nAverage Shard Ping: "+ c.getEvent().getJDA().getShardManager().getAverageGatewayPing() + " ms"));
         }
     }
 

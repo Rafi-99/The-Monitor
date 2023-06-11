@@ -25,19 +25,18 @@ public class Admin implements CommandInterface {
 
     @Override
     public void handle(CommandContext c) {
-        if(c.getCommandParameters().isEmpty() && c.getMember().getId().equals(System.getenv("BOT_OWNER"))) {
-            c.getChannel().sendTyping().queue();
-            c.getChannel().sendMessage("The information has been sent to your DM!").reference(c.getMessage()).mentionRepliedUser(false).queue();
-            c.getAuthor().openPrivateChannel().queue(privateChannel -> {
+        if (c.getCommandParameters().isEmpty() && c.getEvent().getMember().getId().equals(System.getenv("BOT_OWNER"))) {
+            c.getEvent().getChannel().sendTyping().queue();
+            c.getEvent().getChannel().sendMessage("The information has been sent to your DM!").setMessageReference(c.getEvent().getMessage()).mentionRepliedUser(false).queue();
+            c.getEvent().getAuthor().openPrivateChannel().queue(privateChannel -> {
                 EmbedBuilder adminInfo = new EmbedBuilder()
                 .setColor(0x05055e)
                 .setTitle("Admin Tools")
-                .setDescription("Commands available for your usage: \n```test -s \ntest -t \nadmin \nrestart \nlink \nguilds```")
-                .setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
+                .setDescription("Commands available for your usage: \n```test -s \ntest -t \nadmin \nrestart \nlink \nguilds```").setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
                 privateChannel.sendTyping().queue();
                 privateChannel.sendMessageEmbeds(adminInfo.build()).queue();
                 adminInfo.clear();
-                privateChannel.close().queue();
+                privateChannel.delete().queue();
             });
         }
     }

@@ -26,11 +26,11 @@ public class Invite implements CommandInterface {
 
     @Override
     public void handle(CommandContext c) {
-        if(c.getMember().hasPermission(Permission.CREATE_INSTANT_INVITE)) {
+        if (c.getEvent().getMember().hasPermission(Permission.CREATE_INSTANT_INVITE)) {
 
-            if(c.getCommandParameters().isEmpty()) {
-                c.getChannel().sendTyping().queue();
-                c.getChannel().sendMessage("Invite created! Copy the link below and send it to someone!"+"\n"+c.getChannel().createInvite().setMaxAge(0).complete().getUrl()).reference(c.getMessage()).mentionRepliedUser(false).queue();
+            if (c.getCommandParameters().isEmpty()) {
+                c.getEvent().getChannel().sendTyping().queue();
+                c.getEvent().getChannel().sendMessage("Invite created! Copy the link below and send it to someone!"+"\n"+ c.getEvent().getChannel().asTextChannel().createInvite().setMaxAge(0).complete().getUrl()).setMessageReference(c.getEvent().getMessage()).mentionRepliedUser(false).queue();
             }
         }
         else {

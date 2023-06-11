@@ -29,23 +29,23 @@ public class NowPlaying implements CommandInterface {
 
     @Override
     public void handle(CommandContext c) {
-        
-        if(c.getCommandParameters().isEmpty() && c.getMember().hasPermission(Permission.VOICE_CONNECT)) {
 
-            if(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null && Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() == Constants.getAudioManager(c).getConnectedChannel() && Constants.getAudioManager(c).isConnected()) {
+        if (c.getCommandParameters().isEmpty() && c.getEvent().getMember().hasPermission(Permission.VOICE_CONNECT)) {
 
-                if(Constants.getMusicManager(c).player.getPlayingTrack() == null) {
-                    c.getChannel().sendTyping().queue();
-                    c.getChannel().sendMessage("Nothing is being played currently.").reference(c.getMessage()).mentionRepliedUser(false).queue();
+            if (Objects.requireNonNull(c.getEvent().getMember().getVoiceState()).getChannel() != null && Objects.requireNonNull(c.getEvent().getMember().getVoiceState()).getChannel() == Constants.getAudioManager(c).getConnectedChannel() && Constants.getAudioManager(c).isConnected()) {
+
+                if (Constants.getMusicManager(c).player.getPlayingTrack() == null) {
+                    c.getEvent().getChannel().sendTyping().queue();
+                    c.getEvent().getChannel().sendMessage("Nothing is being played currently.").setMessageReference(c.getEvent().getMessage()).mentionRepliedUser(false).queue();
                     return;
                 }
 
                 long currentPositionMillis = Constants.getMusicManager(c).player.getPlayingTrack().getPosition();
                 long totalDurationMillis = Constants.getMusicManager(c).player.getPlayingTrack().getDuration();
-                long currentPositionMinutes = (currentPositionMillis/1000)/60;
-                long currentPositionSeconds = (currentPositionMillis/1000)%60;
-                long totalDurationMinutes = (totalDurationMillis/1000)/60;
-                long totalDurationSeconds = (totalDurationMillis/1000)%60;
+                long currentPositionMinutes = (currentPositionMillis / 1000) / 60;
+                long currentPositionSeconds = (currentPositionMillis / 1000) % 60;
+                long totalDurationMinutes = (totalDurationMillis / 1000) / 60;
+                long totalDurationSeconds = (totalDurationMillis / 1000) % 60;
                 String title = Constants.getMusicManager(c).player.getPlayingTrack().getInfo().title;
                 String url = Constants.getMusicManager(c).player.getPlayingTrack().getInfo().uri;
                 String videoID = Constants.getMusicManager(c).player.getPlayingTrack().getInfo().identifier;
@@ -57,13 +57,13 @@ public class NowPlaying implements CommandInterface {
                 .setThumbnail("https://img.youtube.com/vi/"+ videoID +"/default.jpg")
                 .setDescription(message)
                 .setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
-                c.getChannel().sendTyping().queue();
-                c.getChannel().sendMessageEmbeds(np.build()).reference(c.getMessage()).mentionRepliedUser(false).queue();
+                c.getEvent().getChannel().sendTyping().queue();
+                c.getEvent().getChannel().sendMessageEmbeds(np.build()).setMessageReference(c.getEvent().getMessage()).mentionRepliedUser(false).queue();
                 np.clear();
             }
             else {
-                c.getChannel().sendTyping().queue();
-                c.getChannel().sendMessage("You have to be in the same voice channel as me to see what's playing currently.").reference(c.getMessage()).mentionRepliedUser(false).queue();
+                c.getEvent().getChannel().sendTyping().queue();
+                c.getEvent().getChannel().sendMessage("You have to be in the same voice channel as me to see what's playing currently.").setMessageReference(c.getEvent().getMessage()).mentionRepliedUser(false).queue();
             }
         }
     }

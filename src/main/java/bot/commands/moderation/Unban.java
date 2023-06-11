@@ -33,7 +33,7 @@ public class Unban implements CommandInterface {
 
     @Override
     public void handle(CommandContext c) {
-        if(c.getMember().hasPermission(Permission.BAN_MEMBERS)) {
+        if(c.getEvent().getMember().hasPermission(Permission.BAN_MEMBERS)) {
 
             if(c.getCommandParameters().size() < 1) {
                 Constants.setEmbed(c.getEvent(), "Remove Ban Command Usage", "Usage: "+ Constants.getCurrentPrefix(c) +"unban [user mention or ID]");
@@ -41,7 +41,7 @@ public class Unban implements CommandInterface {
             else {
 
                 try {
-                    RestAction<User> removeBanEvent = c.getJDA().retrieveUserById(c.getCommandParameters().get(0).replace("<@!", "").replace("<@", "").replace(">", ""));
+                    RestAction<User> removeBanEvent = c.getEvent().getJDA().retrieveUserById(c.getCommandParameters().get(0).replace("<@!", "").replace("<@", "").replace(">", ""));
                     removeBanEvent.queue((user) -> {
 
                         if(user != null) {
@@ -64,7 +64,7 @@ public class Unban implements CommandInterface {
                             c.getGuild().retrieveBanList().queue(banListConsumer);
                         }
                     }, (error) -> Constants.setEmbed(c.getEvent(), "❌ Failed to Unban ❌", "Invalid user. Please try executing the command again with a valid user mention or user ID."));
-                } 
+                }
                 catch (Exception e) {
                     Constants.setEmbed(c.getEvent(), "❌ Failed to Unban ❌", "Bad format. Please try executing the command again with a valid user mention or user ID.");
                 }

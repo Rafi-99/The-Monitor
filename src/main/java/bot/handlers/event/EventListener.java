@@ -31,11 +31,11 @@ import javax.annotation.Nonnull;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
+import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import org.slf4j.Logger;
@@ -50,40 +50,40 @@ public class EventListener extends ListenerAdapter {
     public void onReady(@Nonnull ReadyEvent event) {
         BOT_LOGGER.info("Bot is now online!");
         BOT_LOGGER.info("Loaded {} commands!", botCommandManager.getAllCommands().size());
-        for(int i =0; i< botCommandManager.getAllCommands().size(); i++) {
-            BOT_LOGGER.info(i + 1 +". "+ botCommandManager.getAllCommands().get(i).getName());
+        for (int i = 0; i < botCommandManager.getAllCommands().size(); i++) {
+            BOT_LOGGER.info(i + 1 + ". " + botCommandManager.getAllCommands().get(i).getName());
         }
     }
 
     @Override
-    public void onGuildMessageReceived(@Nonnull GuildMessageReceivedEvent event) {
+    public void onMessageReceived(@Nonnull MessageReceivedEvent event) {
         final long guildId = event.getGuild().getIdLong();
         String prefix = Constants.PREFIXES.computeIfAbsent(guildId, this::loadPrefix);
 
         String message = event.getMessage().getContentRaw();
-        String [] botMention = event.getMessage().getContentRaw().split("\\s+");
+        String[] botMention = event.getMessage().getContentRaw().split("\\s+");
 
-        if(event.getAuthor().isBot() || event.isWebhookMessage()) {
+        if (event.getAuthor().isBot() || event.isWebhookMessage()) {
             return;
         }
 
-        if(message.startsWith(prefix)) {
+        if (message.startsWith(prefix)) {
             botCommandManager.handle(event, prefix);
         }
 
-        if(message.contains("https://") || message.contains("http://")) {
+        if (message.contains("https://") || message.contains("http://")) {
             Role staff = event.getGuild().getRoleById("710398399085805599");
 
-            if(event.getChannel().getId().equals("709259200651591747") && !Objects.requireNonNull(event.getMember()).getRoles().contains(staff)) {
+            if (event.getChannel().getId().equals("709259200651591747") && !Objects.requireNonNull(event.getMember()).getRoles().contains(staff)) {
                 event.getMessage().delete().queue();
             }
 
-            if(message.contains("https://discord.gg/") && event.getGuild().getId().equals("709259200651591742") && !event.getChannel().getId().equals("717870479272312934")) {
+            if (message.contains("https://discord.gg/") && event.getGuild().getId().equals("709259200651591742") && !event.getChannel().getId().equals("717870479272312934")) {
                 event.getMessage().delete().queue();
             }
         }
 
-        if(botMention.length == 1 && (botMention[0].equals("<@711703852977487903>") || botMention[0].equals("<@!711703852977487903>"))) {
+        if (botMention.length == 1 && (botMention[0].equals("<@711703852977487903>") || botMention[0].equals("<@!711703852977487903>"))) {
             event.getJDA().retrieveApplicationInfo().queue(botOwner -> {
                 EmbedBuilder info = new EmbedBuilder()
                 .setColor(0x05055e)
@@ -98,20 +98,20 @@ public class EventListener extends ListenerAdapter {
                 .addField("**Music**", "join, leave, np, play, loopTrack, volume, pause, skip, queue, clear", true)
                 .setFooter(botOwner.getOwner().getName() + " | Bot Developer", botOwner.getOwner().getEffectiveAvatarUrl());
                 event.getChannel().sendTyping().queue();
-                event.getChannel().sendMessageEmbeds(info.build()).reference(event.getMessage()).mentionRepliedUser(false).queue();
+                event.getChannel().sendMessageEmbeds(info.build()).setMessageReference(event.getMessage()).mentionRepliedUser(false).queue();
                 info.clear();
             });
         }
     }
 
     @Override
-    public void onGuildMessageReactionAdd(@Nonnull GuildMessageReactionAddEvent event) {
-        if(event.getChannel().getId().equals("709557615708864522") && event.getReactionEmote().getAsReactionCode().equals("📩") && !(event.getUser().isBot())) {
+    public void onMessageReactionAdd(@Nonnull MessageReactionAddEvent event) {
+        if (event.getChannel().getId().equals("709557615708864522") && event.getReaction().getEmoji().getAsReactionCode().equals("📩") && !(event.getUser().isBot())) {
             event.getReaction().removeReaction(event.getUser()).queue();
             event.getGuild().createTextChannel("Support Ticket")
             .addPermissionOverride(Objects.requireNonNull(event.getGuild().getRoleById("709259200651591742")), null, EnumSet.of(Permission.VIEW_CHANNEL))
             .addPermissionOverride(Objects.requireNonNull(event.getGuild().getRoleById("710398399085805599")), EnumSet.of(Permission.VIEW_CHANNEL), null)
-            .addPermissionOverride(event.getMember(), EnumSet.of(Permission.VIEW_CHANNEL, Permission.MESSAGE_WRITE, Permission.MESSAGE_ATTACH_FILES), null)
+            .addPermissionOverride(event.getMember(), EnumSet.of(Permission.VIEW_CHANNEL, Permission.MESSAGE_SEND, Permission.MESSAGE_ATTACH_FILES), null)
             .queue(support -> {
                 support.sendMessage("Welcome to support! " + event.getMember().getAsMention()).queue();
                 support.sendMessage("A staff member will arrive to assist you shortly. " + Objects.requireNonNull(event.getGuild().getRoleById("710398399085805599")).getAsMention()).queue();
@@ -121,22 +121,22 @@ public class EventListener extends ListenerAdapter {
 
     @Override
     public void onGuildMemberJoin(@Nonnull GuildMemberJoinEvent event) {
-        if(event.getGuild().getId().equals("932903537992695869")) {
-            event.getGuild().addRoleToMember(event.getMember().getId(), Objects.requireNonNull(event.getGuild().getRoleById("932903538017828873"))).queue();
+        if (event.getGuild().getId().equals("932903537992695869")) {
+            event.getGuild().addRoleToMember(event.getMember().getUser(), Objects.requireNonNull(event.getGuild().getRoleById("932903538017828873"))).queue();
         }
-        else if(event.getGuild().getName().equals("> Terminal_")) {
+        else if (event.getGuild().getName().equals("> Terminal_")) {
             /*
              * No Catfishing role is added and welcome message is sent in general chat.
              */
-            event.getGuild().addRoleToMember(event.getMember().getId(), Objects.requireNonNull(event.getGuild().getRoleById("694032141058834432"))).queue();
+            event.getGuild().addRoleToMember(event.getMember().getUser(), Objects.requireNonNull(event.getGuild().getRoleById("694032141058834432"))).queue();
             Objects.requireNonNull(event.getGuild().getTextChannelById("693237215404359715")).sendMessage("Hello " + event.getMember().getAsMention() + "! Welcome to our server >:)").queue();
         }
-        else if(event.getGuild().getName().equals("Playground")) {
-            event.getGuild().addRoleToMember(event.getMember().getId(), Objects.requireNonNull(event.getGuild().getRoleById("756889036026675290"))).queue();
+        else if (event.getGuild().getName().equals("Playground")) {
+            event.getGuild().addRoleToMember(event.getMember().getUser(), Objects.requireNonNull(event.getGuild().getRoleById("756889036026675290"))).queue();
             Objects.requireNonNull(event.getGuild().getTextChannelById("710434525611688009")).sendMessage("Welcome to Playground! " + event.getMember().getAsMention()).queue();
         }
         else {
-            Objects.requireNonNull(event.getGuild().getDefaultChannel()).sendMessage("Hello " + event.getMember().getAsMention() + "! Welcome to " + event.getGuild().getName() + "!").queue();
+            Objects.requireNonNull(event.getGuild().getDefaultChannel()).asTextChannel().sendMessage("Hello " + event.getMember().getAsMention() + "! Welcome to " + event.getGuild().getName() + "!").queue();
         }
     }
 
@@ -144,7 +144,7 @@ public class EventListener extends ListenerAdapter {
     public void onGuildLeave(GuildLeaveEvent event) {
         final long guildId = event.getGuild().getIdLong();
 
-        if(event.getJDA().getGuildById(guildId) == null) {
+        if (event.getJDA().getGuildById(guildId) == null) {
             try (final PreparedStatement preparedStatement = DataSource.getConnection().prepareStatement("DELETE FROM guild_settings WHERE guild_id = ?")) {
                 preparedStatement.setString(1, String.valueOf(guildId));
                 preparedStatement.execute();

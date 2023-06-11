@@ -34,13 +34,13 @@ public class Queue implements CommandInterface {
 
     @Override
     public void handle(CommandContext c) {
-        if(c.getCommandParameters().isEmpty() && c.getMember().hasPermission(Permission.VOICE_CONNECT)) {
+        if (c.getCommandParameters().isEmpty() && c.getEvent().getMember().hasPermission(Permission.VOICE_CONNECT)) {
 
-            if(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null && Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() == Constants.getAudioManager(c).getConnectedChannel() && Constants.getAudioManager(c).isConnected()) {
+            if (Objects.requireNonNull(c.getEvent().getMember().getVoiceState()).getChannel() != null && Objects.requireNonNull(c.getEvent().getMember().getVoiceState()).getChannel() == Constants.getAudioManager(c).getConnectedChannel() && Constants.getAudioManager(c).isConnected()) {
 
                 if (Constants.getQueue(c).isEmpty()) {
-                    c.getChannel().sendTyping().queue();
-                    c.getChannel().sendMessage("The queue is empty.").reference(c.getMessage()).mentionRepliedUser(false).queue();
+                    c.getEvent().getChannel().sendTyping().queue();
+                    c.getEvent().getChannel().sendMessage("The queue is empty.").setMessageReference(c.getEvent().getMessage()).mentionRepliedUser(false).queue();
                 }
                 else {
                     int minQueueView = Math.min(Constants.getQueue(c).size(), 30);
@@ -56,14 +56,14 @@ public class Queue implements CommandInterface {
                     }
                     queue.setThumbnail(c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
                     queue.setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
-                    c.getChannel().sendTyping().queue();
-                    c.getChannel().sendMessageEmbeds(queue.build()).reference(c.getMessage()).mentionRepliedUser(false).queue();
+                    c.getEvent().getChannel().sendTyping().queue();
+                    c.getEvent().getChannel().sendMessageEmbeds(queue.build()).setMessageReference(c.getEvent().getMessage()).mentionRepliedUser(false).queue();
                     queue.clear();
                 }
             }
             else {
-                c.getChannel().sendTyping().queue();
-                c.getChannel().sendMessage("You have to be in the same voice channel as me to view the queue.").reference(c.getMessage()).mentionRepliedUser(false).queue();
+                c.getEvent().getChannel().sendTyping().queue();
+                c.getEvent().getChannel().sendMessage("You have to be in the same voice channel as me to view the queue.").setMessageReference(c.getEvent().getMessage()).mentionRepliedUser(false).queue();
             }
         }
     }

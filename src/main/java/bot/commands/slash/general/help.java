@@ -19,13 +19,13 @@ package bot.commands.slash.general;
 import bot.commands.SlashCommandInterface;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.ChannelType;
-import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
+import net.dv8tion.jda.api.entities.channel.ChannelType;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
 public class help implements SlashCommandInterface {
 
     @Override
-    public void execute(SlashCommandEvent event) {
+    public void execute(SlashCommandInteractionEvent event) {
         if(event.getChannelType().equals(ChannelType.TEXT)) {
             event.getJDA().retrieveApplicationInfo().queue(botOwner -> {
                 EmbedBuilder info = new EmbedBuilder()
@@ -41,7 +41,7 @@ public class help implements SlashCommandInterface {
                 event.replyEmbeds(info.build()).setEphemeral(true).queue();
                 info.clear();
             });
-        }        
+        }
     }
 
     @Override
@@ -52,5 +52,5 @@ public class help implements SlashCommandInterface {
     @Override
     public String description() {
         return "basic bot information and help";
-    }   
+    }
 }

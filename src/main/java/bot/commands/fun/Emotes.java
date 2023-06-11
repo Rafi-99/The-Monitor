@@ -22,16 +22,21 @@ import bot.handlers.utilities.Constants;
 
 import java.util.List;
 
-import net.dv8tion.jda.api.entities.Emote;
+import net.dv8tion.jda.api.entities.emoji.RichCustomEmoji;
 
 public class Emotes implements CommandInterface {
 
     @Override
     public void handle(CommandContext c) {
         StringBuilder emotes = new StringBuilder();
-        List<Emote> guildEmotes = c.getGuild().getEmoteCache().asList();
+        List<RichCustomEmoji> guildEmotes = c.getGuild().getEmojiCache().asList();
 
-        for (Emote emote : guildEmotes) {
+        if (guildEmotes.isEmpty()) {
+            Constants.setEmbed(c.getEvent(), "Server Emotes", "There are no emotes in this server.");
+            return;
+        }
+
+        for (RichCustomEmoji emote : guildEmotes) {
             emotes.append(emote.getAsMention());
         }
         Constants.setEmbed(c.getEvent(), "Server Emotes", String.valueOf(emotes));

@@ -27,52 +27,52 @@ import java.util.concurrent.BlockingQueue;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.managers.AudioManager;
 
 public class Constants {
 
-    //Global Variables
+    // Global Variables
     public static final Map<Long, String> PREFIXES = new HashMap<>();
 
-    //Fun Variables
+    // Fun Variables
     public static final String [] ROASTS = {
-        "Your birth certificate is an apology letter from the abortion clinic.",
-        "I fucking hate you LOL!", "Don't play hard to get when you are hard to want.",
-        "At least my dad didn't leave me.",
-        "You should put a condom on your head, because if you're going to act like a dick you better dress like one too.",
-        "Who cares if girls look different without makeup? Your dick looks hella different when it's soft.",
-        "Maybe if you eat all that makeup you will be beautiful on the inside.",
-        "Your forehead is so big that I could use it to play Tic-Tac-Toe.",
-        "I wonder if you'd be able to speak more clearly if your parents were second cousins instead of first.",
-        "You're objectively unattractive.", "I'm not a nerd, I'm just smarter than you.",
-        "If you're going to be two-faced, at least make one of them pretty.",
-        "You just might be why the middle finger was invented in the first place.",
-        "I'm not insulting you, I'm describing you.",
-        "You must have been born on a highway since that's where most accidents happen.",
-        "If laughter is the best medicine, your face must be curing the world!",
-        "Two wrongs don't make a right, and your parents have once again proven that.",
-        "My phone battery lasts longer than your relationships.",
-        "It's better to be a smartass than to be a dumbass.", "Your face makes onions cry."
+            "Your birth certificate is an apology letter from the abortion clinic.",
+            "I fucking hate you LOL!", "Don't play hard to get when you are hard to want.",
+            "At least my dad didn't leave me.",
+            "You should put a condom on your head, because if you're going to act like a dick you better dress like one too.",
+            "Who cares if girls look different without makeup? Your dick looks hella different when it's soft.",
+            "Maybe if you eat all that makeup you will be beautiful on the inside.",
+            "Your forehead is so big that I could use it to play Tic-Tac-Toe.",
+            "I wonder if you'd be able to speak more clearly if your parents were second cousins instead of first.",
+            "You're objectively unattractive.", "I'm not a nerd, I'm just smarter than you.",
+            "If you're going to be two-faced, at least make one of them pretty.",
+            "You just might be why the middle finger was invented in the first place.",
+            "I'm not insulting you, I'm describing you.",
+            "You must have been born on a highway since that's where most accidents happen.",
+            "If laughter is the best medicine, your face must be curing the world!",
+            "Two wrongs don't make a right, and your parents have once again proven that.",
+            "My phone battery lasts longer than your relationships.",
+            "It's better to be a smartass than to be a dumbass.", "Your face makes onions cry."
     };
-    
-    //Global Methods
+
+    // Global Methods
     public static String getCurrentPrefix(CommandContext c) {
         return Constants.PREFIXES.get(c.getGuild().getIdLong());
     }
 
-    public static void setEmbed(GuildMessageReceivedEvent event, String title, String description) {
+    public static void setEmbed(MessageReceivedEvent event, String title, String description) {
         EmbedBuilder embed = new EmbedBuilder()
         .setColor(0x05055e)
         .setTitle(title)
         .setDescription(description)
         .setFooter("The Monitor ™ | © 2021", event.getJDA().getSelfUser().getEffectiveAvatarUrl());
         event.getChannel().sendTyping().queue();
-        event.getChannel().sendMessageEmbeds(embed.build()).reference(event.getMessage()).mentionRepliedUser(false).queue();
+        event.getChannel().sendMessageEmbeds(embed.build()).setMessageReference(event.getMessage()).mentionRepliedUser(false).queue();
         embed.clear();
     }
 
-    //Music Methods
+    // Music Methods
     public static AudioManager getAudioManager(CommandContext c) {
         return c.getGuild().getAudioManager();
     }
@@ -85,19 +85,19 @@ public class Constants {
         return PlayerManager.getInstance().getMusicManager(c.getGuild()).scheduler.getQueue();
     }
 
-    //Moderation Methods
-    public static void accessDenied(GuildMessageReceivedEvent event) {
+    // Moderation Methods
+    public static void accessDenied(MessageReceivedEvent event) {
         Constants.setEmbed(event, "❌ Access Denied! ❌", "Sorry, you don't have the required permissions to use this command.");
     }
 
-    //Fun Methods
-    public static void rpsGame(GuildMessageReceivedEvent event, String [] fun, int rps) {
-        if(rps == 1) {
+    // Fun Methods
+    public static void rpsGame(MessageReceivedEvent event, String[] fun, int rps) {
+        if (rps == 1) {
 
-            if(fun[0].equalsIgnoreCase("Rock")) {
+            if (fun[0].equalsIgnoreCase("Rock")) {
                 setEmbed(event, "Rock Paper Scissors", "The computer was: Rock :moyai: \nIt's a tie!");
             }
-            else if(fun[0].equalsIgnoreCase("Paper")) {
+            else if (fun[0].equalsIgnoreCase("Paper")) {
                 setEmbed(event, "Rock Paper Scissors", "The computer was: Rock :moyai: \nYou won!");
             }
             else if (fun[0].equalsIgnoreCase("Scissors")) {
@@ -107,15 +107,15 @@ public class Constants {
                 setEmbed(event, "Rock Paper Scissors", "Invalid input.");
             }
         }
-        else if(rps == 2) {
+        else if (rps == 2) {
 
-            if(fun[0].equalsIgnoreCase("Paper")) {
+            if (fun[0].equalsIgnoreCase("Paper")) {
                 setEmbed(event, "Rock Paper Scissors", "The computer was: Paper :newspaper: \nIt's a tie!");
             }
-            else if(fun[0].equalsIgnoreCase("Scissors")) {
+            else if (fun[0].equalsIgnoreCase("Scissors")) {
                 setEmbed(event, "Rock Paper Scissors", "The computer was: Paper :newspaper: \nYou won!");
             }
-            else if(fun[0].equalsIgnoreCase("Rock")) {
+            else if (fun[0].equalsIgnoreCase("Rock")) {
                 setEmbed(event, "Rock Paper Scissors", "The computer was: Paper :newspaper: \nYou lost!");
             }
             else {
@@ -124,13 +124,13 @@ public class Constants {
         }
         else if (rps == 3) {
 
-            if(fun[0].equalsIgnoreCase("Scissors")) {
+            if (fun[0].equalsIgnoreCase("Scissors")) {
                 setEmbed(event, "Rock Paper Scissors", "The computer was: Scissors :scissors: \nIt's a tie!");
             }
-            else if(fun[0].equalsIgnoreCase("Rock")) {
+            else if (fun[0].equalsIgnoreCase("Rock")) {
                 setEmbed(event, "Rock Paper Scissors", "The computer was: Scissors :scissors: \nYou won!");
             }
-            else if(fun[0].equalsIgnoreCase("Paper")) {
+            else if (fun[0].equalsIgnoreCase("Paper")) {
                 setEmbed(event, "Rock Paper Scissors", "The computer was: Scissors :scissors: \nYou lost!");
             }
             else {

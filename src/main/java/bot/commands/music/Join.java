@@ -28,24 +28,24 @@ public class Join implements CommandInterface {
 
     @Override
     public void handle(CommandContext c) {
-        if(c.getCommandParameters().isEmpty() && c.getMember().hasPermission(Permission.VOICE_CONNECT)) {
+        if (c.getCommandParameters().isEmpty() && c.getEvent().getMember().hasPermission(Permission.VOICE_CONNECT)) {
 
-            if(!Constants.getAudioManager(c).isConnected()) {
+            if (!Constants.getAudioManager(c).isConnected()) {
 
-                if(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null) {
-                    Constants.getAudioManager(c).openAudioConnection(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel());
-                    String name = Objects.requireNonNull(c.getMember().getVoiceState().getChannel()).toString().replace("VC:", "");
-                    c.getChannel().sendTyping().queue();
-                    c.getChannel().sendMessage("Successfully connected to: " + name.substring(name.indexOf(""), name.indexOf("("))).reference(c.getMessage()).mentionRepliedUser(false).queue();
+                if (Objects.requireNonNull(c.getEvent().getMember().getVoiceState()).getChannel() != null) {
+                    Constants.getAudioManager(c).openAudioConnection(Objects.requireNonNull(c.getEvent().getMember().getVoiceState()).getChannel());
+                    String name = Objects.requireNonNull(c.getEvent().getMember().getVoiceState().getChannel()).getName();
+                    c.getEvent().getChannel().sendTyping().queue();
+                    c.getEvent().getChannel().sendMessage("Successfully connected to: " + name).setMessageReference(c.getEvent().getMessage()).mentionRepliedUser(false).queue();
                 }
                 else {
-                    c.getChannel().sendTyping().queue();
-                    c.getChannel().sendMessage("You have to be in a voice channel first!").reference(c.getMessage()).mentionRepliedUser(false).queue();
+                    c.getEvent().getChannel().sendTyping().queue();
+                    c.getEvent().getChannel().sendMessage("You have to be in a voice channel first!").setMessageReference(c.getEvent().getMessage()).mentionRepliedUser(false).queue();
                 }
             }
             else {
-                c.getChannel().sendTyping().queue();
-                c.getChannel().sendMessage("I am already connected to a voice channel!").reference(c.getMessage()).mentionRepliedUser(false).queue();
+                c.getEvent().getChannel().sendTyping().queue();
+                c.getEvent().getChannel().sendMessage("I am already connected to a voice channel!").setMessageReference(c.getEvent().getMessage()).mentionRepliedUser(false).queue();
             }
         }
     }

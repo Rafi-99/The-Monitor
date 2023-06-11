@@ -18,17 +18,15 @@ package bot.commands;
 
 import java.util.List;
 
-import me.duncte123.botcommons.commands.ICommandContext;
-
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class CommandContext implements ICommandContext {
 
-    private final GuildMessageReceivedEvent event;
+    private final MessageReceivedEvent event;
     private final List<String> commandParameters;
 
-    public CommandContext(GuildMessageReceivedEvent event, List<String> commandParameters) {
+    public CommandContext(MessageReceivedEvent event, List<String> commandParameters) {
         this.event = event;
         this.commandParameters = commandParameters;
     }
@@ -39,7 +37,7 @@ public class CommandContext implements ICommandContext {
     }
 
     @Override
-    public GuildMessageReceivedEvent getEvent() {
+    public MessageReceivedEvent getEvent() {
         return this.event;
     }
 

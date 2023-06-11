@@ -40,9 +40,7 @@ public class Play implements CommandInterface {
         YouTube temp = null;
 
         try {
-            temp = new YouTube.Builder(GoogleNetHttpTransport.newTrustedTransport(), JacksonFactory.getDefaultInstance(), null)
-            .setApplicationName("Monitor Discord Bot")
-            .build();
+            temp = new YouTube.Builder(GoogleNetHttpTransport.newTrustedTransport(), JacksonFactory.getDefaultInstance(), null).setApplicationName("Monitor Discord Bot").build();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -60,19 +58,18 @@ public class Play implements CommandInterface {
             .execute()
             .getItems();
 
-            if(!result.isEmpty()) {
+            if (!result.isEmpty()) {
                 String videoID = result.get(0).getId().getVideoId();
                 String playlistID = result.get(0).getId().getPlaylistId();
 
-                if(result.get(0).getId().getKind().equals("youtube#video")) {
+                if (result.get(0).getId().getKind().equals("youtube#video")) {
                     return "https://www.youtube.com/watch?v=" + videoID;
                 }
-                else if(result.get(0).getId().getKind().equals("youtube#playlist")) {
+                else if (result.get(0).getId().getKind().equals("youtube#playlist")) {
                     return "https://www.youtube.com/playlist?list=" + playlistID;
                 }
             }
-        } 
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -82,43 +79,42 @@ public class Play implements CommandInterface {
         try {
             new URL(url).toURI();
             return true;
-        } 
-        catch (Exception e) {
+        } catch (Exception e) {
             return false;
         }
     }
 
     @Override
     public void handle(CommandContext c) {
-        if(c.getMember().hasPermission(Permission.VOICE_CONNECT)) {
+        if (c.getEvent().getMember().hasPermission(Permission.VOICE_CONNECT)) {
 
-            if(c.getCommandParameters().isEmpty()) {
-                Constants.setEmbed(c.getEvent(), "Play Command Usage :musical_note:", Constants.getCurrentPrefix(c) +"play [insert link or search query here]");
+            if (c.getCommandParameters().isEmpty()) {
+                Constants.setEmbed(c.getEvent(), "Play Command Usage :musical_note:", Constants.getCurrentPrefix(c) + "play [insert link or search query here]");
             }
             else {
 
-                if(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null && c.getMember().getVoiceState().getChannel() == Constants.getAudioManager(c).getConnectedChannel() && Constants.getAudioManager(c).isConnected()) {
+                if (Objects.requireNonNull(c.getEvent().getMember().getVoiceState()).getChannel() != null  && c.getEvent().getMember().getVoiceState().getChannel() == Constants.getAudioManager(c).getConnectedChannel() && Constants.getAudioManager(c).isConnected()) {
                     String link = String.join(" ", c.getCommandParameters());
 
-                    if(!isUrl(link)) {
+                    if (!isUrl(link)) {
                         String ytSearch = youtubeSearch(link);
 
-                        if(ytSearch == null) {
-                            c.getChannel().sendTyping().queue();
-                            c.getChannel().sendMessage("Sorry, YouTube returned no results for your query.").reference(c.getMessage()).mentionRepliedUser(false).queue();
+                        if (ytSearch == null) {
+                            c.getEvent().getChannel().sendTyping().queue();
+                            c.getEvent().getChannel().sendMessage("Sorry, YouTube returned no results for your query.").setMessageReference(c.getEvent().getMessage()).mentionRepliedUser(false).queue();
                             return;
                         }
                         link = ytSearch;
-                        PlayerManager.getInstance().loadAndPlay(c.getChannel(), link);
+                        PlayerManager.getInstance().loadAndPlay(c.getEvent().getChannel().asTextChannel(), link);
                     }
                     else {
                         String formatLink = link.substring(link.indexOf("h"));
-                        PlayerManager.getInstance().loadAndPlay(c.getChannel(), formatLink);
+                        PlayerManager.getInstance().loadAndPlay(c.getEvent().getChannel().asTextChannel(), formatLink);
                     }
                 }
                 else {
-                    c.getChannel().sendTyping().queue();
-                    c.getChannel().sendMessage("You have to be in the same voice channel as me to play anything. Please use the join command to summon me.").reference(c.getMessage()).mentionRepliedUser(false).queue();
+                    c.getEvent().getChannel().sendTyping().queue();
+                    c.getEvent().getChannel().sendMessage("You have to be in the same voice channel as me to play anything. Please use the join command to summon me.").setMessageReference(c.getEvent().getMessage()).mentionRepliedUser(false).queue();
                 }
             }
         }

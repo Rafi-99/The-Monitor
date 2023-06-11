@@ -30,7 +30,7 @@ public class BotInfo implements CommandInterface {
          * Code for the bot info command. Lambda is used to create the embed and
          * get the retrieved owner name and avatar inside the footer of the embed.
          */
-        if(c.getCommandParameters().isEmpty()) {
+        if (c.getCommandParameters().isEmpty()) {
             c.getEvent().getJDA().retrieveApplicationInfo().queue(botOwner -> {
                 EmbedBuilder info = new EmbedBuilder()
                 .setColor(0x05055e)
@@ -44,8 +44,8 @@ public class BotInfo implements CommandInterface {
                 .addField("**Fun**", "roast, wholesome, simp, avatar, pp, rps, meme, emotes", true)
                 .addField("**Music**", "join, leave, np, play, loopTrack, volume, pause, skip, queue, clear", true)
                 .setFooter(botOwner.getOwner().getName() + " | Bot Developer", botOwner.getOwner().getEffectiveAvatarUrl());
-                c.getChannel().sendTyping().queue();
-                c.getChannel().sendMessageEmbeds(info.build()).reference(c.getMessage()).mentionRepliedUser(false).queue();
+                c.getEvent().getChannel().sendTyping().queue();
+                c.getEvent().getChannel().sendMessageEmbeds(info.build()).setMessageReference(c.getEvent().getMessage()).mentionRepliedUser(false).queue();
                 info.clear();
             });
         }

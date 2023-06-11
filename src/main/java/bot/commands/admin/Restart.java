@@ -23,16 +23,17 @@ public class Restart implements CommandInterface {
 
     @Override
     public void handle(CommandContext c) {
-        if(c.getCommandParameters().isEmpty()) {
+        if (c.getCommandParameters().isEmpty()) {
 
-            if(c.getMember().getId().equals(System.getenv("BOT_OWNER"))) {
-                c.getChannel().sendTyping().complete();
-                c.getChannel().sendMessage("Terminating..."+"\n"+"Bot is now going offline and restarting.").reference(c.getMessage()).mentionRepliedUser(false).complete();
-                System.exit(0);
+            if (c.getEvent().getMember().getId().equals(System.getenv("BOT_OWNER"))) {
+                c.getEvent().getChannel().sendTyping().complete();
+                c.getEvent().getChannel().sendMessage("Terminating..." + "\n" + "Bot is now going offline and restarting.").setMessageReference(c.getEvent().getMessage()).mentionRepliedUser(false).complete();
+                System.out.println("Terminating..." + "\n" + "Bot is now going offline and restarting.");
+                System.exit(-1);
             }
             else {
-                c.getChannel().sendTyping().queue();
-                c.getChannel().sendMessage("Access denied.").reference(c.getMessage()).mentionRepliedUser(false).queue();
+                c.getEvent().getChannel().sendTyping().queue();
+                c.getEvent().getChannel().sendMessage("Access denied.").setMessageReference(c.getEvent().getMessage()).mentionRepliedUser(false).queue();
             }
         }
     }

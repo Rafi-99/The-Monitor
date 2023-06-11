@@ -27,7 +27,7 @@ public class Meme implements CommandInterface {
 
     @Override
     public void handle(CommandContext c) {
-        if(c.getCommandParameters().isEmpty()) {
+        if (c.getCommandParameters().isEmpty()) {
             WebUtils.ins.getJSONObject("https://memes.rafi-codes.dev/api/reddit/memes").async((json) -> {
                 String title = json.get("title").asText();
                 String url = json.get("url").asText();
@@ -38,8 +38,8 @@ public class Meme implements CommandInterface {
                 .setTitle(title, url)
                 .setImage(image)
                 .setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
-                c.getChannel().sendTyping().queue();
-                c.getChannel().sendMessageEmbeds(meme.build()).reference(c.getMessage()).mentionRepliedUser(false).queue();
+                c.getEvent().getChannel().sendTyping().queue();
+                c.getEvent().getChannel().sendMessageEmbeds(meme.build()).setMessageReference(c.getEvent().getMessage()).mentionRepliedUser(false).queue();
                 meme.clear();
             });
         }

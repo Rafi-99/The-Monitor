@@ -25,16 +25,16 @@ import java.util.Objects;
 import net.dv8tion.jda.api.Permission;
 
 public class Pause implements CommandInterface {
-    
+
     boolean pause = true;
 
     @Override
     public void handle(CommandContext c) {
-        if(c.getCommandParameters().isEmpty() && c.getMember().hasPermission(Permission.VOICE_CONNECT)) {
+        if (c.getCommandParameters().isEmpty() && c.getEvent().getMember().hasPermission(Permission.VOICE_CONNECT)) {
 
-            if(Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() != null && Objects.requireNonNull(c.getMember().getVoiceState()).getChannel() == Constants.getAudioManager(c).getConnectedChannel() && Constants.getAudioManager(c).isConnected()) {
+            if (Objects.requireNonNull(c.getEvent().getMember().getVoiceState()).getChannel() != null && Objects.requireNonNull(c.getEvent().getMember().getVoiceState()).getChannel() == Constants.getAudioManager(c).getConnectedChannel() && Constants.getAudioManager(c).isConnected()) {
 
-                if(pause) {
+                if (pause) {
                     Constants.getMusicManager(c).player.setPaused(true);
                     pause = false;
                     Constants.setEmbed(c.getEvent(), "Current State: Not Playing :play_pause:", "Player has been paused.");
@@ -46,8 +46,8 @@ public class Pause implements CommandInterface {
                 }
             }
             else {
-                c.getChannel().sendTyping().queue();
-                c.getChannel().sendMessage("You have to be in the same voice channel as me to pause the player.").reference(c.getMessage()).mentionRepliedUser(false).queue();
+                c.getEvent().getChannel().sendTyping().queue();
+                c.getEvent().getChannel().sendMessage("You have to be in the same voice channel as me to pause the player.").setMessageReference(c.getEvent().getMessage()).mentionRepliedUser(false).queue();
             }
         }
     }

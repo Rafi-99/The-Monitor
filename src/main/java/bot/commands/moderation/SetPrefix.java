@@ -31,7 +31,7 @@ public class SetPrefix implements CommandInterface {
 
     @Override
     public void handle(CommandContext c) {
-        if(c.getMember().hasPermission(Permission.MANAGE_SERVER)) {
+        if(c.getEvent().getMember().hasPermission(Permission.MANAGE_SERVER)) {
 
             if(c.getCommandParameters().size() == 1) {
                 final String NEW_PREFIX = c.getCommandParameters().get(0);
@@ -59,7 +59,7 @@ public class SetPrefix implements CommandInterface {
             preparedStatement.setString(1, prefix);
             preparedStatement.setString(2, String.valueOf(guildId));
             preparedStatement.executeUpdate();
-        } 
+        }
         catch (SQLException | URISyntaxException e) {
             e.printStackTrace();
         }

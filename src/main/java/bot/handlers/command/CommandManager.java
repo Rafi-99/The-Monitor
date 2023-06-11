@@ -1,18 +1,18 @@
 /*
- * Copyright 2020 Md Rafi
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+* Copyright 2020 Md Rafi
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
 
 package bot.handlers.command;
 
@@ -30,20 +30,20 @@ import java.util.List;
 import java.util.regex.Pattern;
 import javax.annotation.Nullable;
 
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class CommandManager {
 
     private final List<CommandInterface> COMMANDS = new ArrayList<>();
 
     public CommandManager() {
-        //Admin Commands
+        // Admin Commands
         addCommand(new Admin());
         addCommand(new Guilds());
         addCommand(new Link());
         addCommand(new Restart());
         addCommand(new Test());
-        //Fun Commands (8)
+        // Fun Commands (8)
         addCommand(new Avatar());
         addCommand(new Emotes());
         addCommand(new Meme());
@@ -52,11 +52,11 @@ public class CommandManager {
         addCommand(new RockPaperScissors());
         addCommand(new Simp());
         addCommand(new Wholesome());
-        //General Commands (3)
+        // General Commands (3)
         addCommand(new BotInfo());
         addCommand(new Ping());
         addCommand(new ServerInfo());
-        //Moderation Commands (7)
+        // Moderation Commands (7)
         addCommand(new BanCommand());
         addCommand(new Invite());
         addCommand(new Kick());
@@ -64,7 +64,7 @@ public class CommandManager {
         addCommand(new SetPrefix());
         addCommand(new TicketSetup());
         addCommand(new Unban());
-        //Music Commands (10)
+        // Music Commands (10)
         addCommand(new Clear());
         addCommand(new Join());
         addCommand(new Leave());
@@ -80,7 +80,7 @@ public class CommandManager {
     private void addCommand(CommandInterface command) {
         boolean commandFound = this.COMMANDS.stream().anyMatch((c) -> c.getName().equalsIgnoreCase(command.getName()));
 
-        if(commandFound) {
+        if (commandFound) {
             throw new IllegalArgumentException("A command with this name already exists.");
         }
         COMMANDS.add(command);
@@ -92,24 +92,24 @@ public class CommandManager {
 
     @Nullable
     public CommandInterface getCommand(String search) {
-        for (CommandInterface command:this.COMMANDS) {
-            if(command.getName().equalsIgnoreCase(search)) {
+        for (CommandInterface command : this.COMMANDS) {
+            if (command.getName().equalsIgnoreCase(search)) {
                 return command;
             }
         }
         return null;
     }
 
-    public void handle(GuildMessageReceivedEvent event, String prefix) {
-        //Gets rid of prefix and splits the event.getMessage.getContentRaw() from EventListener so the command name is stored at index 0
-        String [] split = event.getMessage().getContentRaw().replaceFirst("(?i)" + Pattern.quote(prefix), "").split("\\s+");
-        //Takes the command name and makes it lowercase
+    public void handle(MessageReceivedEvent event, String prefix) {
+        // Gets rid of prefix and splits 'event.getEvent().getMessage.getContentRaw()' from the EventListener so that the command name is stored at index 0
+        String[] split = event.getMessage().getContentRaw().replaceFirst("(?i)" + Pattern.quote(prefix), "").split("\\s+");
+        // Takes the command name and makes it lowercase
         String commandInvoke = split[0].toLowerCase();
-        //Gets the command
+        // Gets the command
         CommandInterface command = this.getCommand(commandInvoke);
 
-        //If the command by name is found, run the command
-        if(command != null) {
+        // If the command by name is found, run the command
+        if (command != null) {
             List<String> args = Arrays.asList(split).subList(1, split.length);
             CommandContext c = new CommandContext(event, args);
             command.handle(c);
