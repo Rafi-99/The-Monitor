@@ -21,7 +21,6 @@ import bot.handlers.event.*;
 
 import java.net.URISyntaxException;
 import java.sql.SQLException;
-import javax.security.auth.login.LoginException;
 
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
@@ -31,7 +30,7 @@ import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
 public class Monitor {
 
-    public static void main(String[] args) throws LoginException, SQLException, URISyntaxException {
+    public static void main(String[] args) throws SQLException, URISyntaxException {
         DataSource.getConnection();
 
         DefaultShardManagerBuilder.createDefault(System.getenv("BOT_TOKEN"))

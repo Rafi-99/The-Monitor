@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Objects;
 
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.SearchResult;
 
@@ -40,7 +40,7 @@ public class Play implements CommandInterface {
         YouTube temp = null;
 
         try {
-            temp = new YouTube.Builder(GoogleNetHttpTransport.newTrustedTransport(), JacksonFactory.getDefaultInstance(), null).setApplicationName("Monitor Discord Bot").build();
+            temp = new YouTube.Builder(GoogleNetHttpTransport.newTrustedTransport(), GsonFactory.getDefaultInstance(), null).setApplicationName("Monitor Discord Bot").build();
         } catch (Exception e) {
             e.printStackTrace();
         }
