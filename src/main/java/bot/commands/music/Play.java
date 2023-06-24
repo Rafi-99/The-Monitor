@@ -22,6 +22,7 @@ import bot.handlers.utilities.Constants;
 import bot.handlers.music.PlayerManager;
 
 import java.net.URL;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -50,7 +51,7 @@ public class Play implements CommandInterface {
     private String youtubeSearch(String searchInput) {
         try {
             List<SearchResult> result = youTube.search()
-            .list("id,snippet")
+            .list(Collections.singletonList("id,snippet"))
             .setQ(searchInput)
             .setMaxResults(1L)
             .setFields("items(id/kind,id/videoId,id/playlistId,snippet/title,snippet/thumbnails/default/url)")
