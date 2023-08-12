@@ -18,8 +18,14 @@ package bot.commands.fun;
 
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
+import bot.handlers.utilities.Constants;
 
-import me.duncte123.botcommons.web.WebUtils;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Scanner;
+
+import org.json.JSONObject;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 
@@ -28,20 +34,44 @@ public class Meme implements CommandInterface {
     @Override
     public void handle(CommandContext c) {
         if (c.getCommandParameters().isEmpty()) {
-            WebUtils.ins.getJSONObject("https://memes.rafi-codes.dev/api/reddit/memes").async((json) -> {
-                String title = json.get("title").asText();
-                String url = json.get("url").asText();
-                String image = json.get("image").asText();
+            try {
+                HttpURLConnection connection = (HttpURLConnection) new URL("https://memes.rafi-codes.dev/api/reddit/memes").openConnection();
+                connection.setRequestMethod("GET");
 
-                EmbedBuilder meme = new EmbedBuilder()
-                .setColor(0x05055e)
-                .setTitle(title, url)
-                .setImage(image)
-                .setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
-                c.getEvent().getChannel().sendTyping().queue();
-                c.getEvent().getChannel().sendMessageEmbeds(meme.build()).setMessageReference(c.getEvent().getMessage()).mentionRepliedUser(false).queue();
-                meme.clear();
-            });
+                if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                    Scanner scanner = new Scanner(connection.getInputStream());
+                    StringBuilder response = new StringBuilder();
+
+                    while (scanner.hasNextLine()) {
+                        response.append(scanner.nextLine());
+                    }
+                    scanner.close();
+
+                    JSONObject jsonResponse = new JSONObject(response.toString());
+                    String title = jsonResponse.getString("title");
+                    String url = jsonResponse.getString("url");
+                    String image = jsonResponse.getString("image");
+
+                    EmbedBuilder memeEmbed = new EmbedBuilder()
+                    .setColor(0x05055e)
+                    .setTitle(title, url)
+                    .setImage(image)
+                    .setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
+
+                    c.getEvent().getChannel().sendTyping().queue();
+                    c.getEvent().getChannel().sendMessageEmbeds(memeEmbed.build()).setMessageReference(c.getEvent().getMessage()).mentionRepliedUser(false).queue();
+
+                    memeEmbed.clear();
+                }
+                else {
+                    Constants.setEmbed(c.getEvent(), "❌ Fetch Error ❌", "Unable to fetch meme. Please try executing the command again.");
+                }
+                connection.disconnect();
+            }
+            catch (IOException e) {
+                Constants.setEmbed(c.getEvent(), "❌ Internal Error ❌", "Unable to retrieve meme. Please try executing the command again.");
+
+            }
         }
     }
 
