@@ -20,6 +20,7 @@ import bot.commands.CommandContext;
 import bot.handlers.music.GuildMusicManager;
 import bot.handlers.music.PlayerManager;
 
+import java.time.Year;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
@@ -66,7 +67,7 @@ public class Constants {
         .setColor(0x05055e)
         .setTitle(title)
         .setDescription(description)
-        .setFooter("The Monitor ™ | © 2021", event.getJDA().getSelfUser().getEffectiveAvatarUrl());
+        .setFooter("The Monitor ™ | © " + Year.now().getValue(), event.getJDA().getSelfUser().getEffectiveAvatarUrl());
         event.getChannel().sendTyping().queue();
         event.getChannel().sendMessageEmbeds(embed.build()).setMessageReference(event.getMessage()).mentionRepliedUser(false).queue();
         embed.clear();

@@ -20,6 +20,7 @@ import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
 
 import java.time.format.DateTimeFormatter;
+import java.time.Year;
 import java.util.Locale;
 import java.util.function.Consumer;
 
@@ -49,7 +50,7 @@ public class ServerInfo implements CommandInterface {
                 .addField("**Emote Count**", Integer.toString(c.getGuild().getEmojiCache().asList().size()), true)
                 .addField("**Boost Tier**", c.getGuild().getBoostTier().toString().replace("TIER_", "Level "), true)
                 .addField("**Boost Count**", Integer.toString(c.getGuild().getBoostCount()) , true)
-                .setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
+                .setFooter("The Monitor ™ | © " + Year.now().getValue(), c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
                 c.getEvent().getChannel().sendTyping().queue();
                 c.getEvent().getChannel().sendMessageEmbeds(server.build()).setMessageReference(c.getEvent().getMessage()).mentionRepliedUser(false).queue();
                 server.clear();

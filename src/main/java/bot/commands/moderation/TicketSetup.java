@@ -20,6 +20,8 @@ import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
 import bot.handlers.utilities.Constants;
 
+import java.time.Year;
+
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.emoji.Emoji;
@@ -33,7 +35,7 @@ public class TicketSetup implements CommandInterface {
             .setColor(0x05055e)
             .setTitle("**Create a Support Ticket**")
             .setDescription("React with 📩 to create a new ticket.")
-            .setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
+            .setFooter("The Monitor ™ | © " + Year.now().getValue(), c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
             c.getEvent().getChannel().sendMessageEmbeds(ticket.build()).queue(t -> t.addReaction(Emoji.fromUnicode("📩")).queue());
         }
         else {

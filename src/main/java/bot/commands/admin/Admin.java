@@ -19,6 +19,8 @@ package bot.commands.admin;
 import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
 
+import java.time.Year;
+
 import net.dv8tion.jda.api.EmbedBuilder;
 
 public class Admin implements CommandInterface {
@@ -32,7 +34,7 @@ public class Admin implements CommandInterface {
                 EmbedBuilder adminInfo = new EmbedBuilder()
                 .setColor(0x05055e)
                 .setTitle("Admin Tools")
-                .setDescription("Commands available for your usage: \n```test -s \ntest -t \nadmin \nrestart \nlink \nguilds```").setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
+                .setDescription("Commands available for your usage: \n```test -s \ntest -t \nadmin \nrestart \nlink \nguilds```").setFooter("The Monitor ™ | © " + Year.now().getValue(), c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
                 privateChannel.sendTyping().queue();
                 privateChannel.sendMessageEmbeds(adminInfo.build()).queue();
                 adminInfo.clear();

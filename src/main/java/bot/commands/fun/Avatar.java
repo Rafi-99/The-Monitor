@@ -20,6 +20,8 @@ import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
 import bot.handlers.utilities.Constants;
 
+import java.time.Year;
+
 import net.dv8tion.jda.api.EmbedBuilder;
 
 public class Avatar implements CommandInterface {
@@ -32,7 +34,7 @@ public class Avatar implements CommandInterface {
             .setTitle("Avatar")
             .setDescription(c.getEvent().getMessage().getMentions().getUsers().get(0).getName())
             .setImage(c.getEvent().getMessage().getMentions().getUsers().get(0).getEffectiveAvatarUrl() + "?size=4096")
-            .setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
+            .setFooter("The Monitor ™ | © " + Year.now().getValue(), c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
             c.getEvent().getChannel().sendTyping().queue();
             c.getEvent().getChannel().sendMessageEmbeds(avatar.build()).setMessageReference(c.getEvent().getMessage()).mentionRepliedUser(false).queue();
             avatar.clear();

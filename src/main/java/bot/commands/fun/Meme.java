@@ -23,6 +23,7 @@ import bot.handlers.utilities.Constants;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.Year;
 import java.util.Scanner;
 
 import org.json.JSONObject;
@@ -56,7 +57,7 @@ public class Meme implements CommandInterface {
                     .setColor(0x05055e)
                     .setTitle(title, url)
                     .setImage(image)
-                    .setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
+                    .setFooter("The Monitor ™ | © " + Year.now().getValue(), c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
 
                     c.getEvent().getChannel().sendTyping().queue();
                     c.getEvent().getChannel().sendMessageEmbeds(memeEmbed.build()).setMessageReference(c.getEvent().getMessage()).mentionRepliedUser(false).queue();

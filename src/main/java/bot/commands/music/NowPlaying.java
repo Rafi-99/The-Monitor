@@ -20,6 +20,7 @@ import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
 import bot.handlers.utilities.Constants;
 
+import java.time.Year;
 import java.util.Objects;
 
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -56,7 +57,7 @@ public class NowPlaying implements CommandInterface {
                 .setTitle("Now Playing: "+ title, url)
                 .setThumbnail("https://img.youtube.com/vi/"+ videoID +"/default.jpg")
                 .setDescription(message)
-                .setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
+                .setFooter("The Monitor ™ | © " + Year.now().getValue(), c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
                 c.getEvent().getChannel().sendTyping().queue();
                 c.getEvent().getChannel().sendMessageEmbeds(np.build()).setMessageReference(c.getEvent().getMessage()).mentionRepliedUser(false).queue();
                 np.clear();

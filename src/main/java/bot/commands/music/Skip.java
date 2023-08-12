@@ -20,6 +20,7 @@ import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
 import bot.handlers.utilities.Constants;
 
+import java.time.Year;
 import java.util.Objects;
 
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -44,7 +45,7 @@ public class Skip implements CommandInterface {
                     .setTitle("Track Skipped!")
                     .setThumbnail("https://img.youtube.com/vi/"+ videoID +"/default.jpg")
                     .setDescription("Now Playing: "+ title)
-                    .setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
+                    .setFooter("The Monitor ™ | © " + Year.now().getValue(), c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
                     c.getEvent().getChannel().sendTyping().queue();
                     c.getEvent().getChannel().sendMessageEmbeds(skip.build()).setMessageReference(c.getEvent().getMessage()).mentionRepliedUser(false).queue();
                     skip.clear();

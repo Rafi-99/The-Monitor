@@ -20,6 +20,7 @@ import bot.commands.CommandContext;
 import bot.commands.CommandInterface;
 import bot.handlers.utilities.Constants;
 
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -55,7 +56,7 @@ public class Queue implements CommandInterface {
                         queue.appendDescription(String.format("%s - %s\n", trackInfo.title, trackInfo.author));
                     }
                     queue.setThumbnail(c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
-                    queue.setFooter("The Monitor ™ | © 2021", c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
+                    queue.setFooter("The Monitor ™ | © " + Year.now().getValue(), c.getEvent().getJDA().getSelfUser().getEffectiveAvatarUrl());
                     c.getEvent().getChannel().sendTyping().queue();
                     c.getEvent().getChannel().sendMessageEmbeds(queue.build()).setMessageReference(c.getEvent().getMessage()).mentionRepliedUser(false).queue();
                     queue.clear();

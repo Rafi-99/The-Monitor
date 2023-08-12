@@ -16,6 +16,7 @@
 
 package bot.handlers.music;
 
+import java.time.Year;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -63,7 +64,7 @@ public class PlayerManager {
                     .setTitle(track.getInfo().title, track.getInfo().uri)
                     .setThumbnail("https://img.youtube.com/vi/"+ track.getInfo().identifier +"/default.jpg")
                     .setDescription("Adding "+ track.getInfo().title +" to the queue.")
-                    .setFooter("The Monitor ™ | © 2021", "https://cdn.discordapp.com/avatars/711703852977487903/a7886964b1b5edab5c5d2eb5544a7da9.webp?size=512");
+                    .setFooter("The Monitor ™ | © " + Year.now().getValue(), "https://cdn.discordapp.com/avatars/711703852977487903/a7886964b1b5edab5c5d2eb5544a7da9.webp?size=512");
                     channel.sendTyping().queue();
                     channel.sendMessageEmbeds(player.build()).queue();
                     player.clear();
@@ -78,7 +79,7 @@ public class PlayerManager {
                     .setTitle(playlist.getName(), trackUrl)
                     .setThumbnail("https://img.youtube.com/vi/"+ playlist.getTracks().get(0).getInfo().identifier +"/default.jpg")
                     .setDescription("Adding " + playlist.getTracks().size() + " tracks from "+ playlist.getName() +" to the queue.")
-                    .setFooter("The Monitor ™ | © 2021", "https://cdn.discordapp.com/avatars/711703852977487903/a7886964b1b5edab5c5d2eb5544a7da9.webp?size=512");
+                    .setFooter("The Monitor ™ | © " + Year.now().getValue(), "https://cdn.discordapp.com/avatars/711703852977487903/a7886964b1b5edab5c5d2eb5544a7da9.webp?size=512");
                     channel.sendTyping().queue();
                     channel.sendMessageEmbeds(player.build()).queue();
                     player.clear();
