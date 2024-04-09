@@ -27,7 +27,7 @@ repositories {
 }
 
 dependencies {
-     implementation 'ch.qos.logback:logback-classic:1.5.0'
+     implementation 'ch.qos.logback:logback-classic:1.5.4'
      implementation 'net.dv8tion:JDA:5.0.0-beta.20'
      implementation 'com.sedmelluq:lavaplayer:1.3.78'
      implementation 'org.json:json:20240205'
